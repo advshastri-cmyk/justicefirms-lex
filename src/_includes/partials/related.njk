@@ -1,0 +1,15 @@
+{% set currentTags = tags or [] %}
+{% set related = collections.posts | filter(function(p){ return p.url != page.url }) | filter(function(p){
+  return (p.data.tags or []).some(function(t){ return currentTags.includes(t) })
+}) | slice(0,3) %}
+
+{% if related | length %}
+  <aside class="related">
+    <h3>Related Articles</h3>
+    <ul>
+      {% for p in related %}
+        <li><a href="{{ p.url }}">{{ p.data.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </aside>
+{% endif %}
