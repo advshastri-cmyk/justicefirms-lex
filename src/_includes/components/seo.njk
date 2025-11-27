@@ -6,7 +6,7 @@
 <meta property="og:site_name" content="{{ site.title }}">
 <meta property="og:title" content="{{ p_title }}">
 <meta property="og:description" content="{{ description or site.description }}">
-<meta property="og:url" content="{{ canonical or (site.url ~ (page.url or '/')) }}">
+<meta property="og:url" content="{{ canonical or (site.url or (page.url or '/')) }}">
 <meta property="og:type" content="{{ page.template ? 'article' : 'website' }}">
 
 {# og image if generated #}
