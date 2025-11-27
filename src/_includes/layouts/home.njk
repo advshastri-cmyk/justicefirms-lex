@@ -1,0 +1,24 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+<section class="hero container">
+  <h1>{{ site.title }}</h1>
+  <p class="lead">{{ site.description }}</p>
+</section>
+
+<section class="latest container">
+  <h2>Latest Articles</h2>
+  <div class="articles-grid">
+    {% for post in collections.posts | slice(0,9) %}
+      <article class="card">
+        <a href="{{ post.url }}">
+          <img src="{{ post.data.featuredImage }}" alt="{{ post.data.title }}" loading="lazy">
+          <div class="card-body">
+            <h3>{{ post.data.title }}</h3>
+            <p>{{ post.data.description }}</p>
+          </div>
+        </a>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
