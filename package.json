@@ -1,0 +1,22 @@
+{
+  "name": "justicefirms-blog-11ty",
+  "version": "1.0.0",
+  "description": "JusticeFirms Legal Blog - Eleventy",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "new:post": "node scripts/new-post.js",
+    "gen:og": "node scripts/generate-og.js",
+    "optimize:img": "node scripts/optimize-images.js",
+    "clean": "rimraf _site og"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.0",
+    "luxon": "^3.0.0",
+    "rimraf": "^3.0.2",
+    "markdown-it": "^13.0.1",
+    "satori": "^0.10.13",
+    "@resvg/resvg-js": "^2.4.0",
+    "sharp": "^0.33.2"
+  }
+}
