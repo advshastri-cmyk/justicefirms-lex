@@ -1,4 +1,5 @@
 {% extends "layouts/base.njk" %}
+
 {% block content %}
 <article class="article-container" itemscope itemtype="https://schema.org/Article">
   <header class="article-header">
@@ -12,7 +13,7 @@
     {{ content | safe }}
   </div>
 
-  <div class="share-box">
+  <div class="share-box" aria-label="Share article">
     <span>Share:</span>
     <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ url }}">LinkedIn</a>
     <a href="https://twitter.com/intent/tweet?url={{ site.url }}{{ url }}&text={{ title | urlEncode }}">Twitter</a>
@@ -20,6 +21,7 @@
   </div>
 
   {% include "partials/related.njk" %}
+
   <div class="cta-box">
     <h3>Consult an Expert Today</h3>
     <p>For case-specific advice, contact our legal team.</p>
