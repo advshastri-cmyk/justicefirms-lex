@@ -1,34 +1,118 @@
-<!DOCTYPE html>
-<html lang="hi">
+<!-- FILE: index.html
+     Drop this file at the repository root. To publish on GitHub Pages:
+     - Create repo named `blog.justicefirms.com` (for custom domain) or any repo and enable GitHub Pages (branch main / gh-pages).
+     - Push files; GitHub Pages will serve the static files.
+-->
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>कानूनी मार्गदर्शन और लेख | Justice Firms Blog</title>
-    </head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>JusticeFirms Legal Blog — Expert Legal Insights</title>
+  <meta name="description" content="Expert legal analysis and news on Corporate, Family, Criminal, IP and Business Law." />
+  <link rel="canonical" href="https://blog.justicefirms.com/" />
+
+  <!-- Open Graph (basic) -->
+  <meta property="og:title" content="JusticeFirms Legal Blog — Expert Legal Insights" />
+  <meta property="og:description" content="Expert legal analysis and news on Corporate, Family, Criminal, IP and Business Law." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://blog.justicefirms.com/" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
 <body>
-    <header style="background-color: #004080; color: white; padding: 20px; text-align: center;">
-        <h1>Justice Firms: कानूनी मार्गदर्शन और विशेषज्ञ राय</h1>
-        <p>हमारा लक्ष्य कानूनी जटिलताओं को सरल बनाना है।</p>
-    </header>
+  <header class="jf-header">
+    <div class="jf-header-inner">
+      <a class="jf-logo" href="/">JusticeFirms Legal Blog</a>
 
-    <main style="max-width: 900px; margin: 40px auto; padding: 0 20px;">
-        <h2>नवीनतम लेख</h2>
-        
-        <section style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px;">
-            <h3><a href="first-blog-post.html" style="color: #004080; text-decoration: none;">संपत्ति विवादों पर कानूनी सलाह (पहला लेख)</a></h3>
-            <p style="font-size: 0.9em; color: #666;">दिनांक: 27 नवंबर, 2025</p>
-            <p>संपत्ति के दस्तावेजों को सुरक्षित रखने और कानूनी विवादों में प्रभावी कदम उठाने पर हमारे विशेषज्ञों की राय।</p>
-        </section>
+      <nav class="jf-nav" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="#areas">Areas of Law</a>
+        <a href="https://justicefirms.com" target="_blank" rel="noopener">Main Website</a>
+        <a href="#about">About</a>
+      </nav>
 
-        <section style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px;">
-            <h3>अगला लेख यहाँ आएगा...</h3>
-            <p style="font-size: 0.9em; color: #666;">यह एक Placeholder है।</p>
-            <p>जब आप नया लेख बनाएंगे, तो आप यहाँ एक नया लिंक जोड़ेंगे।</p>
-        </section>
-    </main>
+      <button id="mobile-toggle" class="mobile-toggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
 
-    <footer style="background-color: #f0f0f0; text-align: center; padding: 15px; margin-top: 30px; border-top: 1px solid #ddd;">
-        <p>संपर्क करें | <a href="https://justicefirms.com" style="color: #004080;">मुख्य वेबसाइट</a></p>
-    </footer>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Legal Expertise You Can Trust</h1>
+        <p class="lead">Authoritative articles and practical guidance on Corporate, Family, Criminal, IP, and Business Law.</p>
+
+        <form id="search-form" class="search-box" role="search" aria-label="Search blog">
+          <input id="search-input" type="search" name="q" placeholder="Search legal topics..." aria-label="Search">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="latest container" aria-labelledby="latest-heading">
+      <h2 id="latest-heading">Latest Articles</h2>
+
+      <div class="articles-grid">
+        <article class="card">
+          <a href="article.html" class="card-link" aria-label="Read: Corporate Due Diligence">
+            <img src="assets/img/sample1.jpg" alt="Corporate due diligence" loading="lazy">
+            <div class="card-body">
+              <h3>Corporate Due Diligence: What Boards Must Know</h3>
+              <p>Best practices for legal due diligence during transactions and compliance checks.</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="card">
+          <a href="article.html" class="card-link" aria-label="Read: Child Custody Laws">
+            <img src="assets/img/sample2.jpg" alt="Child custody" loading="lazy">
+            <div class="card-body">
+              <h3>Child Custody: Key Considerations for Legal Practitioners</h3>
+              <p>How courts evaluate custody matters and how to prepare a case file.</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="card">
+          <a href="article.html" class="card-link" aria-label="Read: Anticipatory Bail">
+            <img src="assets/img/sample3.jpg" alt="Anticipatory bail" loading="lazy">
+            <div class="card-body">
+              <h3>Anticipatory Bail under Section 438 — Practical Guidance</h3>
+              <p>Principles courts consider and drafting tips for effective relief applications.</p>
+            </div>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section id="areas" class="categories container" aria-labelledby="areas-heading">
+      <h2 id="areas-heading">Explore by Area</h2>
+      <div class="category-grid">
+        <a class="cat-item" href="#">Corporate Law</a>
+        <a class="cat-item" href="#">Family Law</a>
+        <a class="cat-item" href="#">Criminal Law</a>
+        <a class="cat-item" href="#">Intellectual Property</a>
+        <a class="cat-item" href="#">Contracts & Agreements</a>
+      </div>
+    </section>
+
+    <section id="about" class="container about">
+      <h2>About This Blog</h2>
+      <p>This blog is maintained by legal professionals and aims to provide general legal information and commentary. It is not a substitute for legal advice.</p>
+    </section>
+  </main>
+
+  <footer class="jf-footer">
+    <div class="container">
+      <p class="disclaimer">⚠ This blog provides general information only and does not constitute legal advice. For specific advice, contact a qualified lawyer.</p>
+      <p>© <span id="year"></span> JusticeFirms. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>
