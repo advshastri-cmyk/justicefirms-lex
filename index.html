@@ -1,0 +1,50 @@
+---
+layout: default
+title: "JusticeFirms Legal Blog"
+---
+
+<div class="hero-card">
+  <h1>JusticeFirms Legal Blog</h1>
+  <p>
+    Welcome to the JusticeFirms Legal Blog. Expert commentary, short explainers &
+    practical guidance on Corporate, Family, Criminal, IP and Business law.
+  </p>
+</div>
+
+<div class="grid">
+  <section>
+    <div class="post-list">
+      {% for post in site.posts %}
+        <article class="post-card">
+          <div class="post-meta">
+            {{ post.categories | join: " · " }} · {{ post.date | date: "%d %b %Y" }}
+          </div>
+          <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+          <p>{{ post.excerpt | strip_html | truncate: 140 }}</p>
+          <a class="read-link" href="{{ post.url | relative_url }}">Read article →</a>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <aside>
+    <div class="sidebar-block">
+      <h3>Practice Areas</h3>
+      <ul class="sidebar-list">
+        <li>Corporate & Commercial</li>
+        <li>Family & Divorce</li>
+        <li>Criminal Defence</li>
+        <li>Intellectual Property</li>
+        <li>Business & Startups</li>
+      </ul>
+    </div>
+
+    <div class="sidebar-block">
+      <h3>About JusticeFirms</h3>
+      <p style="font-size:0.9rem;">
+        JusticeFirms is a law & consulting initiative focused on clear, practical guidance —
+        no jargon, only clarity for clients, founders and families.
+      </p>
+    </div>
+  </aside>
+</div>
