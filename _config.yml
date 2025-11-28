@@ -1,0 +1,16 @@
+title: "JusticeFirms Legal Blog"
+description: "Expert commentary, explainers & practical guidance on Corporate, Family, Criminal, IP and Business law."
+url: "https://blog.justicefirms.com"
+baseurl: ""
+lang: "en"
+
+# Timezone for posts
+timezone: "Asia/Kolkata"
+
+# How posts URLs will look
+permalink: /:categories/:year/:month/:day/:title/
+
+# Markdown settings
+markdown: kramdown
+kramdown:
+  input: GFM
