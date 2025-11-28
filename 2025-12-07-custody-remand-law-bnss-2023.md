@@ -13,152 +13,153 @@ author: "Adv. Shankar Shastri"
 
 <h1>Custody & Remand Law under BNSS 2023 — हिरासत का अधिकार और जमानत पर प्रभाव</h1>
 
+<div class="series-nav">
+<strong>📚 Bail Law Mastery Series:</strong><br>
+1) Regular vs Anticipatory Bail ·
+2) Default Bail ·
+3) Anticipatory Bail Strategy ·
+4) 498A/DV Bail Guide ·
+5) Bail Cancellation ·
+6) Bail Conditions & Relief ·
+7) Bail Drafting Guide ·
+<strong>8) Custody & Remand under BNSS (You are here)</strong>
+</div>
+
 <p>
-किसी भी आपराधिक मामले में जमानत की चर्चा <strong>हिरासत और रिमांड</strong> से शुरू होती है।
+किसी भी आपराधिक मामले में जमानत की मजबूत रणनीति की शुरुआत <strong>हिरासत (Custody)</strong> और <strong>रिमांड (Remand)</strong> की समझ से होती है।
 BNSS 2023 ने Arrest → Custody → Bail → Trial की पूरी प्रक्रिया को
-<strong>अधिक पारदर्शी, समयबद्ध और अधिकार-सुरक्षी</strong> बनाया है।
+<strong>अधिक पारदर्शी, जवाबदेह और अधिकार-सुरक्षी</strong> बना दिया है।
 </p>
 
+<p><strong>Human Liberty</strong> अब कानूनी प्रक्रिया के केंद्र में है।</p>
+
 <hr>
 
-<h2>1. Arrest के तुरंत बाद क्या होता है?</h2>
+<h2>1️⃣ Arrest के तुरंत बाद क्या-क्या अधिकार?</h2>
 
 <ul>
-<li>आरोपी को <strong>24 घंटे</strong> के भीतर Magistrate के सामने पेश करना अनिवार्य</li>
-<li>Arrest Memo + कारण + परिवार को सूचना — लिखित रूप में</li>
-<li>Medical Examination अनिवार्य</li>
+<li><strong>24 घंटे</strong> में Magistrate के समक्ष पेशी अनिवार्य</li>
+<li><strong>Arrest Memo</strong> + कारणों की लिखित सूचना परिवार को</li>
+<li>Medical Examination — हर 48 घंटे में</li>
+<li>Legal Aid का तत्काल अधिकार</li>
 </ul>
 
-<p><strong>उद्देश्य:</strong> हिरासत → शक्ति नहीं, <strong>जवाबदेही</strong>।</p>
+<p><strong>हिरासत = जवाबदेही, डराने का साधन नहीं</strong></p>
 
 <hr>
 
-<h2>2. Custody के कितने प्रकार?</h2>
-
-<ul>
-<li><strong>Police Custody</strong> — पूछताछ के लिए</li>
-<li><strong>Judicial Custody</strong> — न्यायालय की निगरानी में जेल</li>
-</ul>
-
-<p>
-High Courts पुलिस हिरासत को <strong>सख्ती से परखा</strong> करती हैं —
-केवल वास्तविक पूछताछ आवश्यकता होने पर।
-</p>
-
-<hr>
-
-<h2>3. BNSS 2023 में Police Custody — क्या नए नियम?</h2>
+<h2>2️⃣ Custody के प्रकार — क्या अंतर?</h2>
 
 <table>
 <tr>
-<th>Provision</th>
-<th>BNSS नियम</th>
+<th>प्रकार</th>
+<th>कब व क्यों?</th>
 </tr>
 <tr>
-<td>कुल अवधि</td>
-<td>15 दिन (Maximum)</td>
+<td><strong>Police Custody</strong></td>
+<td>पूछताछ की वास्तविक आवश्यकता पर</td>
 </tr>
 <tr>
-<td>Break-up</td>
-<td>भागों (splits) में भी दे सकते हैं</td>
+<td><strong>Judicial Custody</strong></td>
+<td>आरोपी को जेल में न्यायालय की निगरानी में रखना</td>
 </tr>
 </table>
 
 <p>
-<strong>चाहे Judicial Custody चल रही हो</strong> —  
-Police Custody के शेष दिन बाद में भी दिए जा सकते हैं,  
-यदि जाँच की आवश्यकता साबित हो।
+<strong>Police Custody = Exception  
+Judicial Custody = Norm</strong>
 </p>
 
 <hr>
 
-<h2>4. Remand का जमानत पर क्या प्रभाव?</h2>
+<h2>3️⃣ BNSS 2023 में Police Custody — नया क्या?</h2>
+
+<table>
+<tr><th>Provision</th><th>BNSS Rule</th></tr>
+<tr><td>Total Limit</td><td><strong>15 Days Max</strong></td></tr>
+<tr><td>Flexibility</td><td>Split में भी दी जा सकती है</td></tr>
+<tr><td>Accountability</td><td>Case Diary + Specific Grounds Mandatory</td></tr>
+</table>
+
+<p>
+पहले Judicial Custody होने पर भी  
+<strong>बाकी Police Custody बाद में मिल सकती है</strong> —  
+अगर Court आश्वस्त हो जाए कि पूछताछ जरूरी है।
+</p>
+
+<hr>
+
+<h2>4️⃣ Remand का Bail पर सीधा प्रभाव</h2>
 
 <ul>
-<li>Police Custody कम → Bail chances अधिक</li>
-<li>Judicial Custody लंबी → Default Bail की संभावना</li>
-<li>Remand आदेश में <strong>वास्तविक कारण</strong> अनिवार्य</li>
+<li>Police Custody <strong>कम</strong> → Bail Chances <strong>ज्यादा</strong></li>
+<li>Judicial Custody <strong>लंबी</strong> → Default Bail की संभावना</li>
+<li>Remand Order में <strong>Reason Recording</strong> Required</li>
 </ul>
 
-<p>
-<strong>No mechanical remand → More liberty to accused</strong>
-</p>
+<p><strong>No Mechanical Remand → Strong Bail Argument</strong></p>
 
 <hr>
 
-<h2>5. Supreme Court — Human Liberty Commentary</h2>
+<h2>5️⃣ Supreme Court Principles — Human Dignity Priority</h2>
 
 <ul>
-<li>Arrest & Remand cannot be routine</li>
-<li>Bail is Rule, Jail is Exception — बार-बार दोहराया गया सिद्धांत</li>
-<li>Judges must record <strong>specific reasons</strong> for custody</li>
+<li>“Arrest is not mandatory in every case.”</li>
+<li>Custody only when <strong>actually needed</strong> for investigation</li>
+<li>Reasoned Order — हर Remand Decision में</li>
 </ul>
 
-<p>
-<strong>Custody = Court’s responsibility</strong>, not police’s convenience.
-</p>
+<p><strong>Custody = Judiciary का निर्णय, Police का अधिकार नहीं</strong></p>
 
 <hr>
 
-<h2>6. वकील — Remand Hearing में क्या Points रखें?</h2>
+<h2>6️⃣ वकील — Remand Debate में क्या रखें?</h2>
 
 <ul>
-<li>“Custody interrogation not required”</li>
-<li>साक्ष्य documentary हों → हिरासत अनावश्यक</li>
-<li>Accused cooperative → ज़बरदस्ती हिरासत नहीं</li>
-<li>Medical या परिवार सम्बन्धी grounds</li>
+<li>Interrogation में Physical Presence unnecessary</li>
+<li>Evidence documentary / digital nature</li>
+<li>Accused is cooperating fully</li>
+<li>Medical & Family Responsibilities</li>
 </ul>
 
-<p>
-**हर Remand Order → Bail strategy का आधार**
-</p>
+<p><strong>Every remand avoided = Bail Timeline faster</strong></p>
 
 <hr>
 
-<h2>7. Practical Indicators — कब Remand गलत माना जाता है?</h2>
+<h2>7️⃣ कब Remand गलत माना जाता है?</h2>
 
 <ul>
-<li>Case diary में proper reasons न हों</li>
-<li>Police presence without specific questions</li>
-<li>Copy-paste remand orders</li>
-<li>Arbitrarily multiple extensions</li>
+<li>Case Diary में no specific reason</li>
+<li>“Copy-Paste” Remand Orders</li>
+<li>Repeated Police Custody बिना justification</li>
+<li>Threat of misuse rather than real need</li>
 </ul>
 
-<p>
-ऐसे मामलों में <strong>Bail instantly strong</strong> हो जाती है।
-</p>
+<p><strong>ऐसी स्थिति में Bail instantly stronger</strong></p>
 
 <hr>
 
-<h2>8. Default Bail → Remand का सबसे बड़ा नियंत्रण</h2>
-
-<p>
-यदि चार्जशीट समय-सीमा में दाख़िल न हो —  
-तो अदालत को <strong>Default Bail</strong> देना ही होगा।
-</p>
+<h2>8️⃣ Default Bail — Custody का Legal Safety Valve</h2>
 
 <ul>
-<li>60 दिन → सामान्य अपराध</li>
-<li>90 दिन → गंभीर अपराध</li>
+<li>60 Days — सामान्य अपराध</li>
+<li>90 Days — Serious/Heinous offences</li>
 </ul>
 
-<p>
-<strong>Delay = Liberty</strong>
-</p>
+<p><strong>Delay = Liberty → Non-negotiable Right</strong></p>
 
 <hr>
 
-<h2>9. निष्कर्ष</h2>
+<h2>9️⃣ निष्कर्ष — Bail Success का First Building Block</h2>
 
 <p>
 BNSS 2023 की Custody व्यवस्था का मूल लक्ष्य है —
 <strong>नागरिक स्वतंत्रता की रक्षा</strong>  
-और  
-<strong>जांच का दुरुपयोग रोकना</strong>।
++  
+<strong>जांच के दुरुपयोग पर नियंत्रण</strong>।
 </p>
 
-<p><strong>Remand procedure की सही समझ  
-Bail Success का पहला कदम है।</strong></p>
+<p><strong>हिरासत की समझ = Bail Strategy का पहला और सबसे महत्वपूर्ण कदम</strong></p>
 
 <div class="author-box">
   <div class="author-avatar-circle">SS</div>
@@ -166,9 +167,14 @@ Bail Success का पहला कदम है।</strong></p>
     <div class="author-name">Adv. Shankar Shastri</div>
     <div class="author-title">Advocate & Legal Consultant, JusticeFirms</div>
     <div class="author-note">
-      यह लेख केवल सामान्य कानूनी जानकारी हेतु है। व्यक्तिगत मामलों में परामर्श आवश्यक है।
+      यह जानकारी शैक्षणिक उद्देश्य हेतु है। वास्तविक सलाह केस की परिस्थितियों पर निर्भर करती है।
     </div>
   </div>
+</div>
+
+<div class="series-nav">
+<strong>📚 Bail Law Mastery Series Complete ✔</strong><br>
+अब आपकी जमानत सीरीज़ — एक Premium Legal Resource बन चुकी है।
 </div>
 
 </div>
