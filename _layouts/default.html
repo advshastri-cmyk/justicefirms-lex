@@ -39,9 +39,31 @@
       {{ content }}
 
       {%- if page.collection == "posts" -%}
+      <!-- Author box -->
+      <section class="author-box">
+        <div class="author-avatar-circle">
+          {{ page.author | default: site.author_name | default: "SS" | slice: 0 | upcase }}
+        </div>
+        <div class="author-text">
+          <div class="author-name">
+            {{ page.author | default: site.author_name | default: "Adv. Shankar Shastri" }}
+          </div>
+          <div class="author-title">
+            {{ page.author_title | default: site.author_title | default: "Advocate & Legal Consultant, JusticeFirms" }}
+          </div>
+          <p class="author-note">
+            This article is for general legal awareness. It does not create a lawyer–client relationship.
+            For case-specific advice, please consult directly.
+          </p>
+        </div>
+      </section>
+
+      <!-- Share bar + (reading time text will be injected here via JS) -->
       <div class="post-footer-meta">
         <div class="share-bar">
-          <span class="share-label">Share this article:</span>
+          <span class="share-label">
+            <span class="reading-time-placeholder"></span>
+          </span>
           <a
             class="share-btn"
             href="https://wa.me/?text={{ page.title | uri_escape }}%20{{ site.url | append: page.url }}"
@@ -79,51 +101,68 @@
 
   {%- if page.collection == "posts" -%}
   <script>
-  // Auto "On this page" TOC for post-page headings
   document.addEventListener("DOMContentLoaded", function () {
     const post = document.querySelector(".post-page");
     if (!post) return;
 
-    // Find all h2 / h3 inside post
+    /* ---------- Auto TOC (On this page) ---------- */
     const headings = post.querySelectorAll("h2, h3");
-    if (!headings.length) return;
+    if (headings.length) {
+      const toc = document.createElement("nav");
+      toc.className = "toc";
+      const list = document.createElement("ul");
 
-    // Create TOC container
-    const toc = document.createElement("nav");
-    toc.className = "toc";
-    const list = document.createElement("ul");
+      headings.forEach(function (h, index) {
+        if (!h.id) {
+          h.id = "section-" + (index + 1);
+        }
+        const li = document.createElement("li");
+        li.className = h.tagName === "H2" ? "toc-h2" : "toc-h3";
 
-    headings.forEach(function (h, index) {
-      if (!h.id) {
-        h.id = "section-" + (index + 1);
+        const a = document.createElement("a");
+        a.href = "#" + h.id;
+        a.textContent = h.textContent.trim();
+
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+
+      const title = document.createElement("div");
+      title.className = "toc-title";
+      title.textContent = "On this page";
+
+      toc.appendChild(title);
+      toc.appendChild(list);
+
+      const h1 = post.querySelector("h1");
+      if (h1 && h1.nextSibling) {
+        post.insertBefore(toc, h1.nextSibling);
+      } else {
+        post.insertBefore(toc, post.firstChild);
       }
-      const li = document.createElement("li");
-      li.className = h.tagName === "H2" ? "toc-h2" : "toc-h3";
+    }
 
-      const a = document.createElement("a");
-      a.href = "#" + h.id;
-      a.textContent = h.textContent.trim();
+    /* ---------- Estimated reading time ---------- */
+    const textContent = post.innerText || post.textContent || "";
+    const words = textContent.trim().split(/\s+/).filter(Boolean).length;
+    const minutes = Math.max(1, Math.round(words / 200)); // ~200 words/min
 
-      li.appendChild(a);
-      list.appendChild(li);
-    });
+    const meta = post.querySelector(".post-meta");
+    if (meta) {
+      const span = document.createElement("span");
+      span.className = "reading-time-inline";
+      span.textContent = " · " + minutes + " min read";
+      meta.appendChild(span);
+    }
 
-    const title = document.createElement("div");
-    title.className = "toc-title";
-    title.textContent = "On this page";
-
-    toc.appendChild(title);
-    toc.appendChild(list);
-
-    // Insert TOC just after main heading (h1)
-    const h1 = post.querySelector("h1");
-    if (h1 && h1.nextSibling) {
-      post.insertBefore(toc, h1.nextSibling);
-    } else {
-      post.insertBefore(toc, post.firstChild);
+    const rtPlaceholder = document.querySelector(".reading-time-placeholder");
+    if (rtPlaceholder) {
+      rtPlaceholder.textContent = minutes + " min read · Share:";
     }
   });
   </script>
   {%- endif -%}
 </body>
 </html>
+
+
