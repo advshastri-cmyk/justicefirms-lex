@@ -1,0 +1,37 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          # ❌ cache: 'npm' mat likhna, isi se lock file error aa raha tha
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build site
+        run: npm run build
+        # yahi command tumhare logs me bhi chal rahi thi
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          # agar Eleventy output folder kuch aur hai to yahan change karna
