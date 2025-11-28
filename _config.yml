@@ -14,3 +14,4 @@ permalink: /:categories/:year/:month/:day/:title/
 markdown: kramdown
 kramdown:
   input: GFM
+  future: true
