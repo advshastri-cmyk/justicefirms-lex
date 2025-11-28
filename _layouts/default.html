@@ -15,8 +15,19 @@
         <span class="tagline">Legal Blog</span>
       </div>
       <nav class="nav">
-        <a href="{{ '/' | relative_url }}">Articles</a>
-        <a href="https://justicefirms.com" target="_blank" rel="noopener">Main website</a>
+        <a
+          href="{{ '/' | relative_url }}"
+          class="{% if page.url == '/' %}nav-link-active{% endif %}"
+        >
+          Blog Home
+        </a>
+        <a
+          href="https://justicefirms.com"
+          target="_blank"
+          rel="noopener"
+        >
+          Main Website
+        </a>
       </nav>
     </div>
   </header>
@@ -58,7 +69,7 @@
         </div>
       </section>
 
-      <!-- Share bar + (reading time text will be injected here via JS) -->
+      <!-- Share bar + reading time text -->
       <div class="post-footer-meta">
         <div class="share-bar">
           <span class="share-label">
@@ -164,5 +175,3 @@
   {%- endif -%}
 </body>
 </html>
-
-
