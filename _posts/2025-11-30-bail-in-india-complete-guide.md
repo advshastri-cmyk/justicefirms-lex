@@ -1,3 +1,10 @@
+---
+layout: post
+title: "BNSS 2023 & Bail Rights in India — Complete Updated Guide"
+date: 2025-11-30
+author: The Justice Firm
+categories: [Bail, Criminal Law, BNSS]
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
