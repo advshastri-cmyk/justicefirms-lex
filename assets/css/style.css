@@ -1,14 +1,20 @@
-/* ---------- Base ---------- */
-* {
+/* =========================
+   GLOBAL / TYPOGRAPHY
+   Harvard Law Review x Guardian-ish
+   ========================= */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f5f5f7;
-  color: #111827;
-  line-height: 1.7;
+  font-family: Georgia, "Times New Roman", serif;
+  background: #f3f3f2;          /* newsprint-style light grey */
+  color: #111111;               /* strong readable text */
+  line-height: 1.8;
 }
 
 a {
@@ -21,23 +27,26 @@ a:hover {
 }
 
 .container {
-  max-width: 1100px;
+  max-width: 1040px;
   margin: 0 auto;
   padding: 0 16px;
 }
 
-/* ---------- Header / Nav ---------- */
+/* =========================
+   HEADER / MASTHEAD
+   ========================= */
+
 .site-header {
-  background: #050816;
-  color: #f9fafb;
-  border-bottom: 3px solid #e11d48;
+  background: #fdfdfd;
+  color: #111827;
+  border-bottom: 3px solid #c81e1e; /* deep red underline, Guardian-like */
 }
 
 .header-inner {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  padding: 14px 0;
+  padding: 14px 0 10px;
 }
 
 .brand {
@@ -46,47 +55,64 @@ a:hover {
 }
 
 .logo {
-  font-weight: 800;
-  font-size: 1.35rem;
-  letter-spacing: 0.1em;
+  font-family: "Times New Roman", Georgia, serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .tagline {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.78rem;
-  color: #9ca3af;
-  margin-top: 2px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.nav {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 .nav a {
   margin-left: 18px;
-  font-size: 0.9rem;
-  color: #e5e7eb;
+  color: #374151;
 }
 
 .nav a:hover {
-  color: #f97316;
+  color: #b91c1c;
 }
 
-/* ---------- Layout ---------- */
+/* =========================
+   MAIN LAYOUT
+   ========================= */
+
 .site-main {
-  padding: 22px 0 40px;
+  padding: 24px 0 40px;
 }
 
-/* Breadcrumb for posts */
+/* Breadcrumb — subtle bar above articles */
+
 .breadcrumb {
-  font-size: 0.8rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.78rem;
   color: #6b7280;
   margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 .breadcrumb a {
   color: #4b5563;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .breadcrumb a:hover {
-  color: #e11d48;
+  color: #b91c1c;
 }
 
 .breadcrumb-sep {
@@ -97,12 +123,14 @@ a:hover {
   color: #9ca3af;
 }
 
-/* ---------- Home page (index) ---------- */
+/* =========================
+   HOME / INDEX LAYOUT
+   ========================= */
 
 .grid {
   display: grid;
-  grid-template-columns: minmax(0, 2.3fr) minmax(0, 1.2fr);
-  gap: 24px;
+  grid-template-columns: minmax(0, 2.5fr) minmax(0, 1.4fr);
+  gap: 28px;
 }
 
 @media (max-width: 900px) {
@@ -111,23 +139,32 @@ a:hover {
   }
 }
 
+/* Hero band */
+
 .hero-card {
-  background: #111827;
+  background: #111111;
   color: #f9fafb;
   padding: 20px 22px;
-  border-radius: 18px;
+  border-radius: 0;
+  border-top: 4px solid #c81e1e;
+  border-bottom: 1px solid #e5e7eb;
   margin-bottom: 24px;
 }
 
 .hero-card h1 {
-  margin: 0 0 8px;
-  font-size: 1.7rem;
+  margin: 0 0 6px;
+  font-family: "Times New Roman", Georgia, serif;
+  font-weight: 700;
+  font-size: 1.8rem;
 }
 
 .hero-card p {
   margin: 0;
+  font-size: 0.98rem;
   color: #e5e7eb;
 }
+
+/* Article list */
 
 .post-list {
   display: flex;
@@ -137,15 +174,26 @@ a:hover {
 
 .post-card {
   background: #ffffff;
-  border-radius: 16px;
-  padding: 16px 18px;
-  border-left: 4px solid #e11d48;
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+  border-radius: 0;
+  padding: 16px 18px 16px;
+  border-top: 2px solid #111827;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.post-meta {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #6b7280;
+  margin-bottom: 4px;
 }
 
 .post-card h2 {
-  margin: 3px 0 6px;
-  font-size: 1.12rem;
+  margin: 2px 0 4px;
+  font-family: "Times New Roman", Georgia, serif;
+  font-weight: 700;
+  font-size: 1.15rem;
 }
 
 .post-card h2 a {
@@ -154,43 +202,48 @@ a:hover {
 
 .post-card h2 a:hover {
   text-decoration: underline;
-}
-
-.post-meta {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #6b7280;
-  margin-bottom: 4px;
+  text-decoration-thickness: 2px;
 }
 
 .post-card p {
   margin: 0;
-  color: #4b5563;
+  color: #374151;
   font-size: 0.95rem;
 }
 
+/* Read link */
+
 .read-link {
   display: inline-block;
-  margin-top: 8px;
-  font-size: 0.85rem;
+  margin-top: 6px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: #e11d48;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #b91c1c;
+}
+
+.read-link:hover {
+  text-decoration: none;
+  color: #7f1d1d;
 }
 
 /* Sidebar */
 
 .sidebar-block {
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 0;
   padding: 16px 18px;
   margin-bottom: 16px;
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
+  border-top: 2px solid #111827;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .sidebar-block h3 {
   margin: 0 0 8px;
-  font-size: 1rem;
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: 1.1rem;
 }
 
 .sidebar-list {
@@ -200,87 +253,117 @@ a:hover {
 }
 
 .sidebar-list li {
-  font-size: 0.9rem;
-  margin-bottom: 6px;
+  font-size: 0.92rem;
+  margin-bottom: 5px;
   color: #4b5563;
 }
 
-/* ---------- Single post page ---------- */
+/* =========================
+   SINGLE POST PAGE
+   ========================= */
 
 .post-page {
-  max-width: 780px;
+  max-width: 760px;
   margin: 0 auto;
   background: #ffffff;
-  border-radius: 18px;
+  border-radius: 0;
   padding: 22px 24px 26px;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+  border-top: 3px solid #111827;
+  border-bottom: 1px solid #e5e7eb;
 }
+
+/* Images inside post */
 
 .post-page img {
   display: block;
   max-width: 100%;
-  border-radius: 12px;
+  border-radius: 0;
+  margin-bottom: 18px;
 }
 
-/* Headings & text inside post-page */
+/* Headings & text */
 
 .post-page h1 {
-  margin: 6px 0 12px;
-  font-size: 1.6rem;
+  margin: 4px 0 14px;
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: 1.7rem;
   line-height: 1.3;
 }
 
 .post-page h2 {
-  margin-top: 22px;
-  margin-bottom: 6px;
-  font-size: 1.18rem;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: 1.25rem;
 }
 
 .post-page h3 {
-  margin-top: 16px;
-  margin-bottom: 4px;
-  font-size: 1rem;
+  margin-top: 14px;
+  margin-bottom: 6px;
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: 1.02rem;
 }
 
 .post-page p {
-  margin: 0 0 10px;
-  color: #374151;
+  margin: 0 0 12px;
+  color: #1f2933;
   font-size: 0.98rem;
 }
 
-.post-page ul {
+.post-page ul,
+.post-page ol {
   padding-left: 1.1rem;
-  margin: 4px 0 10px;
+  margin: 4px 0 12px;
 }
 
 .post-page li {
   margin-bottom: 4px;
 }
 
+/* Blockquote – opinion / emphasis */
+
 .post-page blockquote {
-  margin: 10px 0;
+  margin: 12px 0;
   padding: 8px 12px;
-  border-left: 3px solid #e11d48;
+  border-left: 3px solid #b91c1c;
   background: #f9fafb;
-  font-size: 0.95rem;
+  font-size: 0.94rem;
   color: #4b5563;
 }
 
-/* TOC (On this page) */
+/* Table styling (for bail etc.) */
+
+.post-page table {
+  border-collapse: collapse;
+  margin: 6px 0 12px;
+  width: 100%;
+}
+
+.post-page th,
+.post-page td {
+  border: 1px solid #e5e7eb;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+}
+
+/* =========================
+   TOC (On this page)
+   ========================= */
 
 .toc {
   margin: 10px 0 18px;
   padding: 10px 12px;
-  border-radius: 12px;
+  border-radius: 0;
   background: #f9fafb;
   border: 1px solid #e5e7eb;
 }
 
 .toc-title {
-  font-size: 0.85rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   color: #6b7280;
   margin-bottom: 6px;
 }
@@ -301,7 +384,7 @@ a:hover {
 }
 
 .toc a:hover {
-  color: #e11d48;
+  color: #b91c1c;
 }
 
 .toc-h2 {
@@ -310,15 +393,18 @@ a:hover {
 
 .toc-h3 {
   padding-left: 14px;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
 }
-/* ---------- Author box ---------- */
+
+/* =========================
+   AUTHOR BOX
+   ========================= */
 
 .author-box {
-  max-width: 780px;
-  margin: 20px auto 0;
+  max-width: 760px;
+  margin: 22px auto 0;
   padding: 14px 16px;
-  border-radius: 14px;
+  border-radius: 0;
   background: #f9fafb;
   border: 1px solid #e5e7eb;
   display: flex;
@@ -330,11 +416,12 @@ a:hover {
   width: 42px;
   height: 42px;
   border-radius: 999px;
-  background: #050816;
+  background: #111827;
   color: #f9fafb;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 700;
   font-size: 0.95rem;
   flex-shrink: 0;
@@ -348,36 +435,41 @@ a:hover {
 .author-name {
   font-weight: 600;
   margin-bottom: 2px;
+  font-family: "Times New Roman", Georgia, serif;
 }
 
 .author-title {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: #6b7280;
   margin-bottom: 4px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .author-note {
   margin: 4px 0 0;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: #6b7280;
 }
 
-/* Post footer share bar */
+/* =========================
+   POST FOOTER SHARE BAR
+   ========================= */
 
 .post-footer-meta {
-  max-width: 780px;
+  max-width: 760px;
   margin: 14px auto 0;
 }
 
 .share-bar {
-  margin-top: 18px;
-  padding-top: 12px;
+  margin-top: 12px;
+  padding-top: 10px;
   border-top: 1px solid #e5e7eb;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  font-size: 0.85rem;
+  font-size: 0.83rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .share-label {
@@ -388,28 +480,37 @@ a:hover {
 
 .share-btn {
   border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 0.8rem;
+  padding: 4px 11px;
+  font-size: 0.78rem;
   font-weight: 500;
   border: 1px solid #e5e7eb;
-  background: #f9fafb;
+  background: #fdfdfd;
 }
 
 .share-btn:hover {
-  background: #e11d48;
+  background: #b91c1c;
   color: #f9fafb;
-  border-color: #e11d48;
+  border-color: #b91c1c;
   text-decoration: none;
 }
 
-/* ---------- Footer ---------- */
+/* inline reading time inside meta */
+.reading-time-inline {
+  font-weight: 400;
+  color: #6b7280;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
 
 .site-footer {
   border-top: 1px solid #e5e7eb;
   padding: 18px 0 24px;
   text-align: center;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #6b7280;
+  background: #fdfdfd;
 }
 
 .site-footer .muted {
@@ -417,13 +518,11 @@ a:hover {
   color: #9ca3af;
 }
 
-/* ---------- Responsive tweaks ---------- */
+/* =========================
+   RESPONSIVE TWEAKS
+   ========================= */
 
 @media (max-width: 640px) {
-  .post-page {
-    padding: 18px 16px 22px;
-  }
-
   .header-inner {
     flex-direction: column;
     align-items: flex-start;
@@ -432,7 +531,11 @@ a:hover {
 
   .nav a {
     margin-left: 0;
-    margin-right: 12px;
+    margin-right: 14px;
+  }
+
+  .post-page {
+    padding: 18px 16px 22px;
   }
 
   .share-bar {
