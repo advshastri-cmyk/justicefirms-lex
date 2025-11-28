@@ -3,6 +3,14 @@ layout: default
 title: "FIR & Bail Rights in India – A Practical Guide under BNSS 2023"
 categories: [Criminal Law, Rights]
 ---
+<style>
+  body, 
+  h1, h2, h3, h4, h5, h6,
+  p, span, li, a, table, td, th, blockquote {
+    color: #000000 !important;   /* PURE BLACK */
+    font-weight: 500 !important; /* Stronger readability */
+  }
+</style>
 
 <style>
   /* ================================
