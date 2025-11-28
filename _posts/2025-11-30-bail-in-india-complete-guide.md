@@ -7,116 +7,192 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 <style>
 :root{
-  --charcoal:#36454F;
-  --gold:#d4af37;
+  --charcoal:#2e343b;
+  --gold:#c7a740;
   --light:#fafafa;
 }
-body{background:var(--light);color:#222;line-height:1.6;}
-nav{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.05);
-  display:flex;justify-content:space-between;align-items:center;
-  padding:.5rem 1rem;}
-nav a{color:var(--charcoal);font-weight:600;text-decoration:none;}
-nav a:hover{color:var(--gold);}
-main{max-width:900px;margin:3rem auto;background:#fff;padding:2rem;
-  border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.1);}
-h1,h2,h3{color:var(--charcoal);}
-h1{border-bottom:3px solid var(--gold);padding-bottom:.5rem;}
-table{width:100%;border-collapse:collapse;margin:1rem 0;}
-th,td{border:1px solid #ddd;padding:.6rem;text-align:left;}
-th{background:#eee;}
-blockquote{border-left:4px solid var(--gold);margin:1rem 0;
-  padding-left:1rem;font-style:italic;color:#555;}
-footer{background:var(--charcoal);color:#fff;text-align:center;
-  padding:1.5rem;margin-top:3rem;border-top:4px solid var(--gold);}
-footer a{color:var(--gold);text-decoration:none;}
+body{
+  background:var(--light);
+  color:#222;
+  line-height:1.7;
+  font-family:"Segoe UI", Helvetica, Arial, sans-serif;
+}
+h1,h2,h3{
+  color:var(--charcoal);
+  font-family:"Georgia", serif;
+}
+h1{
+  text-align:center;
+  border-bottom:3px solid var(--gold);
+  padding-bottom:.5rem;
+}
+h2{
+  border-left:4px solid var(--gold);
+  padding-left:.6rem;
+  margin-top:2.5rem;
+}
+main{
+  max-width:900px;
+  margin:3rem auto;
+  background:#fff;
+  padding:3rem 2rem;
+  border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+nav{
+  background:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.05);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:.6rem 1rem;
+}
+nav a{
+  color:var(--charcoal);
+  font-weight:600;
+  text-decoration:none;
+  margin-left:1rem;
+}
+nav a:hover{
+  color:var(--gold);
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:1.2rem 0;
+  font-size:.95rem;
+}
+th,td{
+  border:1px solid #ddd;
+  padding:.7rem;
+  text-align:left;
+}
+th{
+  background:#f0f0f0;
+  font-weight:600;
+}
+blockquote{
+  border-left:4px solid var(--gold);
+  margin:1.5rem 0;
+  padding-left:1rem;
+  font-style:italic;
+  color:#555;
+}
+footer{
+  background:var(--charcoal);
+  color:#fff;
+  text-align:center;
+  padding:2rem;
+  border-top:4px solid var(--gold);
+  margin-top:3rem;
+}
+footer a{
+  color:var(--gold);
+  text-decoration:none;
+}
 footer a:hover{color:#fff;}
-#topBtn{position:fixed;bottom:25px;right:25px;background:var(--gold);
-  color:#000;border:none;border-radius:50%;padding:12px;font-size:20px;
-  cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2);}
-@media(max-width:600px){main{padding:1rem;}table{font-size:.9rem;}}
+#topBtn{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  background:var(--gold);
+  color:#000;
+  border:none;
+  border-radius:50%;
+  padding:12px;
+  font-size:20px;
+  cursor:pointer;
+  box-shadow:0 2px 6px rgba(0,0,0,.2);
+}
+@media(max-width:600px){
+  main{padding:1.5rem;}
+  h1{font-size:1.6rem;}
+}
 </style>
 </head>
 <body>
 
 <nav>
-  <ul><li><strong>⚖️ The Justice Firm</strong></li></ul>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="blog.html">Blog</a></li>
-    <li><a href="disclaimer.html">Disclaimer</a></li>
-  </ul>
+  <div><strong style="color:var(--charcoal);">The Justice Firm</strong></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="blog.html">Articles</a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </div>
 </nav>
 
 <main>
   <h1>BNSS 2023 & Bail Rights in India — Complete Updated Guide</h1>
-  <p><em>[BNSS 2023] — यानी Bharatiya Nagarik Suraksha Sanhita, 2023 — भारत का नया आपराधिक प्रक्रिया कानून है…</em></p>
 
-  <h2>📚 1. BNSS क्या है — संक्षिप्त परिचय</h2>
+  <p><em>
+    The Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS) is India’s new criminal procedure framework, replacing the CrPC of 1973. It modernizes investigation, arrest, bail and trial processes with a citizen-centric focus. Bail continues to form a cornerstone of personal liberty, but new provisions redefine arrest, custody, and judicial safeguards.
+  </em></p>
+
+  <h2>1. Overview of BNSS 2023</h2>
   <ul>
-    <li>BNSS 2023 (Act No. 46 of 2023) को 25 दिसंबर 2023 को राष्ट्रपति की स्वीकृति मिली और 1 जुलाई 2024 से लागू हुआ।</li>
-    <li>यह पुराने CrPC 1973 की जगह नया framework देता है — arrest, custody, investigation, evidence, bail आदि प्रावधानों को modern करता है।</li>
-    <li>उद्देश्य — modern forensic methods, fundamental rights की सुरक्षा और misuse से बचाव।</li>
+    <li>BNSS 2023 (Act No. 46 of 2023) received Presidential assent on 25 December 2023 and came into force on 1 July 2024.</li>
+    <li>It revises procedures on arrest, custody, investigation, evidence, and bail to reflect modern forensic and digital tools.</li>
+    <li>The Act aims to protect individual rights while ensuring efficiency and transparency in criminal justice.</li>
   </ul>
 
-  <h2>🔐 2. Bail / Bond Provisions in BNSS — क्या नया है?</h2>
-  <h3>✅ Fundamental Principles Remain — Personal Liberty & Due Process</h3>
-  <p>BNSS के तहत भी bail एक महत्वपूर्ण सुरक्षा है — “jail exception, bail rule” का सिद्धांत अब भी लागू है।</p>
+  <h2>2. Bail and Bond Provisions — Key Updates</h2>
+  <p>Bail remains the rule, jail the exception. BNSS codifies clearer standards for arrest and release.</p>
 
   <table>
-    <thead><tr><th>Provision / Change</th><th>क्या बदला है / क्या नया है</th></tr></thead>
+    <thead>
+      <tr><th>Provision / Change</th><th>Description</th></tr>
+    </thead>
     <tbody>
-      <tr><td>Chapter on Bail / Bonds</td><td>Bail अब statutory arrangement का भाग है।</td></tr>
-      <tr><td>Anticipatory Bail Bars</td><td>BNSS 482(4) के तहत कुछ serious sexual offences में anticipatory bail बंद।</td></tr>
-      <tr><td>Under-trial / Bond Release</td><td>Section 479 में पहली बार first-time offenders के लिए bond release का प्रावधान।</td></tr>
-      <tr><td>Custody Rules</td><td>Police custody अधिकतम 15 दिन तक सीमित; फिर judicial custody होनी चाहिए।</td></tr>
+      <tr><td>Dedicated Bail Chapter</td><td>Bail is now explicitly incorporated as a statutory mechanism rather than a discretionary practice.</td></tr>
+      <tr><td>Limits on Anticipatory Bail</td><td>Section 482(4) restricts anticipatory bail for certain grave sexual offences involving minors.</td></tr>
+      <tr><td>Bond Release for First-Time Offenders</td><td>Section 479 introduces conditional bond release to reduce under-trial detention.</td></tr>
+      <tr><td>Custody Regulation</td><td>Police custody limited to 15 days; subsequent detention must be judicial, not police.</td></tr>
     </tbody>
   </table>
 
-  <h2>📝 3. Types of Bail under BNSS</h2>
+  <h2>3. Types of Bail under BNSS</h2>
   <ul>
-    <li><strong>Regular Bail (Post-Arrest)</strong> — arrest के बाद judicial custody से release के लिए।</li>
-    <li><strong>Anticipatory Bail</strong> — arrest से पहले protection; कुछ offences में bar।</li>
-    <li><strong>Under-trial Bail / Bond Release</strong> — Section 479 के तहत पहली बार आरोपियों के लिए।</li>
+    <li><strong>Regular Bail</strong> – sought after arrest during judicial custody.</li>
+    <li><strong>Anticipatory Bail</strong> – pre-arrest protection, now restricted for certain offences.</li>
+    <li><strong>Under-trial / Bond Release</strong> – for first-time offenders under Section 479 BNSS.</li>
   </ul>
 
-  <h2>🧑‍⚖️ 4. Courts किन बातों पर ध्यान देती हैं</h2>
+  <h2>4. Judicial Considerations for Grant of Bail</h2>
   <ul>
-    <li>Offence का nature & seriousness</li>
-    <li>Evidence tampering या witness influence का risk</li>
-    <li>Accused का record और flight risk</li>
-    <li>Public safety / victims’ interest</li>
+    <li>Nature and gravity of the offence</li>
+    <li>Likelihood of tampering with evidence or influencing witnesses</li>
+    <li>Previous criminal record and risk of absconding</li>
+    <li>Public interest and safety of victims</li>
   </ul>
 
-  <h2>⚠️ 5. When Bail Might Be Denied</h2>
-  <p>Serious sexual offences, repeat offenders या escape risk की स्थिति में court bail deny कर सकती है।</p>
+  <h2>5. When Bail May Be Denied</h2>
+  <p>Courts may deny bail for repeat offenders, serious sexual or violent offences, or when strong evidence indicates risk to justice or public safety.</p>
 
-  <h2>📄 6. Rights & Safeguards for Accused</h2>
+  <h2>6. Rights and Safeguards for the Accused</h2>
   <ul>
-    <li>Arrest के समय identity और reason बताना अनिवार्य।</li>
-    <li>Custody में audio-video recording और forensic tracking ज़रूरी।</li>
-    <li>Clear bail procedure ताकि arbitrary denial न हो।</li>
+    <li>Police must disclose identity, provide an arrest memo, and inform reasons for arrest.</li>
+    <li>Audio-video recording of search, seizure, and custody proceedings is mandatory.</li>
+    <li>Statutory clarity on bail reduces arbitrary denial and misuse.</li>
   </ul>
 
-  <h2>📋 7. If Arrest / FIR Happens — Checklist</h2>
+  <h2>7. Practical Checklist in Case of Arrest or FIR</h2>
   <ol>
-    <li>FIR copy और arrest memo लें।</li>
-    <li>Surety documents ready रखें।</li>
-    <li>Criminal lawyer से संपर्क करें।</li>
-    <li>Bail petition well-drafted हो।</li>
-    <li>Investigation के दौरान rights पर नज़र रखें।</li>
+    <li>Request a copy of the FIR and arrest memo immediately.</li>
+    <li>Keep personal ID and surety documents ready.</li>
+    <li>Consult an experienced criminal lawyer for bail petition and custody challenge.</li>
+    <li>Comply strictly with bail conditions to retain liberty.</li>
   </ol>
 
-  <h2>📈 8. Judicial Trends (2024–25)</h2>
-  <p>Court ने कहा कि BNSS की bail व्यवस्था liberty को मज़बूत करती है और first-time offenders के लिए relief देती है।</p>
+  <h2>8. Judicial Trends (2024 – 2025)</h2>
+  <p>Indian courts have recognised that BNSS strengthens the right to liberty and introduces humane reforms for first-time and under-trial offenders while tightening restrictions for grave crimes.</p>
 
   <blockquote>
-    “Law protects those who know it. Be informed. Stay safe.”
+    Justice is both a right and a responsibility — know the law, assert your liberty, and respect due process.
   </blockquote>
-
 </main>
 
 <footer>
-  <p>&copy; 2025 The Justice Firm • <small><a href="index.html">Back to Home</a></small></p>
+  <p>&copy; 2025 The Justice Firm • <a href="index.html">Back to Home</a></p>
 </footer>
 
 <button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'});">↑</button>
