@@ -14,4 +14,6 @@ permalink: /:categories/:year/:month/:day/:title/
 markdown: kramdown
 kramdown:
   input: GFM
-  future: true
+
+# Show future-dated posts also
+future: true
