@@ -1,261 +1,207 @@
----
-layout: default
-title: "JusticeFirms Legal Blog"
-description: "Expert commentary, short explainers & practical guidance on Corporate, Family, Criminal, IP and Business law."
----
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- JusticeFirms Blog — merged previous code + high-fidelity design -->
+<title>JusticeFirms | Indian Criminal & Civil Law Journal</title>
+<meta name="description" content="Indian criminal and civil law articles on bail, arrest, remand, domestic violence, quashing of FIRs, Section 482 CrPC, maintenance and divorce with case law.">
 
-<style>
-  :root{
-    --accent:#0b61d8;
-    --accent-2:#012a4a;
-    --muted:#667085;
-    --bg:#ffffff;
-    --card:#f7f9fc;
-    --radius:14px;
-    --shadow: 0 10px 30px rgba(2,6,23,0.07);
-    --max-width:1100px;
-    --container-padding:28px;
-    color-scheme: light;
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  }
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 
-  .jf-wrap { max-width: var(--max-width); margin: 40px auto; padding: var(--container-padding); }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
 
-  .jf-hero { display: grid; grid-template-columns: 1fr 320px; gap: 22px; align-items: start; margin-bottom: 28px; }
-  .hero-card, .jf-hero-card {
-    background: linear-gradient(180deg, var(--card), #f3f8ff);
-    border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow);
-  }
-  .hero-card h1, .jf-hero-card h1 { margin: 0 0 8px; font-size: 28px; color: var(--accent-2); }
-  .hero-card p, .jf-hero-card p.lead { margin:0 0 16px; color: var(--muted); font-size: 15px; line-height:1.6; }
-
-  .btn { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:10px; cursor:pointer; border:1px solid rgba(2,6,23,0.04); background:transparent; font-weight:600; color:var(--accent-2); text-decoration:none;}
-  .btn.primary { background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:white; border:0; box-shadow: 0 8px 28px rgba(11,97,216,0.12); }
-
-  .jf-featured { background: linear-gradient(180deg,var(--accent-2),var(--accent)); color: white; padding:18px; border-radius:12px; box-shadow: 0 10px 40px rgba(1,42,74,0.22); }
-  .jf-featured h3{ margin:0 0 6px; font-size:18px }
-  .jf-featured p{ margin:0; font-size:14px; }
-
-  .jf-grid { display:grid; grid-template-columns: 1fr 320px; gap:22px; align-items:start; }
-  .posts-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px; }
-
-  .post-card {
-    background: white; border-radius:12px; padding:16px; box-shadow:var(--shadow); border:1px solid rgba(2,6,23,0.03);
-    display:flex;flex-direction:column;gap:10px;
-  }
-  .post-thumb { height:140px; border-radius:8px; background:linear-gradient(135deg,#eaf3ff,#d7ecff); overflow:hidden; display:block; }
-  .post-title { margin:0; font-size:18px; color:var(--accent-2); }
-  .post-excerpt { margin:0; color:var(--muted); font-size:14px; line-height:1.5; }
-  .post-meta { font-size:13px; color:var(--muted); display:flex;justify-content:space-between;align-items:center; gap:8px; }
-
-  .tag { background: rgba(11,97,216,0.08); color:var(--accent); padding:6px 8px; border-radius:999px; font-size:12px; text-decoration:none; }
-
-  aside .sidebar-block { background: white; padding:16px; border-radius:12px; box-shadow:var(--shadow); border:1px solid rgba(2,6,23,0.03); margin-bottom:14px; }
-  .sidebar-block h3 { margin:0 0 10px; font-size:15px; color:var(--accent-2); }
-  .sidebar-list { list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px; }
-  .sidebar-list li { color:var(--muted); font-size:14px; }
-
-  .jf-search { display:flex; gap:8px; background:var(--card); padding:8px 10px; border-radius:10px; align-items:center; border:1px solid rgba(2,6,23,0.04); }
-  .jf-search input { border:0; outline:0; background:transparent; font-size:14px; width:200px; color:var(--accent-2); }
-
-  .small-muted { color:var(--muted); font-size:13px; }
-
-  @media (max-width:980px){
-    .jf-hero, .jf-grid { grid-template-columns: 1fr; }
-    .jf-search input { width:140px; }
-  }
-</style>
-
-<div class="jf-wrap">
-
-  <!-- JSON-LD: Blog -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Blog",
-    "name":"JusticeFirms Blog",
-    "url":"{{ site.url }}{{ site.baseurl }}/",
-    "description":"{{ page.description | escape }}",
-    "publisher":{
-      "@type":"Organization",
-      "name":"JusticeFirms",
-      "url":"{{ site.url }}"
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        gold:'#C5A059',
+        charcoal:'#121212',
+        offwhite:'#FAF9F6'
+      },
+      fontFamily:{
+        serif:['Playfair Display','serif'],
+        sans:['Inter','sans-serif']
+      }
     }
   }
-  </script>
+}
+</script>
 
-  <!-- HERO (merged: your hero-card content + new styling) -->
-  <section class="jf-hero" aria-labelledby="jf-hero-title">
-    <div class="hero-card jf-hero-card" role="region" aria-label="Blog introduction">
-      <h1 id="jf-hero-title">JusticeFirms Legal Blog</h1>
-      <p class="lead">
-        Welcome to the JusticeFirms Legal Blog. Expert commentary, short explainers &amp;
-        practical guidance on Corporate, Family, Criminal, IP and Business law.
-      </p>
+<style>
+.glass-nav{background:rgba(18,18,18,.95);backdrop-filter:blur(12px)}
+.reveal{opacity:0;transform:translateY(25px);transition:.8s}
+.reveal.active{opacity:1;transform:none}
+.legal h2{font-family:Playfair Display;font-size:2rem;margin:3rem 0 1.5rem}
+.legal p{line-height:1.85;margin-bottom:1.4rem;color:#374151}
+.legal blockquote{border-left:4px solid #C5A059;padding:2rem;font-style:italic;background:#FBFAF7}
+.footnotes{border-top:1px solid #e5e7eb;margin-top:4rem;padding-top:2rem}
+.footnotes li{font-size:.9rem;color:#374151;margin-bottom:.75rem}
+sup{font-size:.7rem}
+</style>
+</head>
+<body class="bg-offwhite text-charcoal">
 
-      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-        <div class="jf-search" role="search" aria-label="Search blog posts">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="#0b61d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <input id="jfSearch" type="search" placeholder="Search articles, tags or authors..." />
-        </div>
+<nav class="fixed w-full z-50 glass-nav py-4">
+  <div class="max-w-7xl mx-auto px-6 flex justify-between">
+    <div class="font-serif text-gold tracking-widest text-xl">JusticeFirms</div>
+    <a href="#journal" class="text-xs uppercase tracking-widest text-gray-300 hover:text-gold">
+      Articles
+    </a>
+  </div>
+</nav>
 
-        <div style="margin-left:auto;display:flex;gap:10px">
-          <a class="btn primary" href="https://justicefirms.com" target="_blank" rel="noopener">Visit main site</a>
-          <a class="btn" href="/about/">About</a>
-        </div>
-      </div>
+<header class="min-h-screen flex items-center bg-charcoal text-white">
+  <div class="max-w-7xl mx-auto px-6 reveal">
+    <p class="text-gold text-xs uppercase tracking-[0.4em] mb-6">
+      Indian Criminal & Civil Law Journal
+    </p>
+    <h1 class="text-7xl font-serif font-black leading-tight">
+      Law as it is<br>
+      <span class="italic text-gold">Practised.</span>
+    </h1>
+    <p class="mt-8 max-w-2xl text-gray-400 text-lg">
+      Practitioner-focused articles on bail, arrest, remand, domestic violence,
+      quashing of FIRs, Section 482 CrPC, maintenance and divorce.
+    </p>
+  </div>
+</header>
+<section id="journal" class="py-32">
+  <div class="max-w-7xl mx-auto px-6">
 
-      <div style="margin-top:14px;display:flex;gap:12px;align-items:center">
-        <div class="small-muted">Categories:</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          {% assign cats = site.categories | sort %}
-          {% for cat in cats %}
-            <a class="tag" href="{{ site.baseurl }}/categories/#{{ cat[0] | slugify }}">{{ cat[0] }}</a>
-          {% endfor %}
-        </div>
-      </div>
+    <div class="flex gap-6 mb-16 text-xs uppercase tracking-widest">
+      <button onclick="filterArticles('all')" class="filterBtn text-gold">All</button>
+      <button onclick="filterArticles('criminal')" class="filterBtn">Criminal Law</button>
+      <button onclick="filterArticles('civil')" class="filterBtn">Civil Law</button>
     </div>
 
-    <aside class="jf-featured" aria-labelledby="featured-title">
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div class="small-muted">Featured</div>
-        {% assign featured = site.posts | where_exp: "post","post.featured == true" | first %}
-        {% if featured %}
-          <time datetime="{{ featured.date | date_to_xmlschema }}">{{ featured.date | date: "%d %b %Y" }}</time>
-          <h3 id="featured-title" style="margin:0;font-size:18px"><a href="{{ featured.url | relative_url }}" style="color:inherit;text-decoration:underline">{{ featured.title }}</a></h3>
-          <p style="margin:0">{{ featured.excerpt | strip_html | truncate:120 }}</p>
-          <div style="margin-top:auto">
-            <a class="btn" href="{{ featured.url | relative_url }}" style="background:rgba(255,255,255,0.12);color:white;border:0">Read featured</a>
-          </div>
-        {% else %}
-          <h3 id="featured-title">Latest insight</h3>
-          <p style="margin:0">We regularly publish posts that distill complex legal topics into practical steps. Check our latest articles below.</p>
-        {% endif %}
-      </div>
-    </aside>
-  </section>
-
-  <!-- POSTS GRID (merged: your loop preserved, new cards and sidebar) -->
-  <section class="jf-grid" aria-labelledby="latest-articles">
-    <main class="jf-main" id="latest-articles">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <h2 style="margin:0">Latest Articles</h2>
-        <div class="small-muted">Total: <strong>{{ site.posts | size }}</strong></div>
-      </div>
-
-      <div class="posts-grid" id="postsGrid">
-        {% comment %}
-          This loop preserves your original `site.posts` iteration.
-          Replace with paginator.posts if you enable pagination.
-        {% endcomment %}
-
-        {% assign posts_collection = site.posts %}
-        {% for post in posts_collection %}
-          <article class="post-card"
-                   data-title="{{ post.title | downcase }}"
-                   data-excerpt="{{ post.excerpt | strip_html | downcase }}"
-                   data-tags="{{ post.tags | join: ' ' | downcase }}"
-                   data-author="{{ post.author | default: 'JusticeFirms' | downcase }}">
-            {% if post.image %}
-              <a href="{{ post.url | relative_url }}" class="post-thumb" style="background-image:url('{{ post.image | relative_url }}'); background-size:cover; background-position:center;" aria-hidden="true"></a>
-            {% else %}
-              <a href="{{ post.url | relative_url }}" class="post-thumb" aria-hidden="true"></a>
-            {% endif %}
-
-            <div>
-              <div class="post-meta">
-                <div>{{ post.categories | join: " · " }} · {{ post.date | date: "%d %b %Y" }}</div>
-                <div style="display:flex;gap:8px">
-                  {% for t in post.tags limit:2 %}
-                    <a class="tag" href="{{ site.baseurl }}/tags/#{{ t | slugify }}">{{ t }}</a>
-                  {% endfor %}
-                </div>
-              </div>
-
-              <h3 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-              <p class="post-excerpt">{{ post.excerpt | strip_html | truncate:140 }}</p>
-
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-                <div class="small-muted">By {{ post.author | default: "JusticeFirms" }}</div>
-                <a class="read-link" href="{{ post.url | relative_url }}" aria-label="Read {{ post.title }}">Read article →</a>
-              </div>
-            </div>
-          </article>
-        {% endfor %}
-      </div>
-
-      <!-- OPTIONAL: add pagination controls here if using jekyll-paginate or jekyll-paginate-v2 -->
-    </main>
-
-    <!-- Right sidebar (preserves your practice areas and about block, with subscribe and tags) -->
-    <aside>
-      <div class="sidebar-block">
-        <h3>Practice Areas</h3>
-        <ul class="sidebar-list">
-          <li>Corporate &amp; Commercial</li>
-          <li>Family &amp; Divorce</li>
-          <li>Criminal Defence</li>
-          <li>Intellectual Property</li>
-          <li>Business &amp; Startups</li>
-        </ul>
-      </div>
-
-      <div class="sidebar-block">
-        <h3>About JusticeFirms</h3>
-        <p style="font-size:0.95rem; margin:0 0 8px">
-          JusticeFirms is a law &amp; consulting initiative focused on clear, practical guidance — no jargon, only clarity for clients, founders and families.
-        </p>
-        <a class="btn" href="/about/">Learn more</a>
-      </div>
-
-      <div class="sidebar-block">
-        <h3>Subscribe</h3>
-        <p class="small-muted">Get new articles by email (privacy-first).</p>
-        <form action="{{ site.baseurl }}/subscribe" method="post" style="display:flex;gap:8px;margin-top:8px">
-          <input name="email" type="email" placeholder="your@company.com" required style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(2,6,23,0.06)">
-          <button class="btn primary" type="submit">Subscribe</button>
-        </form>
-      </div>
-
-      <div class="sidebar-block">
-        <h3>Tags</h3>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          {% assign tags_list = site.tags | sort %}
-          {% for tag in tags_list %}
-            <a class="tag" href="{{ site.baseurl }}/tags/#{{ tag[0] | slugify }}">{{ tag[0] }}</a>
-          {% endfor %}
-        </div>
-      </div>
-    </aside>
-  </section>
-
-  <footer style="margin-top:28px;color:var(--muted);font-size:13px">
-    © <strong>JusticeFirms</strong> — {{ "now" | date: "%Y" }} · <a href="{{ site.url }}" style="color:var(--accent)">{{ site.url | replace: 'https://','' | replace: 'http://','' }}</a>
-  </footer>
+    <div id="articlesGrid" class="grid md:grid-cols-2 gap-20"></div>
+  </div>
+</section>
+<div id="reader" class="fixed inset-0 bg-white z-[100] hidden overflow-y-auto">
+  <div class="max-w-3xl mx-auto px-6 py-20">
+    <button onclick="closeReader()" class="text-gold text-xs uppercase tracking-widest mb-12">
+      ← Back to Articles
+    </button>
+    <div id="readerContent"></div>
+  </div>
 </div>
-
-<!-- Client-side search/filtering (works on already-rendered posts) -->
+<footer class="bg-charcoal text-gray-400 py-16 text-center text-xs tracking-widest">
+© 2025 JusticeFirms · Indian Legal Research
+</footer>
 <script>
-  (function(){
-    const input = document.getElementById('jfSearch');
-    const postsGrid = document.getElementById('postsGrid');
-    if(!input || !postsGrid) return;
-    const cards = Array.from(postsGrid.querySelectorAll('.post-card'));
+lucide.createIcons();
 
-    input.addEventListener('input', function(e){
-      const q = e.target.value.trim().toLowerCase();
-      if(!q) {
-        cards.forEach(c=> c.style.display = '');
-        return;
-      }
-      const parts = q.split(/\s+/).filter(Boolean);
-      cards.forEach(card=>{
-        const hay = (card.dataset.title + ' ' + card.dataset.excerpt + ' ' + card.dataset.tags + ' ' + card.dataset.author).toLowerCase();
-        const match = parts.every(p => hay.indexOf(p) !== -1);
-        card.style.display = match ? '' : 'none';
-      });
-    });
-  })();
+const ARTICLES = [
+{
+id:"dv-act",
+type:"criminal",
+title:"Domestic Violence Act: Protection or Procedural Labyrinth?",
+date:"April 2025",
+category:"Criminal Law · Domestic Violence",
+excerpt:"The DV Act is civil in nature but criminal in enforcement — a hybrid that often confuses courts.",
+content:`
+<div class="legal">
+<h2>Nature of Proceedings</h2>
+<p>
+Proceedings under the Protection of Women from Domestic Violence Act, 2005
+are predominantly civil in nature<sup>1</sup>.
+</p>
+
+<h2>Judicial Position</h2>
+<p>
+In <strong>Inderjit Singh Grewal</strong>, the Supreme Court clarified that DV
+proceedings cannot be used as parallel criminal prosecution<sup>2</sup>.
+</p>
+
+<ol class="footnotes">
+<li>(2011) 12 SCC 588</li>
+<li>Kunapareddy v. Kunapareddy (2016) 11 SCC 774</li>
+</ol>
+</div>`
+},
+
+{
+id:"482-quashing",
+type:"criminal",
+title:"Quashing of FIRs and Proceedings under Section 482 CrPC",
+date:"March 2025",
+category:"Criminal Law · Section 482",
+excerpt:"Inherent powers exist to prevent abuse of process, not to short-circuit trials.",
+content:`
+<div class="legal">
+<h2>Scope</h2>
+<p>
+Section 482 CrPC preserves inherent powers to secure the ends of justice<sup>1</sup>.
+</p>
+
+<h2>Bhajan Lal Principles</h2>
+<p>
+Quashing is permissible only in exceptional categories laid down in
+<strong>State of Haryana v. Bhajan Lal</strong>.
+</p>
+
+<ol class="footnotes">
+<li>State of Karnataka v. L. Muniswamy (1977) 2 SCC 699</li>
+<li>1992 Supp (1) SCC 335</li>
+</ol>
+</div>`
+}
+];
+  const grid=document.getElementById("articlesGrid");
+const reader=document.getElementById("reader");
+const readerContent=document.getElementById("readerContent");
+
+function renderArticles(filter="all"){
+grid.innerHTML="";
+ARTICLES.filter(a=>filter==="all"||a.type===filter)
+.forEach(a=>{
+grid.innerHTML+=`
+<article class="border-b pb-12 reveal">
+<p class="text-gold text-xs uppercase tracking-widest">${a.category}</p>
+<h3 class="font-serif text-3xl mt-3 mb-5">${a.title}</h3>
+<p class="text-gray-600 mb-6">${a.excerpt}</p>
+<button onclick="openArticle('${a.id}')" class="text-xs uppercase tracking-widest text-gold">
+Read Article →
+</button>
+</article>`;
+});
+reveal();
+}
+
+function openArticle(id){
+const a=ARTICLES.find(x=>x.id===id);
+readerContent.innerHTML=`
+<h1 class="font-serif text-5xl mb-4">${a.title}</h1>
+<p class="text-sm uppercase tracking-widest text-gray-400 mb-14">${a.date} · ${a.category}</p>
+${a.content}`;
+reader.classList.remove("hidden");
+document.body.style.overflow="hidden";
+}
+
+function closeReader(){
+reader.classList.add("hidden");
+document.body.style.overflow="";
+}
+
+function filterArticles(type){
+document.querySelectorAll('.filterBtn').forEach(b=>b.classList.remove('text-gold'));
+event.target.classList.add('text-gold');
+renderArticles(type);
+}
+
+const reveal=()=>{
+document.querySelectorAll('.reveal').forEach(el=>{
+if(el.getBoundingClientRect().top<window.innerHeight-100)
+el.classList.add('active');
+});
+};
+
+window.addEventListener('load',()=>renderArticles());
+window.addEventListener('scroll',reveal);
 </script>
+
+</body>
+</html>
