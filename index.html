@@ -25,182 +25,149 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
 
-  <!-- Tailwind (CDN quick) -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
+
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            gold: '#C5A059',
-            charcoal: '#0B0C0D',
-            parchment: '#FBF8F3',
-            muted: '#6B7280'
-          },
-          fontFamily: {
-            serif: ['Playfair Display', 'serif'],
-            sans: ['Inter', 'sans-serif']
-          }
+          colors: { gold: '#C5A059', charcoal: '#0B0C0D', parchment: '#FBF8F3', muted: '#6B7280' },
+          fontFamily: { serif: ['Playfair Display','serif'], sans: ['Inter','sans-serif'] }
         }
       }
     }
   </script>
 
+  <!-- Small inline defaults (kept so page doesn't flash unstyled) -->
   <style>
-    :root {
-      --gold: #C5A059;
-      --charcoal: #0B0C0D;
-      --muted: #6B7280;
-      --parchment: #FBF8F3;
-    }
-
-    html,body {
-      background: linear-gradient(180deg,var(--parchment) 0%,#fff 100%);
-      color:#071023;
-      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-
-    /* Navigation / glass */
-    .glass { background: rgba(11,12,13,0.78); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; }
-    .glass a { color: rgba(255,255,255,0.9); }
-    .glass .text-gold { color: var(--gold); }
-
-    /* Hero */
-    .hero-gradient {
-      background-image:
-        linear-gradient(180deg, rgba(11,12,13,0.52), rgba(11,12,13,0.36)),
-        url('https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=2000&q=80');
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      color: #fff;
-    }
-    @media (max-width:640px) {
-      .hero-gradient { background-position: center top; }
-    }
-
-    /* Cards */
-    .card {
-      background: rgba(255,255,255,0.98);
-      border-radius: 14px;
-      box-shadow: 0 14px 40px rgba(2,6,23,0.10);
-      overflow: hidden;
-      transition: transform .28s, box-shadow .28s;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    .card:hover { transform: translateY(-8px); box-shadow: 0 28px 60px rgba(2,6,23,0.14); }
-
-    /* Improved cover handling: use <img> for precise cropping */
-    .cover { position: relative; min-height: 180px; width: 100%; overflow: hidden; display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#071023,#C5A059); }
-    .cover img { width:100%; height:100%; object-fit:cover; object-position:center center; display:block; }
-    .cover .cover-fallback { position:absolute; inset:0; display:flex;align-items:center;justify-content:center;font-family:Playfair Display,serif;color:rgba(255,255,255,0.95); font-size:36px; }
-
-    /* Prose & reader */
-    .prose { font-family: Inter, sans-serif; color:#0b1220; line-height:1.85; }
-    .prose h1,h2,h3,h4 { font-family: Playfair Display, serif; color:#071023; }
-    .modal-backdrop { background: rgba(2,6,23,0.45); backdrop-filter: blur(4px); }
-
-    /* CTA buttons */
-    .cta-primary { background: linear-gradient(90deg,var(--gold),#b08a45); color:#071023; }
-    .cta-ghost { border:1px solid rgba(11,12,13,0.06); color:#071023; background:transparent; }
-
-    /* Tags */
-    .tag { background: rgba(197,160,89,0.10); color:#7b5e2b; padding:6px 10px; border-radius:999px; font-weight:600; font-size:12px; }
-
-    /* small screens tweaks */
-    @media (max-width:640px) {
-      .cover { min-height:140px; }
-      .cover .cover-fallback { font-size:28px; }
-    }
-
-    /* Reader modal content improvements */
-    .reader-header { display:flex; align-items:center; gap:1rem; justify-content:space-between; flex-wrap:wrap; }
-    .reader-actions { display:flex; gap:.5rem; align-items:center; }
-
-    /* Utility */
-    .text-muted { color: var(--muted); }
-    .font-serif { font-family: Playfair Display, serif; }
-
-    /* small helper for copy feedback */
-    .copied-toast { position: fixed; left:50%; transform: translateX(-50%); bottom: 90px; background:#071023;color:white;padding:8px 14px;border-radius:8px;opacity:0;transition:opacity .2s;z-index:9999 }
-    .copied-toast.show { opacity:1; }
+    :root { --gold:#C5A059; --charcoal:#071023; --muted:#6B7280; --parchment:#FBF8F3; }
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;margin:0;background:linear-gradient(180deg,var(--parchment),#fff);color:var(--charcoal)}
   </style>
+
+  <!-- Main stylesheet (versioned to bust cache on updates) -->
+  <link rel="stylesheet" href="/styles.css?v=3">
+
+  <!-- Third-party libs -->
+  <script src="https://unpkg.com/lunr/lunr.js"></script>
+
+  <!-- JSON-LD organization -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"LegalService",
+    "name":"JusticeFirms",
+    "url":"https://justicefirms.com",
+    "logo":"https://justicefirms.com/logo.png",
+    "sameAs":["https://www.linkedin.com/in/justicefirms","https://twitter.com/justicefirms"],
+    "contactPoint":[{"@type":"ContactPoint","contactType":"customer service","url":"https://justicefirms.com/contact"}]
+  }
+  </script>
+
+  <!-- Analytics placeholder (OPTIONAL) -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXX');
+  </script>
+  -->
 </head>
 <body class="antialiased">
 
-  <!-- Top NAV -->
-  <nav class="glass fixed w-full z-50 py-4">
+  <!-- NAV -->
+  <nav class="fixed w-full z-50 bg-black/70 backdrop-blur py-4">
     <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
       <a href="https://justicefirms.com" class="flex items-center gap-4">
-        <div style="width:46px;height:46px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;">
-          <span style="font-family:Playfair Display;font-weight:700;color:var(--gold);font-size:18px;">JF</span>
+        <div class="w-11 h-11 rounded-md bg-white flex items-center justify-center">
+          <span class="font-serif text-gold">JF</span>
         </div>
         <div>
           <div class="font-serif text-lg text-gold">JusticeFirms</div>
-          <div class="text-xs text-white/70 -mt-1" style="font-family:Inter">Law • Strategy • Results</div>
+          <div class="text-xs text-white/70">Law • Strategy • Results</div>
         </div>
       </a>
 
       <div class="hidden md:flex items-center gap-4">
-        <a href="https://justicefirms.com/services" class="text-sm text-white/80 hover:text-gold">Our Services</a>
-        <a href="https://justicefirms.com/cases" class="text-sm text-white/80 hover:text-gold">Case Studies</a>
-        <a href="https://justicefirms.com/contact" class="text-sm text-white/80 hover:text-gold">Contact</a>
-        <a href="https://justicefirms.com/contact" class="px-4 py-2 rounded-full cta-primary text-sm font-semibold">Book Consultation</a>
+        <a href="https://justicefirms.com/services" class="text-sm text-white/80">Our Services</a>
+        <a href="https://justicefirms.com/cases" class="text-sm text-white/80">Case Studies</a>
+        <a href="https://justicefirms.com/contact" class="px-4 py-2 rounded-full bg-gold text-sm font-semibold text-charcoal">Book Consultation</a>
       </div>
 
       <div class="md:hidden">
-        <a href="https://justicefirms.com/contact" class="px-3 py-2 rounded-full cta-primary text-sm font-semibold">Book</a>
+        <a href="https://justicefirms.com/contact" class="px-3 py-2 rounded-full bg-gold text-sm font-semibold text-charcoal">Book</a>
       </div>
     </div>
   </nav>
 
   <!-- HERO -->
-  <header class="hero-gradient min-h-[48vh] flex items-end pt-28 pb-20">
+  <header class="hero-gradient min-h-[52vh] flex items-end pt-28 pb-20">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="bg-white/6 rounded-2xl p-10 shadow-lg" style="backdrop-filter: blur(6px);">
+      <div class="bg-black/20 rounded-2xl p-10 shadow-lg">
         <p class="text-gold text-xs uppercase tracking-widest">Law insights that convert clients</p>
-        <h1 class="font-serif text-4xl md:text-6xl leading-tight mt-4" style="color:#fff;">
-          Practical legal analysis<br><span style="font-style:italic;color:#fff9e6">that brings clients to JusticeFirms.</span>
+        <h1 class="font-serif text-4xl md:text-6xl leading-tight mt-4 text-white">
+          Practical legal analysis<br><span class="italic text-amber-100">that brings clients to JusticeFirms.</span>
         </h1>
         <p class="mt-6 text-white/90 max-w-2xl">Concise case summaries, step‑by‑step practice notes and client‑facing guidance so people searching for help find your firm and contact you.</p>
         <div class="mt-8 flex gap-3">
-          <a class="px-5 py-3 rounded-full cta-primary font-semibold" href="https://justicefirms.com/contact">Book a consultation</a>
-          <a class="px-5 py-3 rounded-full border cta-ghost font-semibold" href="https://justicefirms.com#services">See practice areas</a>
+          <a class="px-5 py-3 rounded-full bg-gold font-semibold text-charcoal" href="https://justicefirms.com/contact">Book a consultation</a>
+          <a class="px-5 py-3 rounded-full border border-white/10 text-white" href="https://justicefirms.com#services">See practice areas</a>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Filters + Grid -->
-  <main class="py-16">
+  <!-- CONTROLS: filters, tags, search -->
+  <main class="py-12">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <div class="flex items-center gap-4">
           <div class="tag">LAW JOURNAL</div>
-          <div class="text-sm text-muted">Latest practitioner articles & client guides</div>
+          <div class="text-sm text-muted">Practitioner articles & client-facing guides</div>
         </div>
+
         <div class="flex items-center gap-3">
-          <input id="search" placeholder="Search topics, statutes or case names" class="border rounded-full px-4 py-2 w-64 text-sm" />
-          <a href="https://justicefirms.com/contact" class="px-4 py-2 rounded-full bg-gold text-sm font-semibold">Speak to a lawyer</a>
+          <input id="searchInput" placeholder="Search articles, statutes, case names…" class="border rounded-full px-4 py-2 w-64 text-sm" />
+          <a href="https://justicefirms.com/contact" class="px-4 py-2 rounded-full bg-gold text-sm font-semibold text-charcoal">Speak to a lawyer</a>
         </div>
       </div>
 
-      <section id="articlesGrid" class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        <!-- articles rendered here -->
-      </section>
+      <!-- Tag cloud (filled by JS) -->
+      <div id="tagCloud" class="mb-6 flex gap-2 flex-wrap"></div>
 
-      <div class="mt-12 text-center text-sm text-muted">
-        <strong>Tip:</strong> End every article with a clear "How we can help" CTA linking to justicefirms.com/contact
+      <!-- Articles grid -->
+      <section id="articlesGrid" class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></section>
+
+      <!-- Pagination controls -->
+      <div class="mt-8 flex items-center justify-center gap-4">
+        <button id="prevPage" class="px-4 py-2 rounded border">Previous</button>
+        <div id="pageInfo" class="text-sm text-muted"></div>
+        <button id="nextPage" class="px-4 py-2 rounded border">Next</button>
+      </div>
+
+      <!-- Load more -->
+      <div class="mt-6 text-center">
+        <button id="loadMoreBtn" class="px-6 py-3 rounded-full border">Load more articles</button>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="mt-12 bg-white/95 rounded-xl p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 shadow">
+        <div>
+          <h3 class="font-serif text-xl">Get practical legal updates</h3>
+          <p class="text-sm text-muted">Monthly actionable articles & case notes. No spam.</p>
+        </div>
+        <form id="newsletterForm" class="flex gap-2" action="https://formspree.io/f/FORMSPREE_ENDPOINT" method="POST">
+          <input name="email" id="newsletterEmail" type="email" placeholder="your@email.com" required class="border rounded-full px-4 py-2" />
+          <button type="submit" class="px-4 py-2 rounded-full bg-gold text-charcoal font-semibold">Subscribe</button>
+        </form>
       </div>
     </div>
   </main>
 
-  <!-- Reader modal -->
-  <div id="reader" class="fixed inset-0 z-50 hidden items-start justify-center py-12 px-4 modal-backdrop">
+  <!-- READER MODAL -->
+  <div id="reader" class="fixed inset-0 z-50 hidden modal-backdrop items-start justify-center py-12 px-4">
     <div class="max-w-3xl w-full bg-white rounded-2xl shadow-2xl overflow-auto">
       <div class="p-6 border-b">
         <div class="reader-header">
@@ -209,19 +176,25 @@
             <div id="readerMeta" class="text-sm text-muted mt-1"></div>
           </div>
           <div class="reader-actions">
-            <button id="copyLinkBtn" class="text-sm text-muted" title="Copy article link">Copy</button>
-            <button id="shareBtn" class="text-sm text-muted" title="Share">Share</button>
-            <a id="readerPageLink" class="text-sm text-muted" href="#" target="_blank" rel="noopener" title="Open article page">Open page</a>
-            <a id="readerCTA" class="px-4 py-2 rounded-full cta-primary" href="https://justicefirms.com/contact" target="_blank" rel="noopener">Book Consultation</a>
+            <button id="printBtn" class="text-sm text-muted">Print</button>
+            <button id="copyLinkBtn" class="text-sm text-muted">Copy link</button>
+            <button id="shareBtn" class="text-sm text-muted">Share</button>
+            <a id="readerPageLink" class="text-sm text-muted" href="#" target="_blank" rel="noopener">Open page</a>
+            <a id="readerCTA" class="px-4 py-2 rounded-full bg-gold text-charcoal font-semibold" href="https://justicefirms.com/contact" target="_blank" rel="noopener">Book Consultation</a>
             <button id="closeReaderBtn" class="text-sm text-muted">Close</button>
           </div>
         </div>
       </div>
+
       <div id="readerContent" class="p-8 prose"></div>
+
       <div class="p-6 border-t bg-parchment">
         <div class="max-w-2xl mx-auto text-center">
-          <h3 class="font-serif text-xl">Need help with this issue?</h3>
-          <p class="text-muted mt-2">If this article describes your situation, <a href="https://justicefirms.com/contact" class="text-gold font-semibold">contact us for a consultation</a>.</p>
+          <h3 class="font-serif text-xl">Related articles</h3>
+          <div id="relatedList" class="mt-4 grid gap-3"></div>
+          <div class="mt-6">
+            <a href="https://justicefirms.com/contact" class="px-5 py-3 rounded-full bg-gold text-charcoal font-semibold">Book consultation</a>
+          </div>
         </div>
       </div>
     </div>
@@ -229,10 +202,21 @@
 
   <div id="copiedToast" class="copied-toast">Link copied</div>
 
-  <!-- Sticky CTA -->
-  <div class="sticky-cta hidden md:flex">
-    <a href="https://justicefirms.com/contact" class="px-5 py-3 rounded-full cta-primary font-semibold shadow-lg">Free case evaluation →</a>
-  </div>
+  <!-- Footer -->
+  <footer class="bg-white border-t mt-12">
+    <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-start justify-between gap-6">
+      <div>
+        <div class="font-serif text-lg text-gold">JusticeFirms</div>
+        <p class="text-sm text-muted max-w-md mt-2">Indian Criminal & Civil legal practice — practical advice and client services. <a href="https://justicefirms.com/contact" class="text-gold">Contact us</a>.</p>
+      </div>
+      <div class="text-sm text-muted">
+        <div><strong>Office</strong></div>
+        <div class="mt-2">support@justicefirms.com</div>
+        <div class="mt-1"><a href="https://justicefirms.com/contact" class="text-gold">Book consultation</a></div>
+      </div>
+    </div>
+    <div class="text-center text-xs text-muted py-4">© 2025 JusticeFirms · All rights reserved</div>
+  </footer>
 
   <!-- Card template -->
   <template id="cardTemplate">
@@ -262,7 +246,7 @@
     </article>
   </template>
 
-  <!-- Editor modal (admin localStorage) -->
+  <!-- Editor modal (admin) -->
   <div id="editorModal" class="fixed inset-0 z-60 hidden items-center justify-center p-4">
     <div class="max-w-4xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl">
       <div class="p-4 border-b flex items-center justify-between">
@@ -293,11 +277,15 @@
             <input id="coverUrl" class="w-full border rounded p-3" placeholder="https://..." />
           </div>
           <div>
+            <label class="text-xs text-muted">Tags (comma separated)</label>
+            <input id="tags" class="w-full border rounded p-3" placeholder="Domestic Violence, Bail, Section 482" />
+          </div>
+          <div>
             <label class="text-xs text-muted">Content (Markdown allowed)</label>
             <textarea id="content" class="w-full border rounded p-3 mono" rows="8"></textarea>
           </div>
           <div class="flex gap-2">
-            <button class="px-4 py-2 cta-primary rounded text-sm" type="submit">Save</button>
+            <button class="px-4 py-2 bg-gold text-charcoal rounded text-sm" type="submit">Save</button>
             <button id="saveClose" type="button" class="px-4 py-2 rounded border">Save & Close</button>
           </div>
         </form>
@@ -309,371 +297,365 @@
     </div>
   </div>
 
-  <!-- required scripts -->
+  <!-- libraries -->
+  <script src="https://unpkg.com/lunr/lunr.js"></script>
+  <script src="https://unpkg.com/lodash@4.17.21/lodash.min.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
 
   <script>
-    lucide.createIcons();
+  lucide.createIcons();
 
-    /* ---------- data + helpers ---------- */
-    const KEY = 'JF_BLOG_v1';
-    const SAMPLE = []; // fallback (populated from articles.json)
-    const uid = ()=> 'a'+Math.random().toString(36).slice(2,9);
-    const readTime = txt => Math.max(1, Math.round((txt||'').split(/\s+/).length / 200));
+  // ---------- Config ----------
+  const KEY = 'JF_BLOG_v1';
+  const PAGE_SIZE = 6;
+  let currentPage = 1;
+  let currentQuery = '';
+  let currentTag = '';
+  let lunrIndex = null;
+  let lunrDocs = {}; // id->doc map
 
-    function slugify(s){
-      if(!s) return '';
-      return s.toString().toLowerCase().trim()
-        .replace(/[\u2019\u2018\u201C\u201D]/g,'')
-        .replace(/[^a-z0-9]+/g,'-')
-        .replace(/^-+|-+$/g,'');
-    }
+  // ---------- Helpers ----------
+  const uid = ()=> 'a'+Math.random().toString(36).slice(2,9);
+  const readTime = txt => Math.max(1, Math.round((txt||'').split(/\s+/).length / 200));
+  function slugify(s){ if(!s) return ''; return s.toString().toLowerCase().trim().replace(/[\u2019\u2018\u201C\u201D]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
 
-    function loadArticles(){
-      try {
-        const raw = localStorage.getItem(KEY);
-        if (!raw) { localStorage.setItem(KEY, JSON.stringify(SAMPLE)); return SAMPLE.slice(); }
+  // ---------- Load articles (from localStorage or articles.json) ----------
+  function loadArticles(){
+    try {
+      const raw = localStorage.getItem(KEY);
+      if(raw) {
         const arr = JSON.parse(raw);
-        // ensure each item has slug
         arr.forEach(a => { if(!a.slug) a.slug = slugify(a.title || a.id); });
         return arr;
-      } catch(e){
-        console.warn('loadArticles error', e);
-        return SAMPLE.slice();
-      }
-    }
-    function saveArticles(list){
-      // ensure slugs
-      list.forEach(a => { if(!a.slug) a.slug = slugify(a.title || a.id); });
-      localStorage.setItem(KEY, JSON.stringify(list));
-    }
-
-    /* ---------- import articles.json if present ---------- */
-    (function importArticlesJson(){
-      if (typeof fetch === 'undefined') return;
-      try {
-        if (!localStorage.getItem(KEY)) {
-          fetch('/articles.json', {cache: "no-store"})
-            .then(r => { if (!r.ok) throw new Error('no articles.json'); return r.json(); })
-            .then(data => {
-              if (Array.isArray(data) && data.length) {
-                // normalize slugs
-                data.forEach(a => { if(!a.slug) a.slug = slugify(a.title || a.id); });
-                localStorage.setItem(KEY, JSON.stringify(data));
-                setTimeout(()=> renderArticles(document.getElementById('search')?.value || ''), 200);
-              }
-            }).catch(()=>{ /* ignore */ });
-        }
-      } catch(e){ console.warn(e); }
-    })();
-
-    /* ---------- rendering ---------- */
-    const grid = document.getElementById('articlesGrid');
-    const template = document.getElementById('cardTemplate');
-
-    // admin mode: enable edit buttons if URL has ?admin=1 or localStorage flag
-    const adminEnabled = (new URLSearchParams(location.search).get('admin') === '1') || (localStorage.getItem('JF_ADMIN') === '1');
-
-    function renderArticles(q=''){
-      const data = loadArticles().filter(a=>{
-        if(!q) return true;
-        const s = (a.title + ' ' + a.excerpt + ' ' + (a.category||'') + ' ' + (a.content||'')).toLowerCase();
-        return s.includes(q.toLowerCase());
-      }).sort((a,b)=> new Date(b.date) - new Date(a.date));
-
-      grid.innerHTML = '';
-      if (data.length === 0) {
-        grid.innerHTML = `<div class="col-span-3 text-center text-muted">No articles yet. Add articles.json to the repo or use the editor (admin).</div>`;
-        return;
-      }
-
-      data.forEach(a=>{
-        const tpl = template.content.cloneNode(true);
-        const coverEl = tpl.querySelector('.cover');
-        const img = tpl.querySelector('.cover-img');
-        const fallback = tpl.querySelector('.cover-fallback');
-
-        if(a.cover && a.cover.trim()){
-          img.src = a.cover;
-          img.alt = a.title || 'Article cover';
-          img.onload = ()=> { fallback.style.display = 'none'; };
-          img.onerror = ()=> { img.style.display='none'; fallback.style.display = 'flex'; };
-        } else {
-          img.style.display = 'none';
-          fallback.textContent = (a.title || 'JF').split(' ').slice(0,2).map(s=>s[0]).join('').toUpperCase();
-          fallback.style.display = 'flex';
-        }
-
-        tpl.querySelector('.title').textContent = a.title;
-        tpl.querySelector('.excerpt').textContent = a.excerpt || '';
-        tpl.querySelector('.date').textContent = a.date ? new Date(a.date).toLocaleDateString() : '';
-        tpl.querySelector('.author').textContent = a.author || 'JusticeFirms';
-        tpl.querySelector('.tag').textContent = (a.category || 'Article').split('·')[0].trim().toUpperCase();
-        tpl.querySelector('.readtime').textContent = '· ' + readTime(a.content) + ' min';
-
-        // read button handler
-        tpl.querySelector('.readBtn').addEventListener('click', ()=> openArticle(a.id || a.slug));
-        // allow clicking on cover to open
-        coverEl.addEventListener('click', ()=> openArticle(a.id || a.slug));
-
-        // edit button (admin)
-        const editBtn = tpl.querySelector('.editBtn');
-        if(adminEnabled){
-          editBtn.classList.remove('hidden');
-          editBtn.addEventListener('click', (e)=>{
-            e.stopPropagation();
-            openEditor(a.id || a.slug);
-          });
-        }
-
-        grid.appendChild(tpl);
-      });
-    }
-
-    /* ---------- reader (modal) ---------- */
-    const reader = document.getElementById('reader');
-    const readerTitle = document.getElementById('readerTitle');
-    const readerMeta = document.getElementById('readerMeta');
-    const readerContent = document.getElementById('readerContent');
-    const readerPageLink = document.getElementById('readerPageLink');
-    const copyLinkBtn = document.getElementById('copyLinkBtn');
-    const shareBtn = document.getElementById('shareBtn');
-    const copiedToast = document.getElementById('copiedToast');
-    const closeReaderBtn = document.getElementById('closeReaderBtn');
-
-    let currentArticleId = null;
-
-    function openArticle(id){
-      // find by id or slug
-      const list = loadArticles();
-      const a = list.find(x => x.id === id || x.slug === id);
-      if(!a) return;
-      currentArticleId = a.id || a.slug;
-      // push hash
-      try { history.pushState({article:currentArticleId}, '', '#!'+(a.id || a.slug)); } catch(e){}
-      readerTitle.textContent = a.title;
-      readerMeta.innerHTML = `${a.date ? new Date(a.date).toLocaleDateString() : ''} · ${a.category || ''} · <span class="text-muted">${a.author || 'JusticeFirms'}</span>`;
-      readerContent.innerHTML = DOMPurify.sanitize(marked.parse(a.content || ''));
-
-      // set page link (slug-based) — assumes static pages use slug or id as filename
-      const slug = a.slug || slugify(a.title || a.id);
-      readerPageLink.href = '/' + slug + (slug ? '.html' : '');
-      readerPageLink.style.display = 'inline';
-
-      reader.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-
-      // JSON-LD for article (helps SEO when modal opened)
-      const ld = {
-        "@context":"https://schema.org",
-        "@type":"BlogPosting",
-        "headline": a.title,
-        "datePublished": a.date,
-        "author": { "@type":"Person", "name": a.author || "JusticeFirms" },
-        "publisher": { "@type":"Organization", "name":"JusticeFirms", "url":"https://justicefirms.com" },
-        "mainEntityOfPage": { "@type":"WebPage", "@id": location.href }
-      };
-      const old = document.getElementById('article-jsonld'); if(old) old.remove();
-      const script = document.createElement('script'); script.id='article-jsonld'; script.type='application/ld+json';
-      script.textContent = JSON.stringify(ld);
-      document.head.appendChild(script);
-    }
-
-    function closeReader(noHistory){
-      reader.classList.add('hidden');
-      document.body.style.overflow = '';
-      currentArticleId = null;
-      const old = document.getElementById('article-jsonld'); if(old) old.remove();
-      // clean hash if present
-      try {
-        if (!noHistory && location.hash && location.hash.startsWith('#!')) history.pushState({}, '', location.pathname + location.search);
-      } catch(e){}
-    }
-
-    closeReaderBtn.addEventListener('click', ()=> closeReader());
-
-    // copy link
-    copyLinkBtn.addEventListener('click', async ()=>{
-      const url = location.origin + location.pathname + '#!' + (currentArticleId || '');
-      try {
-        await navigator.clipboard.writeText(url);
-        showCopiedToast();
-      } catch(e) {
-        // fallback
-        const ta = document.createElement('textarea'); ta.value = url; document.body.appendChild(ta); ta.select();
-        try { document.execCommand('copy'); showCopiedToast(); } catch(err) { alert('Copy failed. URL: ' + url); }
-        ta.remove();
-      }
-    });
-
-    function showCopiedToast(){
-      copiedToast.classList.add('show');
-      setTimeout(()=> copiedToast.classList.remove('show'), 1500);
-    }
-
-    // share
-    shareBtn.addEventListener('click', ()=>{
-      const url = location.origin + location.pathname + '#!' + (currentArticleId || '');
-      const a = loadArticles().find(x => x.id === currentArticleId || x.slug === currentArticleId);
-      const title = a ? a.title : document.title;
-      if(navigator.share){
-        navigator.share({ title, url }).catch(()=>{});
       } else {
-        // fallback: open twitter
-        const tw = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
-        window.open(tw, '_blank', 'noopener');
+        return [];
       }
-    });
+    } catch(e){ console.warn(e); return []; }
+  }
 
-    // open page link target: readerPageLink -> opens in new tab (already set href above)
+  function saveArticles(list){
+    list.forEach(a => { if(!a.slug) a.slug = slugify(a.title || a.id); });
+    localStorage.setItem(KEY, JSON.stringify(list));
+  }
 
-    /* ---------- deep-link & history ---------- */
-    (function enableDeepLinks(){
-      function openFromHash(){
-        if (location.hash && location.hash.startsWith('#!')){
-          const id = location.hash.slice(2);
-          setTimeout(()=> {
-            if (id) openArticle(id);
-          }, 200);
+  (function importArticlesJson(){
+    if(!window.fetch) return;
+    if(localStorage.getItem(KEY)) return;
+    fetch('/articles.json', {cache:'no-store'})
+      .then(r=>{ if(!r.ok) throw new Error('no articles.json'); return r.json(); })
+      .then(data => {
+        if(Array.isArray(data) && data.length){
+          data.forEach(a => { if(!a.slug) a.slug = slugify(a.title || a.id); });
+          localStorage.setItem(KEY, JSON.stringify(data));
+          initApp();
         }
-      }
-      window.addEventListener('popstate', ()=> {
-        if (location.hash && location.hash.startsWith('#!')) {
-          const id = location.hash.slice(2);
-          openArticle(id);
-        } else {
-          closeReader(true);
-        }
+      }).catch(()=>{ initApp(); });
+  })();
+
+  // ---------- Build lunr index ----------
+  function buildSearchIndex(docs){
+    try {
+      lunrIndex = lunr(function(){
+        this.ref('id');
+        this.field('title',{boost:10});
+        this.field('excerpt',{boost:5});
+        this.field('content');
+        this.field('tags');
+        docs.forEach(d => this.add(d), this);
       });
-      window.addEventListener('load', openFromHash);
-    })();
+      lunrDocs = {};
+      docs.forEach(d => lunrDocs[d.id] = d);
+    } catch(e){ console.warn('Lunr build failed', e); lunrIndex = null; }
+  }
 
-    /* ---------- editor (local) ---------- */
-    const editorModal = document.getElementById('editorModal');
-    const articleForm = document.getElementById('articleForm');
-    const livePreview = document.getElementById('livePreview');
+  // ---------- Tags extraction ----------
+  function extractTags(list){
+    const map = {};
+    list.forEach(a=>{
+      (a.tags || []).forEach(t=>{
+        const k = t.trim();
+        if(!k) return;
+        map[k] = (map[k]||0)+1;
+      });
+    });
+    return map;
+  }
 
-    function openEditor(id){
-      editorModal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-      if(!id){
-        document.getElementById('articleId').value = '';
-        document.getElementById('title').value = '';
-        document.getElementById('category').value = '';
-        document.getElementById('date').value = '';
-        document.getElementById('excerpt').value = '';
-        document.getElementById('coverUrl').value = '';
-        document.getElementById('content').value = '';
-        livePreview.innerHTML = '';
-        return;
+  // ---------- Rendering with pagination & filters ----------
+  const grid = document.getElementById('articlesGrid');
+  const tpl = document.getElementById('cardTemplate');
+
+  function renderArticles(q = currentQuery, tag = currentTag, page = currentPage){
+    const all = loadArticles();
+    let filtered = all.slice();
+
+    // search with lunr if query provided and index present
+    if(q && lunrIndex){
+      try {
+        const results = lunrIndex.search(q + '*'); // prefix search
+        const ids = results.map(r => r.ref);
+        filtered = ids.map(id => lunrDocs[id]).filter(Boolean);
+      } catch(e){
+        // fallback to naive filter
+        filtered = all.filter(a => ((a.title + ' ' + a.excerpt + ' ' + a.content).toLowerCase()).includes(q.toLowerCase()));
       }
-      const list = loadArticles();
-      const a = list.find(x => x.id === id || x.slug === id);
-      if(!a) return;
-      document.getElementById('articleId').value = a.id || a.slug;
-      document.getElementById('title').value = a.title || '';
-      document.getElementById('category').value = a.category || '';
-      document.getElementById('date').value = a.date || '';
-      document.getElementById('excerpt').value = a.excerpt || '';
-      document.getElementById('coverUrl').value = a.cover || '';
-      document.getElementById('content').value = a.content || '';
-      livePreview.innerHTML = DOMPurify.sanitize(marked.parse(a.content || ''));
+    } else if(q){
+      filtered = all.filter(a => ((a.title + ' ' + a.excerpt + ' ' + a.content).toLowerCase()).includes(q.toLowerCase()));
     }
 
-    document.getElementById('closeEditor').addEventListener('click', ()=> { editorModal.classList.add('hidden'); document.body.style.overflow=''; });
+    // tag filter
+    if(tag){
+      filtered = filtered.filter(a => (a.tags || []).map(t=>t.toLowerCase()).includes(tag.toLowerCase()));
+    }
 
-    articleForm.addEventListener('input', ()=> {
-      livePreview.innerHTML = DOMPurify.sanitize(marked.parse(document.getElementById('content').value || ''));
+    // sort by date desc
+    filtered.sort((a,b)=> new Date(b.date) - new Date(a.date));
+
+    // pagination
+    const total = filtered.length;
+    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    if(page < 1) page = 1;
+    if(page > totalPages) page = totalPages;
+    currentPage = page;
+
+    const start = (page - 1) * PAGE_SIZE;
+    const pageItems = filtered.slice(start, start + PAGE_SIZE);
+
+    grid.innerHTML = '';
+    if(pageItems.length === 0){
+      grid.innerHTML = `<div class="col-span-3 text-center text-muted">No articles found.</div>`;
+    } else {
+      pageItems.forEach(a => {
+        const node = tpl.content.cloneNode(true);
+        const img = node.querySelector('.cover-img');
+        const fallback = node.querySelector('.cover-fallback');
+        if(a.cover){
+          img.src = a.cover;
+          img.alt = a.title || '';
+          img.onload = ()=> fallback.style.display='none';
+          img.onerror = ()=> { img.style.display='none'; fallback.style.display='flex'; }
+        } else {
+          img.style.display='none';
+          fallback.textContent = (a.title || 'JF').split(' ').slice(0,2).map(s=>s[0]).join('').toUpperCase();
+        }
+        node.querySelector('.title').textContent = a.title;
+        node.querySelector('.excerpt').textContent = a.excerpt || '';
+        node.querySelector('.date').textContent = a.date ? new Date(a.date).toLocaleDateString() : '';
+        node.querySelector('.author').textContent = a.author || 'JusticeFirms';
+        node.querySelector('.tag').textContent = (a.category || 'Article').split('·')[0].trim().toUpperCase();
+        node.querySelector('.readtime').textContent = '· ' + readTime(a.content) + ' min';
+        node.querySelector('.readBtn').addEventListener('click', ()=> openArticle(a.id || a.slug));
+        node.querySelector('.cover').addEventListener('click', ()=> openArticle(a.id || a.slug));
+        // admin edit
+        const editBtn = node.querySelector('.editBtn');
+        if(localStorage.getItem('JF_ADMIN') === '1') { editBtn.classList.remove('hidden'); editBtn.addEventListener('click', e=>{ e.stopPropagation(); openEditor(a.id || a.slug); }); }
+        grid.appendChild(node);
+      });
+    }
+
+    // update pagination UI
+    document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages} · ${total} articles`;
+    document.getElementById('prevPage').disabled = currentPage <= 1;
+    document.getElementById('nextPage').disabled = currentPage >= totalPages;
+  }
+
+  // prev/next handlers
+  document.getElementById('prevPage').addEventListener('click', ()=> { if(currentPage>1){ currentPage--; renderArticles(currentQuery,currentTag,currentPage); window.scrollTo({top:400,behavior:'smooth'}); } });
+  document.getElementById('nextPage').addEventListener('click', ()=> { currentPage++; renderArticles(currentQuery,currentTag,currentPage); window.scrollTo({top:400,behavior:'smooth'}); });
+
+  // load more button
+  document.getElementById('loadMoreBtn').addEventListener('click', ()=>{
+    currentPage++;
+    renderArticles(currentQuery,currentTag,currentPage);
+  });
+
+  // ---------- Tags UI ----------
+  function renderTagCloud(){
+    const all = loadArticles();
+    const map = {};
+    all.forEach(a => (a.tags||[]).forEach(t => { const k=t.trim(); if(!k) return; map[k] = (map[k]||0) + 1; }));
+    const cloud = document.getElementById('tagCloud');
+    cloud.innerHTML = '';
+    const keys = Object.keys(map).sort((a,b)=> map[b]-map[a]);
+    keys.forEach(k=>{
+      const btn = document.createElement('button');
+      btn.className = 'text-xs px-3 py-1 rounded-full border';
+      btn.textContent = `${k} (${map[k]})`;
+      btn.onclick = ()=> { currentTag = k; currentPage=1; currentQuery=''; document.getElementById('searchInput').value=''; renderArticles(); highlightActiveTag(k); };
+      cloud.appendChild(btn);
     });
+    // "Clear" button
+    if(keys.length){
+      const clear = document.createElement('button');
+      clear.className = 'text-xs px-3 py-1 rounded-full border ml-2';
+      clear.textContent = 'Clear tags';
+      clear.onclick = ()=> { currentTag=''; renderArticles(); highlightActiveTag(''); };
+      cloud.appendChild(clear);
+    }
+  }
 
-    document.getElementById('saveClose').addEventListener('click', ()=> {
-      articleForm.dispatchEvent(new Event('submit'));
-      editorModal.classList.add('hidden');
+  function highlightActiveTag(tag){
+    document.querySelectorAll('#tagCloud button').forEach(b=>{
+      b.classList.toggle('bg-gold/10', b.textContent.startsWith(tag));
     });
+  }
 
-    articleForm.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const id = document.getElementById('articleId').value || uid();
-      const title = document.getElementById('title').value.trim();
-      const category = document.getElementById('category').value.trim();
-      const date = document.getElementById('date').value || new Date().toISOString().slice(0,10);
-      const excerpt = document.getElementById('excerpt').value.trim();
-      const cover = document.getElementById('coverUrl').value.trim();
-      const content = document.getElementById('content').value;
-      if(!title){ alert('Title required'); return; }
-
-      const list = loadArticles();
-      const slug = slugify(title);
-      const payload = { id, slug, title, category, date, excerpt, cover, content, author: "JusticeFirms" };
-      const idx = list.findIndex(x => x.id === id || x.slug === id);
-      if(idx > -1) list[idx] = payload; else list.push(payload);
-      saveArticles(list);
-      renderArticles(document.getElementById('search').value);
-      alert('Article saved locally. To publish globally edit articles.json in the repo (recommended).');
-    });
-
-    /* ---------- search ---------- */
-    document.getElementById('search').addEventListener('input', (e)=> renderArticles(e.target.value));
-
-    /* ---------- keyboard shortcuts ---------- */
-    document.addEventListener('keydown', (e)=>{
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n'){ // Ctrl/Cmd+N open editor
-        e.preventDefault();
-        // enable admin mode automatically if keyboard used
-        localStorage.setItem('JF_ADMIN', '1');
-        openEditor();
-      }
-      if (e.key === 'Escape'){
-        closeReader();
-        editorModal.classList.add('hidden');
-        document.body.style.overflow='';
-      }
-    });
-
-    /* ---------- close reader on backdrop click ---------- */
-    reader.addEventListener('click', (e)=> { if (e.target === reader) closeReader(); });
-
-    /* ---------- initial render & import fallback ---------- */
-    window.addEventListener('load', ()=> {
-      // if no articles in localStorage, import may have put them; otherwise initialize a friendly sample
-      if(!localStorage.getItem(KEY)){
-        localStorage.setItem(KEY, JSON.stringify([
-          {
-            id:"sample-1",
-            slug:"welcome-justicefirms",
-            title:"Welcome to JusticeFirms — How we help clients",
-            date: (new Date()).toISOString().slice(0,10),
-            category:"About",
-            author:"JusticeFirms",
-            excerpt:"A short note on how we convert article readers into clients — include clear CTAs on every article.",
-            content:"### How we can help\n\nEvery article ends with a direct link to our contact page: https://justicefirms.com/contact\n\nWe advise ending each article with 'How we can help' and a clear link to the relevant service."
-          }
-        ]));
-      }
+  // ---------- Search ----------
+  const searchInput = document.getElementById('searchInput');
+  let searchTimeout = null;
+  searchInput.addEventListener('input', (e)=>{
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(()=>{
+      currentQuery = e.target.value.trim();
+      currentTag = '';
+      currentPage = 1;
       renderArticles();
-      // open article if hash present (deep-link)
-      if(location.hash && location.hash.startsWith('#!')){
-        const id = location.hash.slice(2);
-        if(id) openArticle(id);
-      }
-    });
-  </script>
+    }, 250);
+  });
 
-  <footer class="bg-white border-t mt-20">
-    <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-start justify-between gap-6">
-      <div>
-        <div class="font-serif text-lg text-gold">JusticeFirms</div>
-        <p class="text-sm text-muted max-w-md mt-2">Indian Criminal & Civil legal practice — practical advice and client services. <a href="https://justicefirms.com/contact" class="text-gold">Contact us</a>.</p>
-      </div>
-      <div class="text-sm text-muted">
-        <div><strong>Office</strong></div>
-        <div class="mt-2">support@justicefirms.com</div>
-        <div class="mt-1"><a href="https://justicefirms.com/contact" class="text-gold">Book consultation</a></div>
-      </div>
-    </div>
-    <div class="text-center text-xs text-muted py-4">© 2025 JusticeFirms · All rights reserved</div>
-  </footer>
+  // ---------- Reader modal, related articles, print/share ----------
+  const reader = document.getElementById('reader'), readerTitle = document.getElementById('readerTitle'), readerMeta = document.getElementById('readerMeta'), readerContent = document.getElementById('readerContent'), relatedList = document.getElementById('relatedList');
+  const readerPageLink = document.getElementById('readerPageLink'), printBtn = document.getElementById('printBtn'), copyLinkBtn = document.getElementById('copyLinkBtn'), shareBtn = document.getElementById('shareBtn'), closeReaderBtn = document.getElementById('closeReaderBtn');
+
+  let currentArticleId = null;
+  function openArticle(id){
+    const list = loadArticles();
+    const a = list.find(x => x.id === id || x.slug === id);
+    if(!a) return;
+    currentArticleId = a.id || a.slug;
+    try { history.pushState({article:currentArticleId}, '', '#!'+currentArticleId); } catch(e){}
+    readerTitle.textContent = a.title;
+    readerMeta.innerHTML = `${a.date ? new Date(a.date).toLocaleDateString() : ''} · ${a.category || ''} · <span class="text-muted">${a.author || 'JusticeFirms'}</span>`;
+    readerContent.innerHTML = DOMPurify.sanitize(marked.parse(a.content || ''));
+    readerPageLink.href = '/' + (a.slug || slugify(a.title || a.id)) + '.html';
+    reader.classList.remove('hidden'); document.body.style.overflow='hidden';
+    renderRelated(a);
+  }
+
+  function renderRelated(article){
+    relatedList.innerHTML = '';
+    if(!(article.tags||[]).length) return;
+    const candidates = loadArticles().filter(a => a.id !== article.id && (a.tags||[]).some(t => (article.tags||[]).includes(t))).slice(0,4);
+    if(!candidates.length) { relatedList.innerHTML = '<p class="text-muted">No related articles.</p>'; return; }
+    candidates.forEach(c=>{
+      const el = document.createElement('div');
+      el.className = 'p-3 border rounded hover:bg-gray-50';
+      el.innerHTML = `<div class="font-semibold">${c.title}</div><div class="text-sm text-muted">${c.excerpt || ''}</div>`;
+      el.addEventListener('click', ()=> { openArticle(c.id || c.slug); });
+      relatedList.appendChild(el);
+    });
+  }
+
+  printBtn.addEventListener('click', ()=> window.print());
+  copyLinkBtn.addEventListener('click', async () => {
+    const url = location.origin + location.pathname + '#!' + (currentArticleId || '');
+    try { await navigator.clipboard.writeText(url); showToast('Link copied'); } catch(e){ showToast('Copy failed'); }
+  });
+  shareBtn.addEventListener('click', ()=> {
+    const url = location.origin + location.pathname + '#!' + (currentArticleId || '');
+    const title = readerTitle.textContent || document.title;
+    if(navigator.share) { navigator.share({ title, url }).catch(()=>{}); } else { window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,'_blank'); }
+  });
+  closeReaderBtn.addEventListener('click', ()=> { closeReader(); });
+
+  function closeReader(noHistory){
+    reader.classList.add('hidden'); document.body.style.overflow=''; currentArticleId = null;
+    if(!noHistory && location.hash && location.hash.startsWith('#!')) { try { history.pushState({}, '', location.pathname + location.search); } catch(e){} }
+  }
+
+  function showToast(msg){
+    const t = document.getElementById('copiedToast');
+    t.textContent = msg; t.classList.add('show'); setTimeout(()=> t.classList.remove('show'), 1400);
+  }
+
+  // ---------- Editor (local) ----------
+  const editorModal = document.getElementById('editorModal'), articleForm = document.getElementById('articleForm'), livePreview = document.getElementById('livePreview');
+  document.getElementById('closeEditor').addEventListener('click', ()=> { editorModal.classList.add('hidden'); document.body.style.overflow=''; });
+
+  function openEditor(id){
+    editorModal.classList.remove('hidden'); document.body.style.overflow='hidden';
+    if(!id){ articleForm.reset(); livePreview.innerHTML=''; return; }
+    const a = loadArticles().find(x => x.id === id || x.slug === id);
+    if(!a) return;
+    document.getElementById('articleId').value = a.id || a.slug;
+    document.getElementById('title').value = a.title || '';
+    document.getElementById('category').value = a.category || '';
+    document.getElementById('date').value = a.date || '';
+    document.getElementById('excerpt').value = a.excerpt || '';
+    document.getElementById('coverUrl').value = a.cover || '';
+    document.getElementById('tags').value = (a.tags || []).join(', ');
+    document.getElementById('content').value = a.content || '';
+    livePreview.innerHTML = DOMPurify.sanitize(marked.parse(a.content || ''));
+  }
+
+  articleForm.addEventListener('input', ()=> {
+    livePreview.innerHTML = DOMPurify.sanitize(marked.parse(document.getElementById('content').value || ''));
+  });
+
+  document.getElementById('saveClose').addEventListener('click', ()=> { articleForm.dispatchEvent(new Event('submit')); editorModal.classList.add('hidden'); });
+
+  articleForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const id = document.getElementById('articleId').value || uid();
+    const title = document.getElementById('title').value.trim();
+    if(!title){ alert('Title required'); return; }
+    const category = document.getElementById('category').value.trim();
+    const date = document.getElementById('date').value || new Date().toISOString().slice(0,10);
+    const excerpt = document.getElementById('excerpt').value.trim();
+    const cover = document.getElementById('coverUrl').value.trim();
+    const content = document.getElementById('content').value;
+    const tags = (document.getElementById('tags').value || '').split(',').map(t=>t.trim()).filter(Boolean);
+    const slug = slugify(title);
+    const payload = { id, slug, title, category, date, excerpt, cover, content, tags, author: "JusticeFirms" };
+    const list = loadArticles();
+    const idx = list.findIndex(x => x.id === id || x.slug === id);
+    if(idx > -1) list[idx] = payload; else list.push(payload);
+    saveArticles(list);
+    // rebuild search index & tags
+    buildSearchIndex(list.map(a => ({ id: a.id || a.slug, title: a.title, content: a.content || '', excerpt: a.excerpt || '', tags: (a.tags||[]).join(' ')})));
+    renderTagCloud();
+    renderArticles();
+    alert('Saved locally. To publish site-wide, update articles.json in the repo.');
+  });
+
+  // ---------- Newsletter handling (Formspree) ----------
+  document.getElementById('newsletterForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const email = document.getElementById('newsletterEmail').value.trim();
+    if(!email || !/.+@.+\..+/.test(email)){ alert('Enter a valid email'); return; }
+    const form = e.target;
+    // send to Formspree (action set in markup)
+    try {
+      const resp = await fetch(form.action, { method:'POST', body: new FormData(form), headers: { 'Accept': 'application/json' }});
+      if(resp.ok){ form.reset(); showToast('Subscribed — check your email'); } else { showToast('Subscription failed'); }
+    } catch(err){ showToast('Subscription failed'); }
+  });
+
+  // ---------- Search index init & app init ----------
+  function initApp(){
+    const list = loadArticles();
+    // build lunr docs
+    const docs = list.map(a => ({ id: a.id || a.slug, title: a.title, content: (a.content || ''), excerpt: (a.excerpt || ''), tags: (a.tags||[]).join(' ') }));
+    buildSearchIndex(docs);
+    renderTagCloud();
+    renderArticles();
+  }
+
+  // initialize once DOM and articles are available
+  window.addEventListener('load', ()=> {
+    // If localStorage empty and import didn't find articles.json, set a sample
+    if(!localStorage.getItem(KEY)){
+      localStorage.setItem(KEY, JSON.stringify([
+        { id:"sample-1", slug:"welcome-justicefirms", title:"Welcome to JusticeFirms — How we help clients", date:(new Date()).toISOString().slice(0,10), category:"About", author:"JusticeFirms", tags:["About"], excerpt:"Short note on converting article readers into clients.", content:"### How we can help\n\nEvery article ends with a direct link to our contact page: https://justicefirms.com/contact" }
+      ]));
+    }
+    initApp();
+    // open deep link if present
+    if(location.hash && location.hash.startsWith('#!')){ const id = location.hash.slice(2); if(id) openArticle(id); }
+  });
+
+  </script>
 </body>
 </html>
