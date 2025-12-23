@@ -1,13 +1,86 @@
-/* Basic overrides and typographic polish */
+/* styles.css — global styles for JusticeFirms blog
+   - typography, layout, better image handling (prevent "head cut")
+   - small UI polish for cards, modal, buttons
+*/
+
+/* Colors */
 :root{
-  --gold:#C5A059; --muted:#6B7280; --charcoal:#071023;
-  --max-width:900px;
+  --gold: #C5A059;
+  --charcoal: #071023;
+  --muted: #6B7280;
+  --parchment: #FBF8F3;
+  --bg: #ffffff;
 }
-body{font-family:Inter,system-ui, -apple-system, "Segoe UI", Roboto, Arial; color:var(--charcoal); background: #fff;}
-h1,h2,h3,h4{font-family: "Playfair Display", serif; color:var(--charcoal); margin-top:0;}
-a{color:var(--gold); text-decoration:none;}
-a:hover{text-decoration:underline;}
-img{max-width:100%; display:block;}
-main{max-width:var(--max-width); margin:0 auto; padding:24px;}
-.tag{background:rgba(197,160,89,0.08); padding:6px 10px; border-radius:999px; color:#7b5e2b; font-weight:600;}
-blockquote{border-left:4px solid var(--gold); padding:12px 18px; background:#fffaf6;}
+
+/* Base */
+* {box-sizing: border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color:var(--charcoal);
+  background: linear-gradient(180deg,var(--parchment) 0%,#fff 100%);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Containers */
+.max-w-7xl{max-width:1100px;margin-left:auto;margin-right:auto}
+.px-6{padding-left:24px;padding-right:24px}
+.py-16{padding-top:64px;padding-bottom:64px}
+
+/* Cards */
+.card{
+  background: rgba(255,255,255,0.98);
+  border-radius:14px;
+  box-shadow:0 14px 40px rgba(2,6,23,0.08);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+.card:hover{transform:translateY(-8px);box-shadow:0 28px 60px rgba(2,6,23,0.12)}
+.card .p-6{padding:24px}
+
+/* Cover image: use <img> with object-fit + object-position top to avoid cutting faces */
+.cover{position:relative;min-height:180px;width:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#071023,#C5A059)}
+.cover img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.cover .cover-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Playfair Display,serif;color:rgba(255,255,255,0.95);font-size:36px}
+
+/* Prose & reader */
+.prose{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--charcoal);line-height:1.78}
+.prose h1, .prose h2, .prose h3{font-family:"Playfair Display",serif;color:var(--charcoal)}
+.text-muted{color:var(--muted)}
+
+/* CTA buttons */
+.btn{border-radius:999px;padding:10px 16px;font-weight:600}
+.cta-primary{background:linear-gradient(90deg,var(--gold),#b08a45);color:var(--charcoal)}
+.cta-ghost{background:transparent;border:1px solid rgba(7,16,35,0.06);color:var(--charcoal)}
+
+/* Tags */
+.tag{background:rgba(197,160,89,0.08);padding:6px 10px;border-radius:999px;color:#7b5e2b;font-weight:600;font-size:12px}
+
+/* Reader modal */
+.modal-backdrop{background:rgba(2,6,23,0.45);backdrop-filter:blur(4px)}
+#reader .p-6{padding:24px}
+.reader-actions a, .reader-actions button{margin-left:8px}
+
+/* Responsive grid */
+#articlesGrid{display:grid;grid-template-columns:repeat(1,1fr);gap:28px}
+@media(min-width:768px){#articlesGrid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1280px){#articlesGrid{grid-template-columns:repeat(3,1fr)}}
+
+/* Small helpers */
+.excerpt{color:var(--muted)}
+.date, .author, .readtime{color:var(--muted);font-size:13px}
+
+/* Toast */
+.copied-toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:var(--charcoal);color:#fff;padding:8px 14px;border-radius:8px;opacity:0;transition:opacity .18s;z-index:9999}
+.copied-toast.show{opacity:1}
+
+/* Small screens tweak */
+@media(max-width:640px){
+  .cover{min-height:140px}
+  .cover .cover-fallback{font-size:28px}
+  .max-w-7xl{padding-left:16px;padding-right:16px}
+}
