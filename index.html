@@ -333,10 +333,10 @@
 
   const grid = document.getElementById('articlesGrid');
   const tpl = document.getElementById('cardTemplate');
- function renderArticles() {
+function renderArticles() {
   let all = loadArticles();
 
-  // सर्च अगर एक्टिव है
+  // सर्च फिल्टर (अगर सर्च इनपुट यूज कर रहे हैं)
   if (currentQuery) {
     all = all.filter(a => 
       a.title.toLowerCase().includes(currentQuery.toLowerCase()) ||
@@ -345,13 +345,14 @@
     );
   }
 
-  // सबसे नया आर्टिकल ऊपर
+  // लेटेस्ट आर्टिकल ऊपर
   all.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   const start = (currentPage - 1) * PAGE_SIZE;
   const end = start + PAGE_SIZE;
   const pageItems = all.slice(start, end);
 
+  // कार्ड्स रेंडर करें
   grid.innerHTML = '';
   pageItems.forEach(a => {
     const node = tpl.content.cloneNode(true);
@@ -367,7 +368,7 @@
     grid.appendChild(node);
   });
 
-  // ये लाइन सही कर दें — यही "Showing..." की समस्या थी
+  // सही "Showing 1-12 of 51" टेक्स्ट
   const total = all.length;
   const shownFrom = start + 1;
   const shownTo = start + pageItems.length;
@@ -385,7 +386,8 @@
   document.getElementById('prevPage').disabled = currentPage <= 1;
   document.getElementById('nextPage').disabled = shownTo >= total;
 }
-  function openArticle(id){
+    
+    function openArticle(id){
     const articles = loadArticles();
     const article = articles.find(a => a.id === id);
     if(!article) return;
