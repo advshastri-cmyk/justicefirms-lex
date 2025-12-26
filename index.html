@@ -333,10 +333,9 @@
 
   const grid = document.getElementById('articlesGrid');
   const tpl = document.getElementById('cardTemplate');
-function renderArticles() {
+    function renderArticles() {
   let all = loadArticles();
 
-  // सर्च फिल्टर (अगर सर्च इनपुट यूज कर रहे हैं)
   if (currentQuery) {
     all = all.filter(a => 
       a.title.toLowerCase().includes(currentQuery.toLowerCase()) ||
@@ -345,14 +344,12 @@ function renderArticles() {
     );
   }
 
-  // लेटेस्ट आर्टिकल ऊपर
   all.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   const start = (currentPage - 1) * PAGE_SIZE;
   const end = start + PAGE_SIZE;
   const pageItems = all.slice(start, end);
 
-  // कार्ड्स रेंडर करें
   grid.innerHTML = '';
   pageItems.forEach(a => {
     const node = tpl.content.cloneNode(true);
@@ -368,13 +365,13 @@ function renderArticles() {
     grid.appendChild(node);
   });
 
-  // सही "Showing 1-12 of 51" टेक्स्ट
+  // ये लाइन अब पूरी तरह सही है
   const total = all.length;
   const shownFrom = start + 1;
   const shownTo = start + pageItems.length;
   document.getElementById('pageInfo').textContent = `Showing \( {shownFrom}- \){shownTo} of ${total}`;
 
-  // Load More बटन दिखाएं/छुपाएं
+  // Load More बटन
   const loadMoreBtn = document.getElementById('loadMoreBtn');
   if (shownTo >= total) {
     loadMoreBtn.classList.add('hidden');
@@ -382,7 +379,7 @@ function renderArticles() {
     loadMoreBtn.classList.remove('hidden');
   }
 
-  // Prev और Next बटन डिसेबल/एनेबल
+  // Prev/Next बटन
   document.getElementById('prevPage').disabled = currentPage <= 1;
   document.getElementById('nextPage').disabled = shownTo >= total;
 }
