@@ -333,44 +333,59 @@
 
   const grid = document.getElementById('articlesGrid');
   const tpl = document.getElementById('cardTemplate');
+function renderArticles() {
+  let all = loadArticles();
 
-  function renderArticles(){
-    let all = loadArticles();
-
-    // Simple search (you can enhance later)
-    if (currentQuery) {
-      all = all.filter(a => 
-        a.title.toLowerCase().includes(currentQuery.toLowerCase()) ||
-        a.excerpt.toLowerCase().includes(currentQuery.toLowerCase()) ||
-        (a.content || '').toLowerCase().includes(currentQuery.toLowerCase())
-      );
-    }
-
-    all.sort((a,b) => new Date(b.date) - new Date(a.date));
-
-    const start = (currentPage - 1) * PAGE_SIZE;
-    const pageItems = all.slice(start, start + PAGE_SIZE);
-
-    grid.innerHTML = '';
-    pageItems.forEach(a => {
-      const node = tpl.content.cloneNode(true);
-      const cover = node.querySelector('.cover');
-      if(a.cover) cover.style.backgroundImage = `url('${a.cover}')`;
-      node.querySelector('.title').textContent = a.title;
-      node.querySelector('.excerpt').textContent = a.excerpt;
-      node.querySelector('.date').textContent = new Date(a.date).toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'});
-      node.querySelector('.readtime').textContent = '· ' + readTime(a.content) + ' min read';
-      const readBtn = node.querySelector('.readBtn');
-      readBtn.onclick = () => openArticle(a.id);
-      cover.onclick = () => openArticle(a.id);
-      grid.appendChild(node);
-    });
-
-    document.getElementById('pageInfo').textContent = `Showing \( {start + 1}- \){start + pageItems.length} of ${all.length}`;
-    document.getElementById('prevPage').disabled = currentPage <= 1;
-    document.getElementById('nextPage').disabled = (start + PAGE_SIZE) >= all.length;
+  // सर्च फिल्टर (अगर सर्च इनपुट यूज कर रहे हैं तो काम करेगा)
+  if (currentQuery) {
+    all = all.filter(a => 
+      a.title.toLowerCase().includes(currentQuery.toLowerCase()) ||
+      a.excerpt.toLowerCase().includes(currentQuery.toLowerCase()) ||
+      (a.content || '').toLowerCase().includes(currentQuery.toLowerCase())
+    );
   }
 
+  // लेटेस्ट आर्टिकल्स ऊपर दिखाने के लिए सॉर्ट
+  all.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const end = start + PAGE_SIZE;
+  const pageItems = all.slice(start, end);
+
+  // ग्रिड क्लियर करके नए कार्ड्स ऐड करें
+  grid.innerHTML = '';
+  pageItems.forEach(a => {
+    const node = tpl.content.cloneNode(true);
+    const cover = node.querySelector('.cover');
+    if (a.cover) cover.style.backgroundImage = `url('${a.cover}')`;
+    node.querySelector('.title').textContent = a.title;
+    node.querySelector('.excerpt').textContent = a.excerpt;
+    node.querySelector('.date').textContent = new Date(a.date).toLocaleDateString('en-IN', {day: 'numeric', month: 'short', year: 'numeric'});
+    node.querySelector('.readtime').textContent = '· ' + readTime(a.content) + ' min read';
+    const readBtn = node.querySelector('.readBtn');
+    readBtn.onclick = () => openArticle(a.id);
+    cover.onclick = () => openArticle(a.id);
+    grid.appendChild(node);
+  });
+
+  // पेज इनफो सही दिखाएं (जैसे Showing 1-12 of 51)
+  const total = all.length;
+  const shownEnd = pageItems.length < PAGE_SIZE ? total : end;
+  document.getElementById('pageInfo').textContent = `Showing \( {start + 1}- \){start + pageItems.length} of ${total}`;
+
+  // Load More बटन दिखाएं/छुपाएं
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  if (end >= total) {
+    loadMoreBtn.classList.add('hidden');
+  } else {
+    loadMoreBtn.classList.remove('hidden');
+  }
+
+  // Prev/Next बटन डिसेबल/एनेबल
+  document.getElementById('prevPage').disabled = currentPage <= 1;
+  document.getElementById('nextPage').disabled = end >= total;
+}
+ 
   function openArticle(id){
     const articles = loadArticles();
     const article = articles.find(a => a.id === id);
