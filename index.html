@@ -254,7 +254,7 @@
       </div>
       <div class="p-6 flex flex-col flex-1">
         <div class="flex justify-between items-center mb-3">
-          <span class="tag text-xs uppercase tracking-wider">LEGAL INSIGHT</span>
+          <span class="tag text-xs uppercase tracking-widest">LEGAL INSIGHT</span>
           <span class="text-sm text-muted date"></span>
         </div>
         <h3 class="font-serif text-xl title line-clamp-2 mt-2 text-charcoal dark:text-white"></h3>
@@ -266,7 +266,7 @@
       </div>
     </article>
   </template>
-  <!-- Complete JavaScript with 36 Articles -->
+  <!-- Complete JavaScript with External articles.json Support -->
   <script>
   lucide.createIcons();
 
@@ -298,7 +298,7 @@
     }
   });
 
-  const KEY = 'JF_BLOG_FINAL';
+  const KEY = 'JF_BLOG_v2025';
   const PAGE_SIZE = 12;
   let currentPage = 1;
   let currentQuery = '';
@@ -307,15 +307,12 @@
   let lunrDocs = {};
 
   const readTime = txt => Math.max(1, Math.round((txt||'').split(/\s+/).length / 200));
-  function slugify(s){ if(!s) return ''; return s.toLowerCase().trim().replace(/[\u2019\u2018\u201C\u201D]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
 
   function loadArticles(){ 
     try{ 
       const raw = localStorage.getItem(KEY); 
       if(!raw) return []; 
-      const arr = JSON.parse(raw); 
-      arr.forEach(a=>{ if(!a.slug) a.slug = slugify(a.title); }); 
-      return arr; 
+      return JSON.parse(raw); 
     } catch(e){ return []; } 
   }
 
@@ -337,41 +334,22 @@
   const grid = document.getElementById('articlesGrid');
   const tpl = document.getElementById('cardTemplate');
 
-  const articles = [
-    // 36 Articles (full list)
-    { id: "ndps-inventory-52a", slug: "ndps-section-52a-sampling-procedure", title: "The Critical Role of Section 52A NDPS: Inventory & Sampling", date: "2025-12-24", category: "Criminal · NDPS Act", author: "Adv. S. Kulkarni", tags: ["NDPS","Evidence"], excerpt: "Why sampling in the absence of a Magistrate can lead to acquittal.", cover: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<h3>The Mandatory Protocol</h3><p>Section 52A requires Magistrate-supervised sampling...</p><p><a href='https://justicefirms.com/contact'>Book Consultation</a></p>" },
-    { id: "pocso-age-determination", slug: "age-determination-pocso-cases-jj-act", title: "Age Determination in POCSO: The Rule of Superior Evidence", date: "2025-12-22", category: "Criminal · POCSO", author: "Adv. Priyanka Das", tags: ["POCSO","Age"], excerpt: "School certificate vs ossification test.", cover: "https://images.unsplash.com/photo-1589829545856-d10d557cf95a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Section 94 JJ Act hierarchy...</p>" },
-    { id: "cyber-hacking-66", slug: "punishment-hacking-data-theft-india", title: "Hacking and Data Theft: Penalties under Section 66 IT Act", date: "2025-12-18", category: "Criminal · Cyber Law", author: "Cyber Expert Amit V.", tags: ["Hacking","IT Act"], excerpt: "Broad scope of Section 66 explained.", cover: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Imprisonment up to 3 years...</p>" },
-    { id: "pocso-mandatory-reporting", slug: "mandatory-reporting-pocso-section-19", title: "Section 19 POCSO: The Duty to Report & Penalties for Silence", date: "2025-12-15", category: "Criminal · POCSO", author: "Adv. R. Mehta", tags: ["POCSO","Reporting"], excerpt: "Failing to report is a crime.", cover: "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Section 21 penalties...</p>" },
-    { id: "cyber-stalking-women", slug: "cyber-stalking-laws-india-ipc-it-act", title: "Cyber Stalking and Bullying: Legal Protection for Women", date: "2025-12-12", category: "Criminal · Cyber Law", author: "Adv. A. Sharma", tags: ["Cyber Stalking","354D"], excerpt: "Stop online harassment using IPC and IT Act.", cover: "https://images.unsplash.com/photo-1573496358961-3c79f6a9f1e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Section 354D and 66E...</p>" },
-    { id: "ndps-search-warrant", slug: "ndps-search-seizure-without-warrant-section-42", title: "Search and Seizure Without Warrant: Section 42 vs 43 NDPS", date: "2025-12-05", category: "Criminal · NDPS Act", author: "Adv. S. Kulkarni", tags: ["Search","NDPS"], excerpt: "Reason to believe clause explained.", cover: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Private premises vs public places...</p>" },
-    { id: "pocso-bail-guidelines", slug: "getting-bail-pocso-cases-high-court", title: "Bail in POCSO Cases: Key Factors Considered by High Courts", date: "2025-12-01", category: "Criminal · POCSO", author: "Adv. Priyanka Das", tags: ["Bail","POCSO"], excerpt: "Delay in FIR, lack of medical evidence.", cover: "https://images.unsplash.com/photo-1556157382-97eda2d9aa5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Honey-trapping, consensual relationship...</p>" },
-    { id: "cyber-phishing-scams", slug: "legal-action-against-phishing-vishing", title: "Phishing, Vishing, and Smishing: The Trio of Cyber Fraud", date: "2025-11-28", category: "Criminal · Cyber Law", author: "Cyber Expert Amit V.", tags: ["Phishing","Fraud"], excerpt: "How scammers steal credentials.", cover: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Platform liability under IT Rules...</p>" },
-    { id: "ndps-small-vs-commercial", slug: "ndps-quantity-table-small-commercial", title: "NDPS Quantity Classification: Small, Intermediate, and Commercial", date: "2025-11-25", category: "Criminal · NDPS Act", author: "Adv. R. Mehta", tags: ["NDPS","Quantity"], excerpt: "How weight determines punishment.", cover: "https://images.unsplash.com/photo-1505662694824-7444d2f65c2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Small vs commercial quantity table...</p>" },
-    { id: "pocso-special-courts", slug: "procedure-inside-pocso-special-court", title: "What Happens in a POCSO Special Court? Procedure & Trial", date: "2025-11-20", category: "Criminal · POCSO", author: "Adv. Priyanka Das", tags: ["POCSO","Trial"], excerpt: "In-camera proceedings explained.", cover: "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Child-friendly atmosphere...</p>" },
-    { id: "cyber-identity-theft", slug: "identity-theft-laws-india-66c", title: "Identity Theft: When Someone Uses Your PAN/Aadhaar Online", date: "2025-11-15", category: "Criminal · Cyber Law", author: "Adv. A. Sharma", tags: ["Identity Theft","66C"], excerpt: "Protecting from loan apps and scammers.", cover: "https://images.unsplash.com/photo-1573496358961-3c79f6a9f1e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Section 66C IT Act...</p>" },
-    { id: "ndps-conscious-possession", slug: "conscious-possession-ndps-legal-definition", title: "Conscious Possession: Can You Be Charged for Drugs You Didn't Know Were There?", date: "2025-11-10", category: "Criminal · NDPS Act", author: "Adv. S. Kulkarni", tags: ["Conscious Possession","NDPS"], excerpt: "Physical vs mental awareness.", cover: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Section 35 presumption...</p>" },
-    { id: "cyber-social-media-defamation", slug: "online-defamation-legal-remedies-india", title: "Online Defamation: Legal Remedies for Twitter & Instagram Harassment", date: "2025-11-05", category: "Criminal · Cyber Law", author: "Adv. R. Mehta", tags: ["Defamation","Social Media"], excerpt: "Takedown notices and damages.", cover: "https://images.unsplash.com/photo-1556157382-97eda2d9aa5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Section 499 IPC and IT Rules...</p>" },
-    { id: "pocso-medical-examination", slug: "medical-examination-victim-section-27-pocso", title: "Medical Examination of the Child: Section 27 POCSO Rules", date: "2025-10-30", category: "Criminal · POCSO", author: "Adv. Priyanka Das", tags: ["Medical","POCSO"], excerpt: "Female doctor and parent presence.", cover: "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Procedural safeguards...</p>" },
-    { id: "cyber-cryptocurrency-fraud", slug: "crypto-scams-legal-recourse-india", title: "Cryptocurrency Scams: Can You Recover Stolen Bitcoin/USDT?", date: "2025-10-25", category: "Criminal · Cyber Law", author: "Cyber Expert Amit V.", tags: ["Crypto","Fraud"], excerpt: "P2P scams and bank freezes.", cover: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Writ petition to unfreeze...</p>" },
-    { id: "ndps-appeal-process", slug: "ndps-conviction-appeal-high-court", title: "Appealing an NDPS Conviction: Grounds for Suspension of Sentence", date: "2025-10-20", category: "Criminal · NDPS Act", author: "Adv. S. Kulkarni", tags: ["Appeal","NDPS"], excerpt: "Suspension of sentence during appeal.", cover: "https://images.unsplash.com/photo-1505662694824-7444d2f65c2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Section 389 CrPC...</p>" },
-    // 20 Additional High-Search Articles
-    { id: "anticipatory-bail-498a", slug: "anticipatory-bail-in-498a-cases", title: "Anticipatory Bail in 498A Cases: Complete Guide 2025", date: "2025-12-20", category: "Criminal · Family Law", author: "Adv. Priyanka Das", tags: ["498A","Anticipatory Bail"], excerpt: "How to get anticipatory bail in dowry harassment cases.", cover: "https://images.unsplash.com/photo-1505662694824-7444d2f65c2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<h3>Key Grounds</h3><p>Misuse, no specific allegations, delay in FIR...</p><p><a href='https://justicefirms.com/contact'>Apply Now</a></p>" },
-    { id: "maintenance-125", slug: "maintenance-under-section-125-crpc", title: "Maintenance for Wife & Children: Section 125 CrPC Explained", date: "2025-12-18", category: "Family Law", author: "Adv. R. Mehta", tags: ["Maintenance","CrPC 125"], excerpt: "How much maintenance court can award.", cover: "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Income proof, lifestyle, recent judgments...</p>" },
-    { id: "mutual-divorce", slug: "mutual-consent-divorce-process-india", title: "Mutual Consent Divorce: Step-by-Step Process 2025", date: "2025-12-15", category: "Family Law", author: "Adv. A. Sharma", tags: ["Divorce","Mutual Consent"], excerpt: "Fastest way to get divorce in India.", cover: "https://images.unsplash.com/photo-1573496358961-3c79f6a9f1e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>6-month cooling period, documents required...</p>" },
-    { id: "cyber-fraud-report", slug: "how-to-report-cyber-fraud-india", title: "Cyber Fraud: How to Report & Recover Money 2025", date: "2025-12-10", category: "Cyber Law", author: "Cyber Expert Amit V.", tags: ["Cyber Crime","Fraud"], excerpt: "Steps to file complaint and unfreeze bank account.", cover: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<p>Immediate actions after fraud...</p>" },
-    // ... (continue adding the remaining 16 high-search articles in the same format)
-    { id: "hindi-498a", slug: "498a-ki-fir-me-kya-kare-hindi", title: "498A की FIR हुई? तुरंत क्या करें — हिंदी गाइड", date: "2025-12-01", category: "आपराधिक कानून", author: "एडवोकेट प्रियंका दास", tags: ["498A","जमानत"], excerpt: "FIR दर्ज होने के बाद अग्रिम जमानत कैसे लें।", cover: "https://images.unsplash.com/photo-1593108548545-2f2d4c0d9e4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", content: "<div class='font-devanagari text-lg leading-relaxed'><h3>महत्वपूर्ण कदम</h3><p>तुरंत वकील से संपर्क करें...</p><p><a href='https://justicefirms.com/contact'>संपर्क करें</a></p></div>" }
-  ];
-
-  if (!localStorage.getItem(KEY)) {
-    localStorage.setItem(KEY, JSON.stringify(articles));
-  }
-
   function renderArticles(){
-    const filtered = articles;
+    let all = loadArticles();
+
+    // Simple search (you can enhance later)
+    if (currentQuery) {
+      all = all.filter(a => 
+        a.title.toLowerCase().includes(currentQuery.toLowerCase()) ||
+        a.excerpt.toLowerCase().includes(currentQuery.toLowerCase()) ||
+        (a.content || '').toLowerCase().includes(currentQuery.toLowerCase())
+      );
+    }
+
+    all.sort((a,b) => new Date(b.date) - new Date(a.date));
+
     const start = (currentPage - 1) * PAGE_SIZE;
-    const pageItems = filtered.slice(start, start + PAGE_SIZE);
+    const pageItems = all.slice(start, start + PAGE_SIZE);
 
     grid.innerHTML = '';
     pageItems.forEach(a => {
@@ -382,18 +360,25 @@
       node.querySelector('.excerpt').textContent = a.excerpt;
       node.querySelector('.date').textContent = new Date(a.date).toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'});
       node.querySelector('.readtime').textContent = '· ' + readTime(a.content) + ' min read';
-      node.querySelector('.readBtn').onclick = () => openArticle(a.id);
+      const readBtn = node.querySelector('.readBtn');
+      readBtn.onclick = () => openArticle(a.id);
       cover.onclick = () => openArticle(a.id);
       grid.appendChild(node);
     });
+
+    document.getElementById('pageInfo').textContent = `Showing \( {start + 1}- \){start + pageItems.length} of ${all.length}`;
+    document.getElementById('prevPage').disabled = currentPage <= 1;
+    document.getElementById('nextPage').disabled = (start + PAGE_SIZE) >= all.length;
   }
 
   function openArticle(id){
-    const a = articles.find(x => x.id === id);
-    if(!a) return;
-    document.getElementById('readerTitle').textContent = a.title;
-    document.getElementById('readerMeta').innerHTML = `${a.date} • ${a.category} • by ${a.author}`;
-    document.getElementById('readerContent').innerHTML = DOMPurify.sanitize(marked.parse(a.content));
+    const articles = loadArticles();
+    const article = articles.find(a => a.id === id);
+    if(!article) return;
+
+    document.getElementById('readerTitle').textContent = article.title;
+    document.getElementById('readerMeta').innerHTML = `${article.date} • ${article.category} • by ${article.author}`;
+    document.getElementById('readerContent').innerHTML = DOMPurify.sanitize(marked.parse(article.content));
     document.getElementById('reader').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
   }
@@ -403,12 +388,40 @@
     document.body.style.overflow = '';
   };
 
-  document.getElementById('loadMoreBtn').onclick = () => {
-    currentPage++;
-    renderArticles();
-  };
+  document.getElementById('prevPage').onclick = () => { if(currentPage > 1) { currentPage--; renderArticles(); } };
+  document.getElementById('nextPage').onclick = () => { currentPage++; renderArticles(); };
+  document.getElementById('loadMoreBtn').onclick = () => { currentPage++; renderArticles(); };
 
-  renderArticles();
+  // Load articles from articles.json
+  if (!localStorage.getItem(KEY)) {
+    fetch('/articles.json')
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(data => {
+        localStorage.setItem(KEY, JSON.stringify(data));
+        initApp();
+      })
+      .catch(() => {
+        // Fallback welcome article
+        const fallback = [{
+          id: "welcome",
+          title: "Welcome to JusticeFirms Journal",
+          date: "2025-12-26",
+          category: "Introduction",
+          author: "JusticeFirms Team",
+          excerpt: "Your trusted source for practical legal insights.",
+          content: "<h3>Welcome!</h3><p>We provide clear, actionable articles on Indian law.</p><p><a href='https://justicefirms.com/contact'>Contact us</a></p>",
+          cover: "https://images.unsplash.com/photo-1450101498861-cb244d0ab672?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+        }];
+        localStorage.setItem(KEY, JSON.stringify(fallback));
+        initApp();
+      });
+  } else {
+    initApp();
+  }
+
+  function initApp() {
+    renderArticles();
+  }
   </script>
 </body>
 </html>
