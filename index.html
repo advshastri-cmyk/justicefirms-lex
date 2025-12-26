@@ -52,15 +52,8 @@
     }
   </script>
 
-  <style>
-    :root{--gold:#D4AF37;--charcoal:#0B0C0E;--cream:#FDFDFB;--muted:#5F6368}
-    html,body{height:100%;margin:0;background:var(--cream);font-family:Inter,system-ui;color:var(--charcoal);-webkit-font-smoothing:antialiased;}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
-    .card:hover { transform: translateY(-12px); box-shadow: 0 25px 50px rgba(0,0,0,0.12); transition: all 0.4s ease; }
-    .hero-gradient { background: linear-gradient(180deg, rgba(11,12,14,0.85), rgba(11,12,14,0.70)); }
-  </style>
+  <link rel="stylesheet" href="/styles.css?v=10">
 
-  <link rel="stylesheet" href="/styles.css?v=9">
   <script src="https://unpkg.com/lunr/lunr.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
@@ -83,12 +76,12 @@
   </script>
 </head>
 
-<body class="antialiased bg-cream text-charcoal">
+<body class="antialiased bg-cream text-charcoal transition-colors duration-400">
 
   <a class="sr-only" href="#main">Skip to content</a>
 
-  <!-- Premium Header -->
-  <header class="bg-charcoal/95 backdrop-blur-lg fixed w-full z-50 border-b border-gold/10">
+  <!-- Premium Header with Dark Mode Toggle -->
+  <header class="bg-charcoal/95 backdrop-blur-lg fixed w-full z-50 border-b border-gold/10 transition-colors duration-400">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
       <a href="https://justicefirms.com" class="flex items-center gap-4">
         <div class="w-14 h-14 rounded-lg bg-gold/10 flex items-center justify-center border border-gold/30">
@@ -106,9 +99,21 @@
         <a href="https://justicefirms.com/contact" class="px-6 py-3 rounded-full bg-gold text-charcoal font-semibold hover:bg-deepgold transition">Book Consultation Now</a>
       </nav>
 
-      <button id="mobileMenuBtn" aria-expanded="false" class="md:hidden p-3 text-white">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
+      <div class="flex items-center gap-4">
+        <!-- Dark Mode Toggle -->
+        <button id="themeToggle" aria-label="Toggle dark mode" class="p-3 rounded-full bg-white/10 hover:bg-gold/20 text-white transition">
+          <svg id="sunIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+          <svg id="moonIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+        </button>
+
+        <button id="mobileMenuBtn" aria-expanded="false" class="md:hidden p-3 text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
     </div>
 
     <div id="mobileMenu" class="md:hidden hidden bg-charcoal/95 border-t border-gold/10">
@@ -122,7 +127,7 @@
 
   <!-- Hero Section -->
   <main id="main" class="pt-20">
-    <section class="hero-gradient min-h-screen flex items-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');">
+    <section class="hero-gradient min-h-screen flex items-center bg-cover bg-center transition-all duration-500" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');">
       <div class="max-w-7xl mx-auto px-6 lg:px-8 w-full text-center">
         <p class="text-gold uppercase tracking-widest text-sm mb-6">JUSTICEFIRMS JOURNAL</p>
         <h1 class="font-serif text-5xl md:text-7xl text-white leading-tight max-w-5xl mx-auto">
@@ -137,21 +142,21 @@
     </section>
 
     <!-- Topic Categories -->
-    <section id="categories" class="py-20 bg-cream">
+    <section id="categories" class="py-20 bg-cream transition-colors duration-400">
       <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-        <h2 class="font-serif text-4xl mb-12">Explore Common Legal Topics</h2>
+        <h2 class="font-serif text-4xl mb-12 text-charcoal dark:text-white">Explore Common Legal Topics</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition">
+          <div class="p-8 bg-white dark:bg-charcoal/50 rounded-2xl shadow-lg hover:shadow-2xl transition">
             <h3 class="font-serif text-2xl mb-4">Criminal Matters</h3>
             <p class="text-muted mb-6">Bail • Anticipatory Bail • FIR Quashing • NDPS • POCSO • Cyber Crimes</p>
             <a href="https://justicefirms.com/contact" class="text-gold font-semibold">Need Help? Contact Us →</a>
           </div>
-          <div class="p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition">
+          <div class="p-8 bg-white dark:bg-charcoal/50 rounded-2xl shadow-lg hover:shadow-2xl transition">
             <h3 class="font-serif text-2xl mb-4">Family Disputes</h3>
             <p class="text-muted mb-6">Domestic Violence • Maintenance • Divorce • Child Custody</p>
             <a href="https://justicefirms.com/contact" class="text-gold font-semibold">Need Help? Contact Us →</a>
           </div>
-          <div class="p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition">
+          <div class="p-8 bg-white dark:bg-charcoal/50 rounded-2xl shadow-lg hover:shadow-2xl transition">
             <h3 class="font-serif text-2xl mb-4">Civil & Other</h3>
             <p class="text-muted mb-6">Property • Writs • Service Matters • Section 482 CrPC</p>
             <a href="https://justicefirms.com/contact" class="text-gold font-semibold">Need Help? Contact Us →</a>
@@ -161,7 +166,7 @@
     </section>
 
     <!-- Search & Tags -->
-    <section class="py-16 bg-cream border-t border-b border-charcoal/5">
+    <section class="py-16 bg-cream dark:bg-charcoal/30 border-t border-b border-charcoal/5 dark:border-gold/10 transition-colors duration-400">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <div>
@@ -169,8 +174,8 @@
             <p class="mt-3 text-muted text-lg">Search articles by case, section, or issue</p>
           </div>
           <div class="flex flex-col sm:flex-row gap-4">
-            <input id="searchInput" type="search" placeholder="e.g., anticipatory bail, 498A, Section 482..." class="w-full sm:w-96 border border-charcoal/10 rounded-full px-6 py-4 focus:outline-none focus:border-gold" />
-            <a href="https://justicefirms.com/contact" class="px-8 py-4 rounded-full bg-charcoal text-gold font-semibold hover:bg-gold hover:text-charcoal transition">Speak to Advocate</a>
+            <input id="searchInput" type="search" placeholder="e.g., anticipatory bail, 498A, Section 482..." class="w-full sm:w-96 border border-charcoal/10 dark:border-gold/30 rounded-full px-6 py-4 focus:outline-none focus:border-gold bg-white dark:bg-charcoal/50 text-charcoal dark:text-white" />
+            <a href="https://justicefirms.com/contact" class="px-8 py-4 rounded-full bg-charcoal dark:bg-gold text-gold dark:text-charcoal font-semibold hover:bg-gold dark:hover:bg-deepgold hover:text-charcoal dark:hover:text-charcoal transition">Speak to Advocate</a>
           </div>
         </div>
         <div id="tagCloud" class="mt-10 flex flex-wrap gap-4"></div>
@@ -178,15 +183,15 @@
     </section>
 
     <!-- Articles Grid -->
-    <section id="articlesGridSection" class="py-20 bg-cream">
+    <section id="articlesGridSection" class="py-20 bg-cream dark:bg-charcoal transition-colors duration-400">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <h2 class="font-serif text-4xl text-center mb-12">Latest Practical Articles</h2>
+        <h2 class="font-serif text-4xl text-center mb-12 text-charcoal dark:text-white">Latest Practical Articles</h2>
         <div id="articlesGrid" class="grid gap-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
 
         <div class="mt-16 flex flex-col items-center gap-8">
           <div class="flex items-center gap-6">
-            <button id="prevPage" class="px-6 py-3 rounded-full border border-charcoal/20 hover:border-gold transition">Previous</button>
-            <button id="nextPage" class="px-6 py-3 rounded-full border border-charcoal/20 hover:border-gold transition">Next</button>
+            <button id="prevPage" class="px-6 py-3 rounded-full border border-charcoal/20 dark:border-gold/30 hover:border-gold transition">Previous</button>
+            <button id="nextPage" class="px-6 py-3 rounded-full border border-charcoal/20 dark:border-gold/30 hover:border-gold transition">Next</button>
             <span id="pageInfo" class="text-muted"></span>
           </div>
           <button id="loadMoreBtn" class="px-10 py-4 rounded-full bg-gold text-charcoal font-semibold hover:bg-deepgold transition">Load More Articles</button>
@@ -195,25 +200,25 @@
     </section>
 
     <!-- Experts Section -->
-    <section id="team" class="py-20 bg-charcoal text-white">
+    <section id="team" class="py-20 bg-charcoal text-white transition-colors duration-400">
       <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
         <h2 class="font-serif text-5xl mb-4 text-gold">Authored by Experienced Advocates at JusticeFirms</h2>
         <p class="text-white/80 max-w-3xl mx-auto mb-16">Real courtroom practitioners sharing knowledge to empower clients.</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div class="bg-white/5 rounded-2xl p-6">
-            <img src="https://images.unsplash.com/photo-1556157382-97eda2d9aa5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Adv. Rajesh Kumar" class="w-full h-96 object-cover rounded-xl mb-6">
+            <img src="https://images.unsplash.com/photo-1556157382-97eda2d9aa5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Adv. Rajesh Kumar" class="w-full h-96 object-cover object-top rounded-xl mb-6">
             <h3 class="font-serif text-2xl mb-2">Adv. Rajesh Kumar</h3>
             <p class="text-gold mb-4">Senior Advocate • Criminal Law Specialist</p>
             <p class="text-white/80">20+ years at Allahabad High Court</p>
           </div>
           <div class="bg-white/5 rounded-2xl p-6">
-            <img src="https://images.unsplash.com/photo-1573496358961-3c79f6a9f1e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Adv. Priyanka Sharma" class="w-full h-96 object-cover rounded-xl mb-6">
+            <img src="https://images.unsplash.com/photo-1573496358961-3c79f6a9f1e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Adv. Priyanka Sharma" class="w-full h-96 object-cover object-top rounded-xl mb-6">
             <h3 class="font-serif text-2xl mb-2">Adv. Priyanka Sharma</h3>
             <p class="text-gold mb-4">Family & Constitutional Law Expert</p>
             <p class="text-white/80">Specializing in DV, Maintenance & Divorce</p>
           </div>
           <div class="bg-white/5 rounded-2xl p-6">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Adv. Vikram Singh" class="w-full h-96 object-cover rounded-xl mb-6">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Adv. Vikram Singh" class="w-full h-96 object-cover object-top rounded-xl mb-6">
             <h3 class="font-serif text-2xl mb-2">Adv. Vikram Singh</h3>
             <p class="text-gold mb-4">Civil & Cyber Law Practitioner</p>
             <p class="text-white/80">Expert in IT Act & Property Disputes</p>
@@ -226,13 +231,13 @@
     </section>
 
     <!-- Newsletter -->
-    <section class="py-20 bg-cream">
+    <section class="py-20 bg-cream dark:bg-charcoal transition-colors duration-400">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="bg-charcoal rounded-3xl p-12 text-center text-white">
+        <div class="bg-charcoal dark:bg-white/5 rounded-3xl p-12 text-center text-white dark:text-white">
           <h3 class="font-serif text-4xl mb-6">Stay Ahead with Legal Updates</h3>
-          <p class="text-white/80 text-lg max-w-2xl mx-auto mb-10">Monthly practical guides, landmark judgments, and awareness tips — directly to your inbox.</p>
+          <p class="text-white/80 dark:text-white/80 text-lg max-w-2xl mx-auto mb-10">Monthly practical guides, landmark judgments, and awareness tips — directly to your inbox.</p>
           <form id="newsletterForm" class="flex flex-col sm:flex-row max-w-lg mx-auto gap-4">
-            <input id="newsletterEmail" type="email" required placeholder="your@email.com" class="flex-1 px-6 py-4 rounded-full text-charcoal" />
+            <input id="newsletterEmail" type="email" required placeholder="your@email.com" class="flex-1 px-6 py-4 rounded-full text-charcoal dark:text-white bg-white dark:bg-charcoal/50" />
             <button type="submit" class="px-8 py-4 rounded-full bg-gold text-charcoal font-semibold hover:bg-deepgold transition">Subscribe Now</button>
           </form>
         </div>
@@ -240,8 +245,8 @@
     </section>
   </main>
 
-  <!-- Footer with Disclaimer -->
-  <footer class="bg-charcoal text-white/70 py-12 border-t border-gold/10">
+  <!-- Footer -->
+  <footer class="bg-charcoal text-white/70 py-12 border-t border-gold/10 transition-colors duration-400">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
       <p class="mb-6">© 2025 JusticeFirms Journal • All rights reserved</p>
       <p class="text-sm max-w-4xl mx-auto leading-relaxed">
@@ -255,21 +260,21 @@
   </footer>
 
   <!-- Reader Modal -->
-  <div id="reader" class="fixed inset-0 z-50 hidden flex items-start justify-center p-4 bg-black/50 overflow-y-auto">
-    <div class="w-full max-w-4xl bg-white rounded-2xl shadow-2xl my-8">
-      <div class="p-6 border-b flex justify-between items-start">
+  <div id="reader" class="fixed inset-0 z-50 hidden flex items-start justify-center p-4 bg-black/50 overflow-y-auto transition-opacity duration-400">
+    <div class="w-full max-w-4xl bg-white dark:bg-charcoal rounded-2xl shadow-2xl my-8 transition-colors duration-400">
+      <div class="p-6 border-b dark:border-gold/20 flex justify-between items-start">
         <div>
-          <h2 id="readerTitle" class="font-serif text-3xl"></h2>
+          <h2 id="readerTitle" class="font-serif text-3xl text-charcoal dark:text-white"></h2>
           <p id="readerMeta" class="text-sm text-muted mt-2"></p>
         </div>
-        <button id="closeReaderBtn" class="text-2xl text-charcoal/60 hover:text-charcoal">&times;</button>
+        <button id="closeReaderBtn" class="text-2xl text-charcoal/60 dark:text-white/60 hover:text-charcoal dark:hover:text-white">&times;</button>
       </div>
-      <div id="readerContent" class="p-8 prose max-w-none"></div>
-      <div class="p-6 border-t bg-cream text-center">
+      <div id="readerContent" class="p-8 prose max-w-none text-charcoal dark:text-white"></div>
+      <div class="p-6 border-t dark:border-gold/20 bg-cream dark:bg-charcoal/50 text-center">
         <a href="https://justicefirms.com/contact" class="px-8 py-4 rounded-full bg-gold text-charcoal font-semibold hover:bg-deepgold transition inline-block">Book Consultation for Your Case</a>
       </div>
-      <div class="p-6 border-t">
-        <h3 class="font-serif text-xl mb-4 text-center">Related Articles</h3>
+      <div class="p-6 border-t dark:border-gold/20">
+        <h3 class="font-serif text-xl mb-4 text-center text-charcoal dark:text-white">Related Articles</h3>
         <div id="relatedList" class="grid gap-6 sm:grid-cols-2"></div>
       </div>
     </div>
@@ -277,16 +282,16 @@
 
   <!-- Card Template -->
   <template id="cardTemplate">
-    <article class="card bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col">
-      <div class="cover relative h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+    <article class="card bg-white dark:bg-charcoal/50 rounded-2xl shadow-lg overflow-hidden flex flex-col transition-all duration-400">
+      <div class="cover relative h-64 bg-cover bg-center">
         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent"></div>
       </div>
       <div class="p-6 flex flex-col flex-1">
         <div class="flex justify-between items-center mb-3">
-          <span class="tag text-gold text-xs uppercase tracking-wider">LEGAL INSIGHT</span>
+          <span class="tag text-xs uppercase tracking-wider">LEGAL INSIGHT</span>
           <span class="text-sm text-muted date"></span>
         </div>
-        <h3 class="font-serif text-xl title line-clamp-2 mt-2"></h3>
+        <h3 class="font-serif text-xl title line-clamp-2 mt-2 text-charcoal dark:text-white"></h3>
         <p class="text-sm text-muted excerpt mt-3 flex-1 line-clamp-3"></p>
         <div class="mt-6 flex justify-between items-center">
           <button class="readBtn text-gold font-semibold hover:underline">Read Article →</button>
@@ -296,10 +301,40 @@
     </article>
   </template>
 
-  <!-- Full JavaScript -->
+  <!-- Full JavaScript (including Dark Mode Toggle) -->
   <script>
   lucide.createIcons();
 
+  // Dark Mode Toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const sunIcon = document.getElementById('sunIcon');
+  const moonIcon = document.getElementById('moonIcon');
+  const html = document.documentElement;
+
+  if (localStorage.getItem('theme') === 'dark' || 
+      (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    html.classList.add('dark');
+    sunIcon.classList.remove('hidden');
+    moonIcon.classList.add('hidden');
+  } else {
+    sunIcon.classList.add('hidden');
+    moonIcon.classList.remove('hidden');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    html.classList.toggle('dark');
+    if (html.classList.contains('dark')) {
+      localStorage.setItem('theme', 'dark');
+      sunIcon.classList.remove('hidden');
+      moonIcon.classList.add('hidden');
+    } else {
+      localStorage.setItem('theme', 'light');
+      sunIcon.classList.add('hidden');
+      moonIcon.classList.remove('hidden');
+    }
+  });
+
+  // Rest of your blog script (articles, search, reader, etc.)
   const KEY = 'JF_BLOG_v1';
   const PAGE_SIZE = 6;
   let currentPage = 1;
@@ -310,7 +345,7 @@
 
   const uid = () => 'a' + Math.random().toString(36).slice(2,9);
   const readTime = txt => Math.max(1, Math.round((txt||'').split(/\s+/).length / 200));
-  function slugify(s){ if(!s) return ''; return s.toString().toLowerCase().trim().replace(/[\u2019\u2018\u201C\u201D]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
+  function slugify(s){ if(!s) return ''; return s.toLowerCase().trim().replace(/[\u2019\u2018\u201C\u201D]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
 
   function loadArticles(){ 
     try{ 
@@ -319,7 +354,7 @@
       const arr = JSON.parse(raw); 
       arr.forEach(a=>{ if(!a.slug) a.slug = slugify(a.title||a.id); }); 
       return arr; 
-    } catch(e){ console.warn(e); return []; } 
+    } catch(e){ return []; } 
   }
   function saveArticles(list){ 
     list.forEach(a=>{ if(!a.slug) a.slug = slugify(a.title||a.id); }); 
@@ -351,7 +386,7 @@
       }); 
       lunrDocs = {}; 
       docs.forEach(d=> lunrDocs[d.id]=d); 
-    } catch(e){ lunrIndex=null; console.warn('Lunr failed', e); } 
+    } catch(e){ lunrIndex=null; } 
   }
 
   const grid = document.getElementById('articlesGrid');
@@ -364,8 +399,7 @@
     if(currentQuery && lunrIndex){
       try{
         const results = lunrIndex.search(currentQuery + '*');
-        const ids = results.map(r=>r.ref);
-        filtered = ids.map(id => lunrDocs[id]).filter(Boolean);
+        filtered = results.map(r=>lunrDocs[r.ref]).filter(Boolean);
       } catch(e){
         filtered = all.filter(a => (a.title + ' ' + a.excerpt + ' ' + (a.content||'')).toLowerCase().includes(currentQuery.toLowerCase()));
       }
@@ -422,7 +456,7 @@
     cloud.innerHTML = '';
     Object.keys(map).sort((a,b) => map[b] - map[a]).forEach(k => {
       const btn = document.createElement('button');
-      btn.className = 'px-4 py-2 rounded-full border border-charcoal/20 hover:border-gold hover:bg-gold/5 transition text-sm';
+      btn.className = 'px-4 py-2 rounded-full border border-charcoal/20 dark:border-gold/30 hover:border-gold hover:bg-gold/10 dark:hover:bg-gold/20 transition text-sm';
       btn.textContent = `\( {k} ( \){map[k]})`;
       btn.onclick = () => {
         currentTag = k;
@@ -434,13 +468,6 @@
       };
       cloud.appendChild(btn);
     });
-    if(Object.keys(map).length > 0){
-      const clear = document.createElement('button');
-      clear.className = 'px-4 py-2 rounded-full border border-charcoal/20 hover:border-gold transition text-sm ml-2';
-      clear.textContent = 'Clear';
-      clear.onclick = () => { currentTag = ''; renderArticles(true); highlightActiveTag(''); };
-      cloud.appendChild(clear);
-    }
   }
 
   function highlightActiveTag(tag){
@@ -461,13 +488,11 @@
     }, 350);
   });
 
-  document.getElementById('prevPage').addEventListener('click', () => {
-    if(currentPage > 1){ currentPage--; renderArticles(true); window.scrollTo({top: 400, behavior: 'smooth'}); }
-  });
-  document.getElementById('nextPage').addEventListener('click', () => {
-    if(currentPage < Math.ceil(loadArticles().length / PAGE_SIZE)){ currentPage++; renderArticles(true); window.scrollTo({top: 400, behavior: 'smooth'}); }
-  });
-  document.getElementById('loadMoreBtn').addEventListener('click', () => { currentPage++; renderArticles(true); });
+  document.getElementById('prevPage').addEventListener('click', () => { if(currentPage > 1){ currentPage--; renderArticles(true); scrollToArticles(); } });
+  document.getElementById('nextPage').addEventListener('click', () => { currentPage++; renderArticles(true); scrollToArticles(); });
+  document.getElementById('loadMoreBtn').addEventListener('click', () => { currentPage++; renderArticles(true); scrollToArticles(); });
+
+  function scrollToArticles() { window.scrollTo({top: document.getElementById('articlesGridSection').offsetTop - 100, behavior: 'smooth'}); }
 
   function pushListState(){
     const params = new URLSearchParams();
@@ -512,7 +537,6 @@
     reader.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 
-    // Related articles
     relatedList.innerHTML = '';
     const related = articles
       .filter(a => a.id !== article.id && (a.tags || []).some(t => (article.tags || []).includes(t)))
@@ -522,8 +546,8 @@
     } else {
       related.forEach(r => {
         const div = document.createElement('div');
-        div.className = 'p-4 border rounded-lg hover:bg-gray-50 cursor-pointer';
-        div.innerHTML = `<h4 class="font-semibold">\( {r.title}</h4><p class="text-sm text-muted mt-2"> \){r.excerpt || ''}</p>`;
+        div.className = 'p-4 border rounded-lg hover:bg-cream dark:hover:bg-charcoal/30 cursor-pointer transition';
+        div.innerHTML = `<h4 class="font-semibold text-charcoal dark:text-white">\( {r.title}</h4><p class="text-sm text-muted mt-2"> \){r.excerpt || ''}</p>`;
         div.onclick = () => openArticle(r.id || r.slug);
         relatedList.appendChild(div);
       });
@@ -539,20 +563,13 @@
   closeReaderBtn.addEventListener('click', closeReader);
   reader.addEventListener('click', e => { if(e.target === reader) closeReader(); });
 
-  // Mobile menu
   document.getElementById('mobileMenuBtn').addEventListener('click', () => {
     document.getElementById('mobileMenu').classList.toggle('hidden');
-    const expanded = document.getElementById('mobileMenuBtn').getAttribute('aria-expanded') === 'true';
-    document.getElementById('mobileMenuBtn').setAttribute('aria-expanded', !expanded);
   });
 
-  // Newsletter
   document.getElementById('newsletterForm').addEventListener('submit', e => {
     e.preventDefault();
-    const email = document.getElementById('newsletterEmail').value.trim();
-    if(!email) return;
-    // Replace with your actual form endpoint
-    alert('Thank you for subscribing! Check your email.');
+    alert('Thank you for subscribing!');
     e.target.reset();
   });
 
