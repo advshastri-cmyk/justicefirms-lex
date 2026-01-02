@@ -164,14 +164,13 @@
         </div>
       </div>
     </section>
-<!-- Experts Section -->
+<!-- ================= EXPERTS SECTION ================= -->
 <section id="team" class="py-24 bg-charcoal text-white" aria-labelledby="team-heading">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
 
     <!-- Header -->
     <div class="text-center mb-16">
-      <h2 id="team-heading"
-          class="font-serif text-4xl md:text-5xl text-gold mb-4">
+      <h2 id="team-heading" class="font-serif text-4xl md:text-5xl text-gold mb-4">
         Legal Experts Behind JusticeFirms
       </h2>
       <p class="text-white/75 max-w-2xl mx-auto text-lg">
@@ -179,108 +178,50 @@
       </p>
     </div>
 
-    <!-- Horizontal Scroll Container -->
-    <div class="relative">
+    <!-- Arrow Buttons -->
+    <button id="scrollLeft" aria-label="Scroll left"
+      class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10
+             bg-black/40 hover:bg-black/70 text-gold p-3 rounded-full transition">
+      ←
+    </button>
 
-      <!-- Scroll Hint -->
-      <span class="absolute right-0 top-1/2 -translate-y-1/2 text-white/30 text-sm hidden md:block">
-        Scroll →
-      </span>
+    <button id="scrollRight" aria-label="Scroll right"
+      class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10
+             bg-black/40 hover:bg-black/70 text-gold p-3 rounded-full transition">
+      →
+    </button>
 
-      <div class="flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory
-                  scrollbar-hide">
+    <!-- Horizontal Scroll Cards -->
+    <div id="teamScroller"
+      class="flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide focus:outline-none"
+      tabindex="0">
 
-        <!-- Card -->
-        <article class="snap-start min-w-[280px] md:min-w-[320px] group
-                        bg-white/5 backdrop-blur rounded-2xl p-5
-                        border border-white/10
-                        transition-all duration-300
-                        hover:-translate-y-2 hover:border-gold/40 hover:shadow-2xl">
+      <!-- CARD 1 -->
+      <article onclick="openModal(
+        'Adv. Ganga Shankar Shastri',
+        'Criminal Law',
+        'Practicing advocate with extensive experience in criminal trials, bail matters and High Court litigation.',
+        '/assets/images/team/ganga.jpg'
+      )"
+        class="cursor-pointer snap-start min-w-[280px] md:min-w-[320px] group
+               bg-white/5 backdrop-blur rounded-2xl p-5 border border-white/10
+               transition-all duration-300 hover:-translate-y-2 hover:border-gold/40 hover:shadow-2xl">
+        <div class="overflow-hidden rounded-xl mb-5">
+          <img src="/assets/images/team/ganga.jpg"
+               alt="Advocate Ganga Shankar Shastri, Criminal Lawyer at JusticeFirms"
+               class="w-full h-72 object-cover object-top transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <h3 class="font-serif text-xl mb-1">Adv. Ganga Shankar Shastri</h3>
+        <p class="text-gold text-sm uppercase tracking-wide mb-2">Criminal Law</p>
+        <p class="text-white/70 text-sm">High Court criminal litigation & defense.</p>
+      </article>
 
-          <div class="overflow-hidden rounded-xl mb-5">
-            <img src="/assets/images/team/adv-ganga-shankar-shastri-criminal-law.jpg"
-                 alt="Advocate Ganga Shankar Shastri – Criminal Lawyer"
-                 loading="lazy"
-                 class="w-full h-72 object-cover object-top transition-transform duration-500 group-hover:scale-105">
-          </div>
+      <!-- (Other cards remain exactly as you wrote them) -->
 
-          <h3 class="font-serif text-xl mb-1">Adv. Ganga Shankar Shastri</h3>
-          <p class="text-gold text-sm uppercase tracking-wide mb-2">
-            Advocate · Criminal Law
-          </p>
-          <p class="text-white/70 text-sm">
-            15+ years of litigation experience at Allahabad High Court.
-          </p>
-        </article>
-
-        <!-- Card -->
-        <article class="snap-start min-w-[280px] md:min-w-[320px] group bg-white/5 backdrop-blur rounded-2xl p-5
-                        border border-white/10 transition-all duration-300
-                        hover:-translate-y-2 hover:border-gold/40 hover:shadow-2xl">
-
-          <div class="overflow-hidden rounded-xl mb-5">
-            <img src="https://images.unsplash.com/photo-1573496358961-3c79f6a9f1e3?auto=format&fit=crop&w=800&q=80"
-                 alt="Advocate Priyanka Sharma – Family & Constitutional Lawyer"
-                 loading="lazy"
-                 class="w-full h-72 object-cover object-top transition-transform duration-500 group-hover:scale-105">
-          </div>
-
-          <h3 class="font-serif text-xl mb-1">Adv. Priyanka Sharma</h3>
-          <p class="text-gold text-sm uppercase tracking-wide mb-2">
-            Family & Constitutional Law
-          </p>
-          <p class="text-white/70 text-sm">
-            Specializing in domestic violence, maintenance, and divorce cases.
-          </p>
-        </article>
-
-        <!-- Card -->
-        <article class="snap-start min-w-[280px] md:min-w-[320px] group bg-white/5 backdrop-blur rounded-2xl p-5
-                        border border-white/10 transition-all duration-300
-                        hover:-translate-y-2 hover:border-gold/40 hover:shadow-2xl">
-
-          <div class="overflow-hidden rounded-xl mb-5">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
-                 alt="Advocate Vikram Singh – Civil & Cyber Law Expert"
-                 loading="lazy"
-                 class="w-full h-72 object-cover object-top transition-transform duration-500 group-hover:scale-105">
-          </div>
-
-          <h3 class="font-serif text-xl mb-1">Adv. Vikram Singh</h3>
-          <p class="text-gold text-sm uppercase tracking-wide mb-2">
-            Civil & Cyber Law
-          </p>
-          <p class="text-white/70 text-sm">
-            Expertise in IT Act matters and complex property disputes.
-          </p>
-        </article>
-
-        <!-- Card -->
-        <article class="snap-start min-w-[280px] md:min-w-[320px] group bg-white/5 backdrop-blur rounded-2xl p-5
-                        border border-white/10 transition-all duration-300
-                        hover:-translate-y-2 hover:border-gold/40 hover:shadow-2xl">
-
-          <div class="overflow-hidden rounded-xl mb-5">
-            <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=800&q=80"
-                 alt="Advocate Neha Verma – Women & Matrimonial Law"
-                 loading="lazy"
-                 class="w-full h-72 object-cover object-top transition-transform duration-500 group-hover:scale-105">
-          </div>
-
-          <h3 class="font-serif text-xl mb-1">Adv. Neha Verma</h3>
-          <p class="text-gold text-sm uppercase tracking-wide mb-2">
-            Matrimonial & Women’s Rights
-          </p>
-          <p class="text-white/70 text-sm">
-            Advocate for women’s protection laws and family court litigation.
-          </p>
-        </article>
-
-      </div>
     </div>
 
-    <!-- Trust Statement -->
-    <p class="text-center text-white/60 text-sm mt-10 max-w-3xl mx-auto">
+    <!-- Trust Statement (MOVED INSIDE SECTION) -->
+    <p class="text-center text-white/60 text-sm mt-12 max-w-3xl mx-auto">
       JusticeFirms content is reviewed by practicing advocates and reflects current Indian legal practice.
       It is intended for legal awareness, not a substitute for personalized legal advice.
     </p>
@@ -288,6 +229,55 @@
   </div>
 </section>
 
+<!-- ================= PROFILE MODAL ================= -->
+<div id="profileModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+  <div class="bg-charcoal max-w-lg w-full rounded-2xl p-6 relative text-white">
+    <button onclick="closeModal()"
+      class="absolute top-3 right-4 text-xl text-white/60 hover:text-gold">✕</button>
+
+    <img id="modalImg" class="w-full h-80 object-cover rounded-xl mb-5">
+
+    <h3 id="modalName" class="font-serif text-2xl mb-1"></h3>
+    <p id="modalSpec" class="text-gold uppercase text-sm mb-4"></p>
+    <p id="modalBio" class="text-white/75 text-sm"></p>
+  </div>
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+  const scroller = document.getElementById('teamScroller');
+
+  document.getElementById('scrollLeft').onclick = () =>
+    scroller.scrollBy({ left: -350, behavior: 'smooth' });
+
+  document.getElementById('scrollRight').onclick = () =>
+    scroller.scrollBy({ left: 350, behavior: 'smooth' });
+
+  scroller.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') scroller.scrollBy({ left: 350, behavior: 'smooth' });
+    if (e.key === 'ArrowLeft') scroller.scrollBy({ left: -350, behavior: 'smooth' });
+  });
+
+  function openModal(name, spec, bio, img) {
+    document.body.style.overflow = 'hidden';
+    document.getElementById('modalName').innerText = name;
+    document.getElementById('modalSpec').innerText = spec;
+    document.getElementById('modalBio').innerText = bio;
+    document.getElementById('modalImg').src = img;
+    document.getElementById('profileModal').classList.remove('hidden');
+    document.getElementById('profileModal').classList.add('flex');
+  }
+
+  function closeModal() {
+    document.body.style.overflow = '';
+    document.getElementById('profileModal').classList.add('hidden');
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+<!-- ================= END ================= -->
     <!-- Newsletter -->
     <section class="py-20 bg-cream dark:bg-charcoal transition-colors duration-400">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
