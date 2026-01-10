@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Offline | JusticeFirms Journal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0B0C0E">
+
+<style>
+  :root {
+    --gold: #D4AF37;
+    --gold-dark: #B89A2E;
+    --charcoal: #0B0C0E;
+    --cream: #FDFDFB;
+    --muted: #9CA3AF;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    height: 100vh;
+    font-family: Inter, system-ui, sans-serif;
+    background: linear-gradient(135deg, #0B0C0E, #020617);
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .card {
+    max-width: 460px;
+    padding: 44px 36px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  }
+
+  .icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .btn {
+    padding: 12px 22px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s;
+  }
+
+  .btn-retry {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--charcoal);
+  }
+
+  .btn-retry:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(212,175,55,0.3);
+  }
+
+  .btn-whatsapp {
+    background: #25D366;
+    color: #ffffff;
+  }
+
+  .btn-whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(37,211,102,0.3);
+  }
+
+  .brand {
+    margin-top: 28px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="icon">📡</div>
+    <h1>You’re Offline</h1>
+    <p>
+      Your internet connection is currently unavailable.<br>
+      JusticeFirms Journal will resume once connectivity is restored.
+    </p>
+
+    <div class="buttons">
+      <button class="btn btn-retry" onclick="location.reload()">Retry</button>
+
+      <!-- Replace number below with your WhatsApp -->
+      <a
+        class="btn btn-whatsapp"
+        href="https://wa.me/9454183793?text=Hello%20JusticeFirms,%20I%20need%20legal%20assistance."
+        target="_blank"
+        rel="noopener"
+      >
+        WhatsApp Us
+      </a>
+    </div>
+
+    <div class="brand">
+      ⚖ JusticeFirms Journal — Practical Insights on Indian Law
+    </div>
+  </div>
+
+<script>
+  /* Auto reload when internet comes back */
+  window.addEventListener('online', () => {
+    location.reload();
+  });
+</script>
+
+</body>
+</html>
