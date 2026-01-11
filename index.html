@@ -1239,7 +1239,7 @@
         </div>
       </div>
     </section>
-<!-- Articles -->
+    
 <section id="articles" class="articles">
   <div class="container">
 
@@ -1251,19 +1251,11 @@
       </p>
     </div>
 
-    <div class="articles-grid" id="articlesGrid">
-      <p style="text-align:center;color:var(--muted);grid-column:1/-1;padding:40px 0;">
-        Loading articles...
-      </p>
-    </div>
+    <div class="articles-grid" id="articlesGrid"></div>
 
-    <!-- Load More (ONLY ONE) -->
-    <div class="load-more-wrap">
-      <button class="btn-load-more" id="loadMoreBtn" aria-label="Load more legal articles">
+    <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+      <button class="btn-load-more" id="loadMoreBtn">
         Load More Articles
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
       </button>
     </div>
 
@@ -1507,106 +1499,80 @@
   }
 </script>
 <script>
+let allArticles = [];
+let visibleCount = 0;
+const PER_PAGE = 6;
+
 async function loadArticles() {
   const grid = document.getElementById('articlesGrid');
   if (!grid) return;
 
-  // Show premium skeleton loading
-  grid.innerHTML = `
-    <div class="loading-skeleton">
-      ${Array(6).fill().map(() => `
-        <div class="skeleton-card">
-          <div class="skeleton-image"></div>
-          <div class="skeleton-text">
-            <div class="skeleton-line short"></div>
-            <div class="skeleton-line"></div>
-            <div class="skeleton-line medium"></div>
-          </div>
-        </div>
-      `).join('')}
-    </div>
-  `;
+  grid.innerHTML =
+    '<p style="grid-column:1/-1;text-align:center;color:#888">Loading articles...</p>';
 
   try {
-    const response = await fetch('/articles.json', {
-      cache: 'no-cache',
-      headers: { 'Accept': 'application/json' }
-    });
+    const res = await fetch('./articles.json');
+    const data = await res.json();
 
-    if (!response.ok) {
-      throw new Error(`Articles load failed — ${response.status}`);
-    }
-
-    const { articles } = await response.json();
-
-    // Clear skeleton
+    allArticles = data.articles || [];
     grid.innerHTML = '';
+    renderArticles();
+    enableSearch();
 
-    articles.forEach((article, index) => {
-      const card = document.createElement('article');
-      card.className = 'article-card premium-card';
-      card.style.animationDelay = `${index * 80}ms`;
-
-      const featuredBadge = article.featured 
-        ? '<span class="featured-badge">Featured</span>' 
-        : '';
-
-      card.innerHTML = `
-        ${featuredBadge}
-        <span class="article-category">${article.category?.primary || 'General'}</span>
-        
-        <h3 class="article-title">${article.title}</h3>
-        
-        <p class="article-excerpt">${article.excerpt || 'Read this important legal insight...'}</p>
-        
-        <div class="article-meta">
-          <div class="meta-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <span>${article.author?.name || 'Justice Team'}</span>
-          </div>
-          
-          <div class="meta-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <path d="M12 6v6l4 2"></path>
-            </svg>
-            <span>${article.reading_time || '5 min read'}</span>
-          </div>
-        </div>
-      `;
-
-      card.style.cursor = 'pointer';
-      card.addEventListener('click', () => {
-        window.location.href = `/${article.slug}.html`;  // ← FIXED: .html added here
-      });
-
-      grid.appendChild(card);
-    });
-
-    // Show "Load More" button if needed
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
-    if (loadMoreBtn && articles.length > 6) {
-      loadMoreBtn.style.display = 'inline-flex';
-    }
-
-  } catch (error) {
-    console.error('Error loading articles:', error);
-
-    grid.innerHTML = `
-      <div class="error-message">
-        <div class="error-icon">⚠</div>
-        <h3>Unable to load articles</h3>
-        <p>Please check your connection or try again later.<br>
-        You can also <a href="/contact" class="contact-link">contact us</a> for assistance.</p>
-      </div>
-    `;
+  } catch (err) {
+    console.error(err);
+    grid.innerHTML =
+      '<p style="grid-column:1/-1;text-align:center;color:red">Unable to load articles</p>';
   }
 }
 
-// Start loading when page is ready
+function renderArticles() {
+  const grid = document.getElementById('articlesGrid');
+  const slice = allArticles.slice(visibleCount, visibleCount + PER_PAGE);
+
+  slice.forEach(article => {
+    const card = document.createElement('article');
+    card.className = 'article-card';
+    card.innerHTML = `
+      <span class="article-category">${article.category?.primary || ''}</span>
+      <h3>${article.title}</h3>
+      <p class="article-excerpt">${article.excerpt || ''}</p>
+      <div class="article-meta">
+        <span>${article.author?.name || ''}</span>
+        <span>${article.reading_time || ''}</span>
+      </div>
+    `;
+    card.onclick = () => {
+      window.location.href = './' + article.slug + '.html';
+    };
+    grid.appendChild(card);
+  });
+
+  visibleCount += slice.length;
+
+  const btnWrap = document.getElementById('loadMoreWrap');
+  if (btnWrap) {
+    btnWrap.style.display =
+      visibleCount < allArticles.length ? 'block' : 'none';
+  }
+}
+
+document.getElementById('loadMoreBtn')?.addEventListener('click', renderArticles);
+
+function enableSearch() {
+  const input = document.getElementById('searchInput');
+  if (!input) return;
+
+  input.addEventListener('input', () => {
+    const q = input.value.toLowerCase();
+    document.querySelectorAll('.article-card').forEach(card => {
+      card.style.display = card.innerText.toLowerCase().includes(q)
+        ? 'flex'
+        : 'none';
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', loadArticles);
 </script>
 </body>
