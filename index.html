@@ -1503,7 +1503,7 @@ async function loadArticles() {
     '<p style="grid-column:1/-1;text-align:center;color:#888">Loading articles...</p>';
 
   try {
-    const res = await fetch('./articles.json');
+    const res = await fetch('articles.json');
     const data = await res.json();
 
     allArticles = data.articles || [];
