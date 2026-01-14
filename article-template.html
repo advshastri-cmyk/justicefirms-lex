@@ -116,57 +116,93 @@
 
 <script>
 async function loadArticle() {
-  const slug = location.pathname.split('/').filter(Boolean).pop();
-  const res = await fetch('/articles.json');
-  const data = await res.json();
-  const article = data.articles.find(a => a.slug === slug);
+  try {
+    // 1. Get Slug from URL (Handles both 'slug' and 'slug.html')
+    let path = window.location.pathname.split('/').pop();
+    let slug = path.replace('.html', ''); 
 
-  if (!article) {
-    document.getElementById('article-title').innerText = 'Article Not Found';
-    return;
-  }
-
-  document.title = article.title + ' — JusticeFirms Journal';
-  meta('meta-description', article.excerpt);
-  meta('meta-canonical', location.href);
-  meta('og-title', article.title);
-  meta('og-description', article.excerpt);
-  meta('og-url', location.href);
-  meta('og-image', article.cover);
-  meta('tw-title', article.title);
-  meta('tw-description', article.excerpt);
-  meta('tw-image', article.cover);
-
-  document.getElementById('article-title').innerText = article.title;
-  document.getElementById('article-date').innerText = article.published_at;
-  document.getElementById('article-category').innerText = article.category.primary;
-  document.getElementById('article-author').innerText = article.author.name;
-  document.getElementById('article-cover').src = article.cover;
-  document.getElementById('article-content').innerHTML = article.content;
-
-  document.getElementById('jsonld').textContent = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": article.title,
-    "description": article.excerpt,
-    "image": article.cover,
-    "datePublished": article.published_at,
-    "author": { "@type": "Organization", "name": "JusticeFirms" },
-    "publisher": {
-      "@type": "Organization",
-      "name": "JusticeFirms",
-      "logo": { "@type": "ImageObject", "url": "https://justicefirms.com/logo.png" }
+    // Agar home page par galti se template khul jaye
+    if (!slug || slug === 'index' || slug === 'article-template') {
+       // Optional: Redirect to home or show error
+       document.getElementById('article-title').innerText = 'Please select an article from the home page.';
+       return;
     }
-  });
+
+    const res = await fetch('/articles.json');
+    if (!res.ok) throw new Error('JSON load nahi ho saka');
+    
+    const data = await res.json();
+    const article = data.articles.find(a => a.slug === slug);
+
+    if (!article) {
+      document.getElementById('article-title').innerText = 'Article Not Found';
+      document.getElementById('article-content').innerHTML = '<p>The requested legal guide could not be located. <a href="/" class="text-gold">Return to Journal</a></p>';
+      return;
+    }
+
+    // 2. SEO & Meta Updates
+    document.title = article.title + ' — JusticeFirms Journal';
+    updateMeta('meta-description', article.excerpt);
+    updateMeta('meta-canonical', window.location.href);
+    updateMeta('og-title', article.title);
+    updateMeta('og-description', article.excerpt);
+    updateMeta('og-url', window.location.href);
+    updateMeta('og-image', article.cover);
+    updateMeta('tw-title', article.title);
+    updateMeta('tw-description', article.excerpt);
+    updateMeta('tw-image', article.cover);
+
+    // 3. UI Content Updates
+    document.getElementById('article-title').innerText = article.title;
+    document.getElementById('article-date').innerText = new Date(article.published_at).toLocaleDateString('en-IN', {
+        year: 'numeric', month: 'long', day: 'numeric'
+    });
+    document.getElementById('article-category').innerText = article.category.primary;
+    document.getElementById('article-author').innerText = article.author.name;
+    document.getElementById('article-cover').src = article.cover;
+    document.getElementById('article-content').innerHTML = article.content;
+
+    // 4. Schema.org JSON-LD (For Google Search)
+    document.getElementById('jsonld').textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LegalArticle",
+      "headline": article.title,
+      "description": article.excerpt,
+      "image": article.cover,
+      "datePublished": article.published_at,
+      "author": { "@type": "Person", "name": article.author.name },
+      "publisher": {
+        "@type": "Organization",
+        "name": "JusticeFirms",
+        "logo": { "@type": "ImageObject", "url": "https://justicefirms.com/logo.png" }
+      }
+    });
+
+  } catch (err) {
+    console.error("Article Loading Error:", err);
+  }
 }
 
-function meta(id, val) {
+// Fixed Meta helper
+function updateMeta(id, val) {
   const el = document.getElementById(id);
-  if (el) el.setAttribute(el.tagName === 'LINK' ? 'href' : 'content', val);
+  if (el) {
+    if (el.tagName === 'LINK') {
+      el.setAttribute('href', val);
+    } else {
+      el.setAttribute('content', val);
+    }
+  }
 }
 
 loadArticle();
-</script>
 
+// Dark Mode Toggle Logic
+const btn = document.getElementById('themeToggle');
+btn.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  btn.innerText = document.body.classList.contains('dark') ? '☀️' : '🌙';
+});
+</script>
 </body>
 </html>
