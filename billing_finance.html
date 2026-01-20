@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retainer & Finance — JusticeFirms</title>
+    <meta name="description" content="Secure billing portal, retainer management, and invoice history for JusticeFirms clients." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Palette: Midnight Luxury */
+            --bg-body: #020617;
+            --bg-sidebar: #0f172a;
+            --bg-card: #1e293b;
+            --bg-panel: #0b101a;
+            
+            --primary: #ffffff;
+            --secondary: #94a3b8;
+            
+            --accent-gold: #d4af37;
+            --accent-tech: #38bdf8;
+            --accent-success: #10b981;
+            --accent-danger: #ef4444;
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        html.light-mode {
+            --bg-body: #f8fafc;
+            --bg-sidebar: #e2e8f0;
+            --bg-card: #ffffff;
+            --bg-panel: #f1f5f9;
+            --primary: #0f172a;
+            --secondary: #64748b;
+            --border-color: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-family: var(--font-sans);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            transition: background 0.3s ease;
+        }
+
+        /* --- Layout --- */
+        .layout-container {
+            display: grid; grid-template-columns: 260px 1fr;
+            width: 100%; height: 100%;
+        }
+
+        /* --- Sidebar (Consistent) --- */
+        .app-sidebar {
+            background: var(--bg-sidebar); border-right: 1px solid var(--border-color);
+            display: flex; flex-direction: column; z-index: 10;
+        }
+        .sidebar-header {
+            height: 80px; padding: 0 24px; display: flex; align-items: center; gap: 10px;
+            border-bottom: 1px solid var(--border-color); font-weight: 600; font-size: 1.1rem;
+        }
+        .nav-menu { padding: 24px 16px; flex-grow: 1; }
+        .nav-item {
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+            color: var(--secondary); text-decoration: none; border-radius: 6px;
+            margin-bottom: 4px; transition: 0.2s; font-size: 0.9rem;
+        }
+        .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.05); color: var(--primary); }
+        .nav-item.active { border-left: 3px solid var(--accent-gold); border-radius: 0 6px 6px 0; background: linear-gradient(90deg, rgba(212, 175, 55, 0.1), transparent); }
+
+        /* --- Main Content --- */
+        .main-content {
+            background: var(--bg-panel); display: flex; flex-direction: column; overflow-y: auto;
+        }
+
+        .header-bar {
+            height: 80px; padding: 0 40px; border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between;
+            background: var(--bg-body); position: sticky; top: 0; z-index: 5;
+        }
+        .page-title { font-size: 1.25rem; font-weight: 600; display: flex; align-items: center; gap: 12px; }
+        
+        .content-area { padding: 40px; max-width: 1200px; width: 100%; margin: 0 auto; }
+
+        /* --- Retainer Visuals --- */
+        .balance-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border: 1px solid var(--border-color); border-radius: 12px;
+            padding: 40px; margin-bottom: 40px; position: relative; overflow: hidden;
+        }
+        .balance-card::after {
+            content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.02));
+            pointer-events: none;
+        }
+
+        .bal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+        .bal-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); }
+        .bal-amount { font-size: 3.5rem; font-family: var(--font-mono); font-weight: 500; color: var(--primary); line-height: 1; margin-top: 8px; }
+        
+        .progress-track {
+            width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px;
+            overflow: hidden; margin-bottom: 16px;
+        }
+        .progress-fill {
+            height: 100%; background: var(--accent-success); width: 65%;
+            border-radius: 4px; transition: width 1s ease;
+        }
+        .progress-warning { background: var(--accent-gold); }
+        .progress-critical { background: var(--accent-danger); }
+
+        .btn-topup {
+            padding: 12px 24px; background: var(--accent-gold); color: #000;
+            border: none; border-radius: 4px; font-weight: 600; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+        }
+        .btn-topup:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2); }
+
+        /* --- Invoice Table --- */
+        .table-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
+        .section-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        
+        .inv-table { width: 100%; border-collapse: collapse; }
+        .inv-table th { 
+            text-align: left; padding: 16px 24px; font-size: 0.75rem; 
+            text-transform: uppercase; color: var(--secondary); letter-spacing: 0.05em;
+            background: rgba(0,0,0,0.1); border-bottom: 1px solid var(--border-color);
+        }
+        .inv-table td { padding: 20px 24px; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
+        .inv-table tr:last-child td { border-bottom: none; }
+        .inv-table tr:hover { background: rgba(255,255,255,0.02); }
+
+        .status-badge {
+            display: inline-block; padding: 4px 10px; border-radius: 100px;
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;
+        }
+        .st-paid { background: rgba(16, 185, 129, 0.1); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .st-pending { background: rgba(212, 175, 55, 0.1); color: var(--accent-gold); border: 1px solid rgba(212, 175, 55, 0.2); }
+
+        .action-link { color: var(--accent-tech); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s; font-size: 0.85rem; }
+        .action-link:hover { text-decoration: underline; }
+
+        /* --- Modals / Panels --- */
+        .crypto-options {
+            display: flex; gap: 12px; margin-top: 24px;
+        }
+        .crypto-pill {
+            display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+            border: 1px solid var(--border-color); border-radius: 100px;
+            color: var(--secondary); font-size: 0.8rem; cursor: pointer; transition: 0.2s;
+        }
+        .crypto-pill:hover { border-color: var(--accent-tech); color: var(--accent-tech); background: rgba(56, 189, 248, 0.05); }
+
+        @media (max-width: 900px) {
+            .layout-container { grid-template-columns: 1fr; }
+            .app-sidebar { display: none; }
+            .bal-header { flex-direction: column; gap: 16px; }
+            .inv-table { display: block; overflow-x: auto; white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="layout-container">
+        
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <i data-lucide="scale" color="var(--accent-gold)"></i> JusticeFirms
+            </div>
+            <nav class="nav-menu">
+                <a href="client_dashboard.html" class="nav-item"><i data-lucide="layout-dashboard" size="18"></i> Dashboard</a>
+                <a href="secure_chat.html" class="nav-item"><i data-lucide="message-square-dashed" size="18"></i> Secure Comms</a>
+                <a href="#" class="nav-item active"><i data-lucide="receipt" size="18"></i> Retainer & Billing</a>
+                <a href="consultation.html" class="nav-item"><i data-lucide="calendar-plus" size="18"></i> Book Consultation</a>
+            </nav>
+        </aside>
+
+        <!-- Main -->
+        <main class="main-content">
+            
+            <header class="header-bar">
+                <div class="page-title">
+                    <i data-lucide="wallet" color="var(--accent-gold)"></i> Retainer Overview
+                </div>
+                <div style="display:flex; align-items:center; gap:20px;">
+                    <span style="font-size:0.85rem; color:var(--secondary);">ID: JF-8821</span>
+                    <button id="themeToggle" style="background:none; border:none; cursor:pointer; color:var(--secondary);">
+                        <i data-lucide="moon" size="20"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                
+                <!-- Retainer Balance -->
+                <div class="balance-card">
+                    <div class="bal-header">
+                        <div>
+                            <span class="bal-label">Current Retainer Balance</span>
+                            <div class="bal-amount">₹ 4,20,000</div>
+                            <span style="font-size:0.8rem; color:var(--accent-success); display:flex; align-items:center; gap:6px; margin-top:8px;">
+                                <i data-lucide="trending-up" size="14"></i> Active until Nov 30, 2026
+                            </span>
+                        </div>
+                        <button class="btn-topup" onclick="alert('Redirecting to Payment Gateway...')">
+                            <i data-lucide="plus-circle" size="18"></i> Top-up Retainer
+                        </button>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--secondary); margin-bottom:8px;">
+                        <span>Usage (65%)</span>
+                        <span>Limit: ₹ 12,00,000</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width: 35%;"></div> <!-- Inverted visual logic: 35% remaining -->
+                    </div>
+                    
+                    <div class="crypto-options">
+                        <span style="font-size:0.8rem; color:var(--secondary); padding-top:6px;">We accept:</span>
+                        <div class="crypto-pill"><i data-lucide="credit-card" size="14"></i> UPI / Card</div>
+                        <div class="crypto-pill"><i data-lucide="bitcoin" size="14"></i> USDC (Solana)</div>
+                        <div class="crypto-pill"><i data-lucide="bitcoin" size="14"></i> USDT (ERC-20)</div>
+                    </div>
+                </div>
+
+                <!-- Recent Invoices -->
+                <div class="table-section">
+                    <div class="section-header">
+                        <h3 style="font-size:1rem; font-weight:500;">Invoice History</h3>
+                        <button style="background:none; border:none; color:var(--accent-tech); font-size:0.85rem; cursor:pointer;">Download CSV</button>
+                    </div>
+                    
+                    <table class="inv-table">
+                        <thead>
+                            <tr>
+                                <th>Invoice ID</th>
+                                <th>Date</th>
+                                <th>Service Description</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="mono">#INV-2026-003</td>
+                                <td>Oct 10, 2026</td>
+                                <td>Hearing Appearance (Supreme Court)</td>
+                                <td class="mono">₹ 1,50,000</td>
+                                <td><span class="status-badge st-pending">Processing</span></td>
+                                <td><a href="#" class="action-link"><i data-lucide="eye" size="14"></i> View</a></td>
+                            </tr>
+                            <tr>
+                                <td class="mono">#INV-2026-002</td>
+                                <td>Sep 28, 2026</td>
+                                <td>Drafting: Rejoinder Affidavit</td>
+                                <td class="mono">₹ 85,000</td>
+                                <td><span class="status-badge st-paid">Paid</span></td>
+                                <td><a href="#" class="action-link"><i data-lucide="download" size="14"></i> PDF</a></td>
+                            </tr>
+                            <tr>
+                                <td class="mono">#INV-2026-001</td>
+                                <td>Sep 15, 2026</td>
+                                <td>Consultation: Senior Partner (2h)</td>
+                                <td class="mono">₹ 60,000</td>
+                                <td><span class="status-badge st-paid">Paid</span></td>
+                                <td><a href="#" class="action-link"><i data-lucide="download" size="14"></i> PDF</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Theme Logic
+        const themeBtn = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        if (localStorage.getItem('theme') === 'light') {
+            html.classList.add('light-mode');
+            themeBtn.innerHTML = `<i data-lucide="sun" size="20"></i>`;
+        }
+        themeBtn.addEventListener('click', () => {
+            html.classList.toggle('light-mode');
+            const isLight = html.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            themeBtn.innerHTML = `<i data-lucide="${isLight ? 'sun' : 'moon'}" size="20"></i>`;
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
