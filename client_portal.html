@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Client Enclave — JusticeFirms</title>
+    <meta name="description" content="End-to-end encrypted client portal for case file access, secure communication, and real-time litigation status." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Palette: Midnight Luxury */
+            --bg-body: #020617;
+            --bg-glass: rgba(15, 23, 42, 0.85);
+            --bg-card: rgba(30, 41, 59, 0.4);
+            --bg-input: rgba(2, 6, 23, 0.6);
+            
+            --primary: #ffffff;
+            --secondary: #94a3b8;
+            
+            --accent-gold: #d4af37;
+            --accent-tech: #38bdf8;
+            --accent-success: #10b981;
+            --accent-danger: #ef4444;
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --container-width: 1200px;
+        }
+
+        /* Light mode overrides - keeping portal slightly darker even in light mode for "secure" feel */
+        html.light-mode {
+            --bg-body: #f8fafc;
+            --bg-glass: rgba(255, 255, 255, 0.95);
+            --bg-card: #ffffff;
+            --bg-input: #f1f5f9;
+            --primary: #0f172a;
+            --secondary: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        h1, h2, h3 { font-family: var(--font-serif); }
+        .mono { font-family: var(--font-mono); }
+
+        /* --- Nav --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: var(--bg-glass); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .nav-inner { height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; max-width: var(--container-width); margin: 0 auto; }
+        .brand { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; display: flex; gap: 8px; text-decoration: none; color: inherit; }
+        .brand span { color: var(--accent-gold); }
+        .nav-link { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); text-decoration: none; transition: 0.3s; margin-left: 24px; }
+        .nav-link:hover { color: var(--primary); }
+
+        /* --- Main Layout --- */
+        .portal-container {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding-top: 80px; /* nav height */
+            min-height: 100vh;
+        }
+
+        /* --- Left: Visuals --- */
+        .portal-visual {
+            background: radial-gradient(circle at 30% 20%, rgba(56, 189, 248, 0.1) 0%, rgba(2, 6, 23, 0) 60%);
+            display: flex; flex-direction: column; justify-content: center; padding: 80px;
+            border-right: 1px solid var(--border-color);
+            position: relative; overflow: hidden;
+        }
+        
+        /* Scanning Animation Line */
+        .scan-line {
+            position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-tech), transparent);
+            animation: scan 4s ease-in-out infinite;
+            opacity: 0.5;
+        }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        .visual-content { position: relative; z-index: 10; }
+        .badge-secure {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 6px 12px; background: rgba(16, 185, 129, 0.1); 
+            border: 1px solid rgba(16, 185, 129, 0.3); color: var(--accent-success);
+            border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+            margin-bottom: 32px;
+        }
+
+        .portal-title { font-size: 3.5rem; line-height: 1.1; margin-bottom: 24px; }
+        .portal-desc { color: var(--secondary); font-size: 1.1rem; max-width: 450px; margin-bottom: 40px; }
+
+        .feature-list { display: grid; gap: 20px; }
+        .feature-item { display: flex; gap: 16px; align-items: center; }
+        .f-icon { 
+            width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.03); 
+            border: 1px solid var(--border-color); display: grid; place-items: center; color: var(--accent-gold);
+        }
+
+        /* --- Right: Login Forms --- */
+        .portal-form-area {
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 40px; background: var(--bg-body);
+        }
+
+        .auth-card {
+            width: 100%; max-width: 400px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5);
+        }
+
+        .tabs { display: flex; margin-bottom: 32px; border-bottom: 1px solid var(--border-color); }
+        .tab {
+            flex: 1; padding: 12px; text-align: center; cursor: pointer;
+            font-size: 0.85rem; color: var(--secondary); transition: 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .tab.active { color: var(--primary); border-bottom-color: var(--accent-tech); }
+
+        .input-group { margin-bottom: 20px; }
+        .input-label { display: block; font-size: 0.75rem; color: var(--secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .input-field {
+            width: 100%; padding: 12px 16px;
+            background: var(--bg-input); border: 1px solid var(--border-color);
+            color: var(--primary); border-radius: 4px; outline: none; transition: 0.3s;
+            font-family: var(--font-mono); font-size: 0.9rem;
+        }
+        .input-field:focus { border-color: var(--accent-tech); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.1); }
+
+        .btn-primary {
+            width: 100%; padding: 14px;
+            background: var(--accent-tech); color: #000;
+            border: none; border-radius: 4px; font-weight: 600;
+            cursor: pointer; transition: 0.3s; margin-top: 12px;
+            text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem;
+        }
+        .btn-primary:hover { background: #7dd3fc; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+
+        .help-text { text-align: center; margin-top: 24px; font-size: 0.8rem; color: var(--secondary); }
+        .help-text a { color: var(--accent-gold); text-decoration: none; }
+
+        /* Animation for Access Granted */
+        .access-granted {
+            display: none; text-align: center; animation: fadeIn 0.5s;
+        }
+        .access-icon { 
+            width: 60px; height: 60px; background: rgba(16, 185, 129, 0.1); color: var(--accent-success);
+            border-radius: 50%; display: grid; place-items: center; margin: 0 auto 20px;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .portal-container { grid-template-columns: 1fr; }
+            .portal-visual { padding: 40px; border-right: none; border-bottom: 1px solid var(--border-color); }
+            .portal-title { font-size: 2.5rem; }
+            .scan-line { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="justicefirms_journal.html" class="brand">
+                <i data-lucide="scale" size="24" color="var(--accent-gold)"></i>
+                JusticeFirms
+            </a>
+            <div style="display:flex; align-items:center;">
+                <a href="justicefirms_journal.html" class="nav-link">Journal</a>
+                <a href="consultation.html" class="nav-link">Contact</a>
+                <button id="themeToggle" style="background:none; border:none; cursor:pointer; color:var(--secondary); margin-left: 24px;">
+                    <i data-lucide="moon" size="20"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="portal-container">
+        
+        <!-- Left Column -->
+        <div class="portal-visual">
+            <div class="scan-line"></div>
+            <div class="visual-content">
+                <div class="badge-secure">
+                    <i data-lucide="shield-check" size="14"></i> 256-Bit AES Encrypted
+                </div>
+                <h1 class="portal-title">The Secure<br><span style="color:var(--accent-tech); font-style:italic;">Enclave</span></h1>
+                <p class="portal-desc">
+                    Centralized management for litigation files, billing transparency, and privileged attorney-client communication.
+                </p>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="f-icon"><i data-lucide="file-key" size="20"></i></div>
+                        <div>
+                            <h4 style="font-size:0.95rem;">Discovery Vault</h4>
+                            <p style="font-size:0.8rem; color:var(--secondary);">Upload evidence directly to air-gapped storage.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="f-icon"><i data-lucide="activity" size="20"></i></div>
+                        <div>
+                            <h4 style="font-size:0.95rem;">Real-time Docket</h4>
+                            <p style="font-size:0.8rem; color:var(--secondary);">Syncs with High Court & Supreme Court listings.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="portal-form-area">
+            
+            <div class="auth-card" id="authCard">
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('login')">Client Login</div>
+                    <div class="tab" onclick="switchTab('track')">Quick Track</div>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label class="input-label">Client ID / Email</label>
+                        <input type="text" class="input-field" placeholder="JF-XXXX-XXXX" required>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Password</label>
+                        <input type="password" class="input-field" placeholder="••••••••••••" required>
+                    </div>
+                    <div style="margin-bottom:20px; display:flex; align-items:center; gap:8px; font-size:0.8rem; color:var(--secondary);">
+                        <input type="checkbox" id="2fa" checked disabled>
+                        <label for="2fa">Biometric 2FA Required</label>
+                    </div>
+                    <button type="submit" class="btn-primary">Authenticate</button>
+                </form>
+
+                <!-- Tracker Form (Hidden by default) -->
+                <form id="trackForm" style="display:none;">
+                    <div class="input-group">
+                        <label class="input-label">Case Reference Number</label>
+                        <input type="text" class="input-field" placeholder="e.g. WP(C)/1024/2026" required>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Mobile Number (Linked)</label>
+                        <input type="tel" class="input-field" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+                    <button type="submit" class="btn-primary" style="background: var(--accent-gold);">Check Status</button>
+                </form>
+
+                <p class="help-text">
+                    Forgot credentials? Contact your <a href="consultation.html">Case Manager</a> immediately.<br>
+                    <span style="display:block; margin-top:8px; opacity:0.6;">System Status: Operational</span>
+                </p>
+            </div>
+
+            <!-- Success State Simulation -->
+            <div class="auth-card access-granted" id="successState">
+                <div class="access-icon"><i data-lucide="check" size="32"></i></div>
+                <h3 style="font-size:1.5rem; margin-bottom:12px;">Identity Verified</h3>
+                <p style="color:var(--secondary); font-size:0.9rem; margin-bottom:24px;">
+                    Secure connection established. Redirecting to your dashboard...
+                </p>
+                <div style="height:2px; width:100%; background:var(--bg-input); border-radius:2px; overflow:hidden;">
+                    <div style="height:100%; width:100%; background:var(--accent-success); animation: loadBar 2s ease-in-out;"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Theme Logic
+        const themeBtn = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        if (localStorage.getItem('theme') === 'light') {
+            html.classList.add('light-mode');
+            themeBtn.innerHTML = `<i data-lucide="sun" size="20"></i>`;
+        }
+        themeBtn.addEventListener('click', () => {
+            html.classList.toggle('light-mode');
+            const isLight = html.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            themeBtn.innerHTML = `<i data-lucide="${isLight ? 'sun' : 'moon'}" size="20"></i>`;
+            lucide.createIcons();
+        });
+
+        // Tab Logic
+        function switchTab(mode) {
+            const loginForm = document.getElementById('loginForm');
+            const trackForm = document.getElementById('trackForm');
+            const tabs = document.querySelectorAll('.tab');
+
+            if (mode === 'login') {
+                loginForm.style.display = 'block';
+                trackForm.style.display = 'none';
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
+            } else {
+                loginForm.style.display = 'none';
+                trackForm.style.display = 'block';
+                tabs[0].classList.remove('active');
+                tabs[1].classList.add('active');
+            }
+        }
+
+        // Login Simulation
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerHTML = `<i data-lucide="loader-2" class="spin"></i> Verifying...`;
+            btn.disabled = true;
+
+            // Simulating API call
+            setTimeout(() => {
+                document.getElementById('authCard').style.display = 'none';
+                document.getElementById('successState').style.display = 'block';
+                lucide.createIcons(); // Refresh icons for the success view
+            }, 1500);
+        });
+        
+        // CSS for spinner inserted dynamically
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .spin { animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-right: 8px; }
+            @keyframes spin { 100% { transform: rotate(360deg); } }
+            @keyframes loadBar { 0% { width: 0; } 100% { width: 100%; } }
+        `;
+        document.head.appendChild(style);
+
+    </script>
+</body>
+</html>
