@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Drop — JusticeFirms</title>
+    <meta name="description" content="Anonymous whistleblowing and secure document submission portal using PGP encryption." />
+    <meta name="robots" content="noindex, nofollow" /> <!-- SEO: Do not index -->
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Palette: Deep Void (Darker than standard) */
+            --bg-body: #000000;
+            --bg-card: #0a0a0a;
+            --bg-terminal: #050505;
+            
+            --primary: #e2e8f0;
+            --secondary: #64748b;
+            
+            --accent-signal: #10b981; /* Signal Green */
+            --accent-onion: #a855f7;  /* Tor Purple */
+            --accent-alert: #ef4444;  /* Panic Red */
+            
+            --border-color: #1e293b;
+            
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --container-width: 900px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+        }
+
+        /* --- Header / Panic Bar --- */
+        .secure-header {
+            height: 70px; border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 32px; background: rgba(16, 185, 129, 0.05);
+            position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .status-indicator {
+            font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-signal);
+            display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.1em;
+        }
+        .pulse-dot {
+            width: 8px; height: 8px; background: var(--accent-signal); border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-signal); animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        .panic-btn {
+            background: var(--accent-alert); color: #fff; border: none;
+            padding: 8px 16px; border-radius: 4px; font-weight: 700; font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer;
+            display: flex; align-items: center; gap: 8px; text-decoration: none;
+            transition: 0.2s;
+        }
+        .panic-btn:hover { background: #dc2626; box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+
+        /* --- Main Layout --- */
+        .drop-container {
+            max-width: var(--container-width); margin: 0 auto; padding: 80px 24px;
+            display: grid; grid-template-columns: 1fr 300px; gap: 60px;
+        }
+
+        .main-col h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 24px; line-height: 1.1; }
+        .intro-text { font-size: 1.1rem; color: var(--secondary); margin-bottom: 40px; }
+
+        /* Warning Box */
+        .warning-box {
+            background: rgba(239, 68, 68, 0.05); border: 1px solid var(--accent-alert);
+            padding: 24px; border-radius: 4px; margin-bottom: 40px;
+        }
+        .warning-title { color: var(--accent-alert); font-weight: 600; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .warning-list { list-style: none; color: var(--primary); font-size: 0.9rem; }
+        .warning-list li { margin-bottom: 8px; padding-left: 20px; position: relative; }
+        .warning-list li::before { content: '›'; position: absolute; left: 0; color: var(--accent-alert); }
+
+        /* Steps */
+        .step-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            padding: 32px; border-radius: 8px; margin-bottom: 24px;
+            transition: 0.3s;
+        }
+        .step-card:hover { border-color: var(--accent-signal); }
+        .step-num { 
+            font-family: var(--font-mono); color: var(--accent-signal); 
+            font-size: 0.8rem; margin-bottom: 12px; display: block;
+        }
+        .step-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; }
+        
+        .tor-link {
+            font-family: var(--font-mono); background: #000; padding: 12px;
+            border: 1px dashed var(--secondary); color: var(--accent-onion);
+            word-break: break-all; font-size: 0.9rem; display: block; margin-top: 16px;
+        }
+
+        /* Drop Zone */
+        .drop-zone {
+            border: 2px dashed var(--border-color); background: rgba(255,255,255,0.02);
+            padding: 60px; text-align: center; border-radius: 8px; cursor: pointer;
+            transition: 0.3s;
+        }
+        .drop-zone:hover { border-color: var(--accent-signal); background: rgba(16, 185, 129, 0.05); }
+        .drop-icon { color: var(--secondary); margin-bottom: 16px; transition: 0.3s; }
+        .drop-zone:hover .drop-icon { color: var(--accent-signal); transform: scale(1.1); }
+
+        /* --- Sidebar --- */
+        .pgp-box {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            padding: 24px; border-radius: 8px; font-size: 0.85rem;
+        }
+        .pgp-header { 
+            font-family: var(--font-mono); color: var(--secondary); 
+            margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem;
+        }
+        .pgp-key {
+            font-family: var(--font-mono); color: var(--secondary); background: #000;
+            padding: 12px; border-radius: 4px; overflow-x: auto; white-space: pre;
+            font-size: 0.7rem; margin-bottom: 16px; border: 1px solid var(--border-color);
+        }
+        .btn-copy {
+            width: 100%; padding: 10px; background: transparent; border: 1px solid var(--border-color);
+            color: var(--primary); font-family: var(--font-mono); font-size: 0.8rem;
+            cursor: pointer; transition: 0.2s;
+        }
+        .btn-copy:hover { border-color: var(--accent-signal); color: var(--accent-signal); }
+
+        /* Footer */
+        .mini-footer {
+            margin-top: auto; padding: 40px; border-top: 1px solid var(--border-color);
+            text-align: center; font-size: 0.8rem; color: var(--secondary);
+        }
+        .mini-footer a { color: var(--secondary); text-decoration: underline; }
+
+        @media (max-width: 900px) {
+            .drop-container { grid-template-columns: 1fr; }
+            .secure-header { padding: 0 16px; }
+            .status-text { display: none; } /* Hide text on mobile, keep dot */
+        }
+    </style>
+</head>
+<body>
+
+    <header class="secure-header">
+        <div class="status-indicator">
+            <div class="pulse-dot"></div>
+            <span class="status-text">Connection Encrypted (TLS 1.3)</span>
+        </div>
+        
+        <a href="https://www.google.com" class="panic-btn">
+            <i data-lucide="log-out" size="16"></i> Panic Exit
+        </a>
+    </header>
+
+    <div class="drop-container">
+        
+        <!-- Main Content -->
+        <main class="main-col">
+            <h1>Secure Drop</h1>
+            <p class="intro-text">
+                This portal is for whistleblowers, journalists, and individuals providing sensitive information regarding corporate malfeasance, state overreach, or high-level corruption.
+            </p>
+
+            <div class="warning-box">
+                <div class="warning-title"><i data-lucide="alert-triangle" size="18"></i> BEFORE YOU PROCEED</div>
+                <ul class="warning-list">
+                    <li>Do not access this page from a work computer or corporate network.</li>
+                    <li>We recommend using the <strong style="color:#fff">Tor Browser</strong> for maximum anonymity.</li>
+                    <li>Metadata (time, location) is stripped from files upon upload, but scrub your files manually first if possible.</li>
+                    <li>JusticeFirms does not log IP addresses on this specific subdomain.</li>
+                </ul>
+            </div>
+
+            <div class="step-card">
+                <span class="step-num">OPTION 01</span>
+                <h3 class="step-title">Access via Onion Service</h3>
+                <p style="font-size:0.9rem; color:var(--secondary);">
+                    For the highest level of security, access our hidden service using the Tor Browser. This masks your IP address from our servers completely.
+                </p>
+                <div class="tor-link">
+                    jfirms7x2p9qa4...onion
+                </div>
+            </div>
+
+            <div class="step-card">
+                <span class="step-num">OPTION 02</span>
+                <h3 class="step-title">Direct Encrypted Upload</h3>
+                <p style="font-size:0.9rem; color:var(--secondary); margin-bottom:24px;">
+                    Files are encrypted in your browser before transmission using our Public Key. We cannot see the file contents until we decrypt them offline.
+                </p>
+                
+                <div class="drop-zone" id="dropArea">
+                    <i data-lucide="upload-cloud" size="48" class="drop-icon"></i>
+                    <h4 style="font-size:1.1rem; margin-bottom:8px;">Drag & Drop Evidence</h4>
+                    <p style="font-size:0.85rem; color:var(--secondary);">PDF, DOCX, XLSX, MP4 (Max 500MB)</p>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Sidebar -->
+        <aside>
+            <div class="pgp-box">
+                <div class="pgp-header">Firm PGP Public Key</div>
+                <p style="color:var(--secondary); margin-bottom:12px;">Fingerprint: <span class="mono" style="color:var(--accent-signal);">9A2B...F41C</span></p>
+                
+                <div class="pgp-key">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+mQINBGIk... (truncated)
+...JusticeFirms Secure...
+-----END PGP PUBLIC KEY BLOCK-----
+                </div>
+                
+                <button class="btn-copy" onclick="copyKey()">Copy Public Key</button>
+            </div>
+
+            <div class="pgp-box" style="margin-top:24px; border-color:var(--accent-signal);">
+                <div class="pgp-header" style="color:var(--accent-signal);">Signal / Session</div>
+                <p style="margin-bottom:16px;">Contact our Ethics Officer directly via encrypted messaging apps.</p>
+                
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                    <i data-lucide="message-circle" size="18" color="var(--accent-signal)"></i>
+                    <span class="mono">+91 98XXX XXXXX</span>
+                </div>
+                <div style="font-size:0.75rem; color:var(--secondary);">*Set messages to disappearing</div>
+            </div>
+        </aside>
+
+    </div>
+
+    <footer class="mini-footer">
+        <p>
+            <a href="justicefirms_journal.html">Return to Public Site</a> • 
+            <a href="legal_notices.html">Privacy Policy</a>
+        </p>
+        <p style="margin-top:12px; opacity:0.5;">
+            Server location: Switzerland (Data Haven)
+        </p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Copy Key Logic
+        function copyKey() {
+            const key = `-----BEGIN PGP PUBLIC KEY BLOCK-----\nmQINBGIk... (Full Key)\n-----END PGP PUBLIC KEY BLOCK-----`;
+            navigator.clipboard.writeText(key).then(() => {
+                const btn = document.querySelector('.btn-copy');
+                btn.innerText = "Copied to Clipboard";
+                setTimeout(() => btn.innerText = "Copy Public Key", 2000);
+            });
+        }
+
+        // Upload Simulation
+        const dropArea = document.getElementById('dropArea');
+        
+        dropArea.addEventListener('click', () => {
+            dropArea.innerHTML = `<i data-lucide="loader" class="spin drop-icon"></i><h4 style="margin-top:12px;">Encrypting Locally...</h4>`;
+            lucide.createIcons();
+            
+            // Simulating encryption delay
+            setTimeout(() => {
+                dropArea.innerHTML = `<i data-lucide="check-circle" size="48" style="color:var(--accent-signal); margin-bottom:16px;"></i><h4>Submission Received</h4><p style="font-size:0.85rem; color:var(--secondary);">Receipt Code: <span class="mono" style="color:#fff;">X9-B22-L</span></p><p style="font-size:0.75rem; color:var(--accent-alert); margin-top:12px;">Save this code. It is the ONLY way to check status.</p>`;
+                lucide.createIcons();
+            }, 2000);
+        });
+
+        // Add CSS for spinner
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .spin { animation: spin 1s linear infinite; }
+            @keyframes spin { 100% { transform: rotate(360deg); } }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
