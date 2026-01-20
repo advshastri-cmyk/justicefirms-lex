@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Signing Desk — JusticeFirms</title>
+    <meta name="description" content="Cryptographically secure digital signature platform for legal agreements." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Palette: Midnight Luxury */
+            --bg-body: #050505;
+            --bg-sidebar: #0a0a0a;
+            --bg-paper: #f8fafc; /* Simulating paper for the doc */
+            
+            --primary: #ffffff;
+            --secondary: #94a3b8;
+            --text-paper: #1e293b; /* Dark text on paper */
+            
+            --accent-gold: #d4af37;
+            --accent-tech: #38bdf8;
+            --accent-sign: #1d4ed8; /* Blue ink color */
+            --accent-success: #10b981;
+            
+            --border-color: #262626;
+            
+            --font-sans: 'Inter', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-family: var(--font-sans);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* --- Header --- */
+        .sign-header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+            background: rgba(10, 10, 10, 0.9); border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 24px;
+            z-index: 50; backdrop-filter: blur(10px);
+        }
+        .brand { font-family: var(--font-serif); font-size: 1.1rem; display: flex; align-items: center; gap: 8px; color: var(--primary); text-decoration: none; }
+        .doc-title { font-size: 0.9rem; color: var(--secondary); font-family: var(--font-mono); }
+        .close-btn { color: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 6px; font-size: 0.8rem; transition: 0.2s; }
+        .close-btn:hover { color: var(--primary); }
+
+        /* --- Main Layout --- */
+        .layout {
+            display: grid; grid-template-columns: 1fr 320px;
+            width: 100%; height: 100%; padding-top: 60px;
+        }
+
+        /* --- Document Viewer --- */
+        .doc-stage {
+            background: #1a1a1a;
+            display: flex; justify-content: center; overflow-y: auto; padding: 40px;
+            position: relative;
+        }
+        
+        .paper-sheet {
+            width: 100%; max-width: 800px; min-height: 1100px;
+            background: var(--bg-paper); color: var(--text-paper);
+            padding: 60px 80px; box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+            font-size: 1rem; line-height: 1.6; position: relative;
+        }
+        
+        .paper-header { text-align: center; margin-bottom: 40px; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; }
+        .paper-h1 { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 10px; color: #000; }
+        .paper-meta { font-family: var(--font-mono); font-size: 0.8rem; color: #64748b; }
+        
+        .paper-body p { margin-bottom: 16px; text-align: justify; }
+        .paper-body strong { color: #000; }
+
+        /* Signature Slot */
+        .sign-slot {
+            margin-top: 60px; border: 2px dashed #cbd5e1; background: rgba(56, 189, 248, 0.05);
+            padding: 20px; border-radius: 4px; position: relative; cursor: pointer; transition: 0.2s;
+        }
+        .sign-slot:hover { border-color: var(--accent-sign); background: rgba(29, 78, 216, 0.05); }
+        .sign-indicator {
+            position: absolute; left: -100px; top: 20px;
+            background: var(--accent-gold); color: #000; padding: 8px 16px;
+            font-size: 0.75rem; font-weight: 600; border-radius: 4px;
+            display: flex; align-items: center; gap: 6px;
+            animation: bounceLeft 1s infinite alternate;
+        }
+        .sign-indicator::after {
+            content: ''; position: absolute; right: -6px; top: 50%; transform: translateY(-50%);
+            border-left: 6px solid var(--accent-gold); border-top: 6px solid transparent; border-bottom: 6px solid transparent;
+        }
+        @keyframes bounceLeft { from { transform: translateX(0); } to { transform: translateX(-5px); } }
+
+        .signature-display {
+            font-family: 'Dancing Script', cursive; /* Fallback if signature image isn't used */
+            color: var(--accent-sign); font-size: 2rem; display: none;
+        }
+
+        /* --- Sidebar: Controls --- */
+        .controls-sidebar {
+            background: var(--bg-sidebar); border-left: 1px solid var(--border-color);
+            display: flex; flex-direction: column;
+        }
+        
+        .progress-section { padding: 24px; border-bottom: 1px solid var(--border-color); }
+        .step-list { display: flex; flex-direction: column; gap: 16px; }
+        .step-item { display: flex; gap: 12px; align-items: flex-start; opacity: 0.5; transition: 0.3s; }
+        .step-item.active { opacity: 1; }
+        .step-item.completed { opacity: 1; color: var(--accent-success); }
+        .step-icon { 
+            width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--secondary);
+            display: grid; place-items: center; font-size: 0.7rem; flex-shrink: 0;
+        }
+        .active .step-icon { border-color: var(--accent-tech); color: var(--accent-tech); background: rgba(56, 189, 248, 0.1); }
+        .completed .step-icon { border-color: var(--accent-success); background: var(--accent-success); color: #000; }
+        
+        .audit-log { flex-grow: 1; padding: 24px; overflow-y: auto; font-family: var(--font-mono); font-size: 0.7rem; color: var(--secondary); }
+        .log-entry { margin-bottom: 12px; border-left: 1px solid var(--border-color); padding-left: 12px; }
+        .log-ts { color: var(--accent-tech); display: block; margin-bottom: 2px; }
+
+        .action-footer { padding: 24px; border-top: 1px solid var(--border-color); }
+        .btn-finish {
+            width: 100%; padding: 14px; background: var(--accent-gold); color: #000;
+            border: none; border-radius: 4px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.1em; cursor: not-allowed; opacity: 0.5; transition: 0.3s;
+        }
+        .btn-finish.ready { cursor: pointer; opacity: 1; }
+        .btn-finish.ready:hover { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+
+        /* --- Modal: Sign Pad --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+            display: none; justify-content: center; align-items: center; z-index: 100;
+        }
+        .modal-card {
+            background: var(--bg-sidebar); border: 1px solid var(--border-color);
+            padding: 32px; border-radius: 8px; width: 500px;
+        }
+        .sign-area {
+            width: 100%; height: 200px; background: #fff; border-radius: 4px;
+            margin: 20px 0; position: relative; cursor: crosshair;
+        }
+        .sign-line {
+            position: absolute; bottom: 40px; left: 20px; right: 20px; height: 1px; background: #ccc;
+        }
+        .btn-row { display: flex; justify-content: space-between; gap: 16px; }
+        .btn-secondary {
+            padding: 10px 20px; background: transparent; border: 1px solid var(--border-color);
+            color: var(--primary); border-radius: 4px; cursor: pointer;
+        }
+        .btn-primary {
+            padding: 10px 20px; background: var(--accent-tech); color: #000; border: none;
+            border-radius: 4px; cursor: pointer; font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .layout { grid-template-columns: 1fr; }
+            .controls-sidebar { display: none; } /* Simplified mobile view */
+            .sign-indicator { left: -10px; top: -40px; transform: rotate(90deg); animation: none; } /* Adjust for mobile */
+            .sign-indicator::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="sign-header">
+        <div style="display:flex; align-items:center; gap:20px;">
+            <a href="#" class="brand">
+                <i data-lucide="scale" size="18" color="var(--accent-gold)"></i> JusticeFirms
+            </a>
+            <span class="doc-title">REF: AGMT-2026-882 // RETAINER AGREEMENT</span>
+        </div>
+        <a href="client_dashboard.html" class="close-btn">
+            Exit <i data-lucide="x" size="16"></i>
+        </a>
+    </header>
+
+    <div class="layout">
+        
+        <!-- Document -->
+        <main class="doc-stage">
+            <div class="paper-sheet">
+                <div class="paper-header">
+                    <h1 class="paper-h1">LEGAL SERVICES RETAINER AGREEMENT</h1>
+                    <span class="paper-meta">Date: October 14, 2026</span>
+                </div>
+                
+                <div class="paper-body">
+                    <p><strong>1. PARTIES.</strong> This Agreement is made between <strong>JusticeFirms LLP</strong> ("Attorney") and <strong>R. Malhotra</strong> ("Client").</p>
+                    
+                    <p><strong>2. SCOPE OF REPRESENTATION.</strong> Attorney agrees to represent Client in the matter of <em>State vs. Malhotra Industries</em> regarding GST compliance proceedings before the High Court.</p>
+                    
+                    <p><strong>3. FEES.</strong> Client agrees to pay a non-refundable retainer of INR 4,20,000. Hourly rates for Senior Partners shall be billed at...</p>
+                    
+                    <p><strong>4. DIGITAL EXECUTION.</strong> The parties agree that this agreement may be electronically signed. The parties agree that the digital signatures appearing on this agreement are the same as handwritten signatures for the purposes of validity, enforceability, and admissibility.</p>
+                    
+                    <br><br>
+                    
+                    <div style="display:flex; justify-content:space-between; margin-top:40px;">
+                        <div style="width:45%;">
+                            <p style="margin-bottom:40px;"><strong>JusticeFirms LLP</strong></p>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Signature_sample.svg" style="height:40px; opacity:0.8;">
+                            <div style="border-top:1px solid #000; padding-top:8px; font-size:0.8rem; color:#666;">Authorized Signatory</div>
+                        </div>
+                        
+                        <div style="width:45%;">
+                            <p style="margin-bottom:10px;"><strong>Client Signature</strong></p>
+                            
+                            <!-- Signature Slot -->
+                            <div class="sign-slot" id="signSlot" onclick="openModal()">
+                                <div class="sign-indicator">SIGN HERE</div>
+                                <div style="text-align:center; color:#64748b; font-size:0.8rem;" id="signPlaceholder">
+                                    Click to Sign Digitally
+                                </div>
+                                <div class="signature-display" id="clientSig">
+                                    R. Malhotra
+                                </div>
+                            </div>
+                            <div style="border-top:1px solid #000; margin-top:10px; padding-top:8px; font-size:0.8rem; color:#666;">
+                                R. Malhotra<br>
+                                <span id="sigDate"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="controls-sidebar">
+            <div class="progress-section">
+                <h4 style="font-size:0.8rem; color:var(--secondary); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:16px;">Execution Steps</h4>
+                <div class="step-list">
+                    <div class="step-item completed">
+                        <div class="step-icon"><i data-lucide="check" size="14"></i></div>
+                        <div style="font-size:0.85rem;">Review Document</div>
+                    </div>
+                    <div class="step-item completed">
+                        <div class="step-icon"><i data-lucide="check" size="14"></i></div>
+                        <div style="font-size:0.85rem;">Verify Identity (2FA)</div>
+                    </div>
+                    <div class="step-item active" id="stepSign">
+                        <div class="step-icon">3</div>
+                        <div style="font-size:0.85rem;">Apply Signature</div>
+                    </div>
+                    <div class="step-item" id="stepFinal">
+                        <div class="step-icon">4</div>
+                        <div style="font-size:0.85rem;">Generate Hash & Seal</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audit-log" id="auditLog">
+                <div style="margin-bottom:12px; color:var(--primary);">CRYPTOGRAPHIC AUDIT TRAIL</div>
+                <div class="log-entry">
+                    <span class="log-ts">10:42:01 UTC</span>
+                    Session Started. IP: 203.0.113.42
+                </div>
+                <div class="log-entry">
+                    <span class="log-ts">10:42:05 UTC</span>
+                    Document SHA-256 Verified:<br>
+                    <span style="font-size:0.6rem;">f4a2...9b1c</span>
+                </div>
+            </div>
+
+            <div class="action-footer">
+                <button class="btn-finish" id="finishBtn" onclick="finalizeDoc()">Finalize Document</button>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="signModal">
+        <div class="modal-card">
+            <h3 style="font-size:1.2rem; margin-bottom:8px;">Adopt Signature</h3>
+            <p style="font-size:0.85rem; color:var(--secondary);">Draw your signature or type your name below.</p>
+            
+            <div class="sign-area" id="signCanvas">
+                <div class="sign-line"></div>
+                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:'Dancing Script', cursive; font-size:2.5rem; color:var(--accent-sign);">
+                    R. Malhotra
+                </div>
+            </div>
+            
+            <div class="btn-row">
+                <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn-primary" onclick="applySignature()">Insert Signature</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Modal Logic
+        function openModal() {
+            document.getElementById('signModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('signModal').style.display = 'none';
+        }
+
+        // Sign Logic
+        function applySignature() {
+            closeModal();
+            
+            // Visual Updates
+            document.getElementById('signPlaceholder').style.display = 'none';
+            document.getElementById('clientSig').style.display = 'block';
+            document.querySelector('.sign-slot').style.borderColor = 'var(--accent-success)';
+            document.querySelector('.sign-slot').style.background = 'rgba(16, 185, 129, 0.05)';
+            document.querySelector('.sign-indicator').style.display = 'none';
+            
+            // Set Date
+            const now = new Date();
+            document.getElementById('sigDate').innerText = now.toLocaleString();
+
+            // Update Sidebar
+            document.getElementById('stepSign').classList.remove('active');
+            document.getElementById('stepSign').classList.add('completed');
+            document.getElementById('stepSign').querySelector('.step-icon').innerHTML = '<i data-lucide="check" size="14"></i>';
+            
+            document.getElementById('stepFinal').classList.add('active');
+            document.getElementById('finishBtn').classList.add('ready');
+            
+            // Add Log
+            const log = document.getElementById('auditLog');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `<span class="log-ts">${now.toISOString().split('T')[1].split('.')[0]} UTC</span>Signature Applied. Bio-metrics captured.`;
+            log.appendChild(entry);
+            
+            lucide.createIcons();
+        }
+
+        function finalizeDoc() {
+            const btn = document.getElementById('finishBtn');
+            if(!btn.classList.contains('ready')) return;
+
+            btn.innerText = "Sealing Document...";
+            
+            setTimeout(() => {
+                const log = document.getElementById('auditLog');
+                log.innerHTML += `<div class="log-entry" style="color:var(--accent-success);"><span class="log-ts">NOW</span>Document Sealed. Hash generated.</div>`;
+                btn.innerText = "Redirecting...";
+                setTimeout(() => window.location.href = 'client_dashboard.html', 1000);
+            }, 1000);
+        }
+    </script>
+    
+    <!-- Import Signature Font for Demo -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+</body>
+</html>
