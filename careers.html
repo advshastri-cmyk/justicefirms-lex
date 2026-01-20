@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Careers & Pupillage — JusticeFirms</title>
+    <meta name="description" content="Join the vanguard of Indian legal practice. Opportunities for Senior Associates, Legal Technologists, and Research Interns." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Palette: Midnight Luxury */
+            --bg-body: #020617;
+            --bg-glass: rgba(15, 23, 42, 0.85);
+            --bg-card: rgba(30, 41, 59, 0.4);
+            
+            --primary: #ffffff;
+            --secondary: #94a3b8;
+            
+            --accent-gold: #d4af37;
+            --accent-tech: #38bdf8;
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --container-width: 1280px;
+        }
+
+        html.light-mode {
+            --bg-body: #f8fafc;
+            --bg-glass: rgba(255, 255, 255, 0.9);
+            --bg-card: #ffffff;
+            --primary: #0f172a;
+            --secondary: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-family: var(--font-sans);
+            line-height: 1.7;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-serif); }
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
+        .mono { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-tech); }
+
+        /* --- Nav --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: var(--bg-glass); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .nav-inner { height: 90px; display: flex; align-items: center; justify-content: space-between; }
+        .brand { font-family: var(--font-serif); font-size: 1.75rem; font-weight: 700; display: flex; gap: 8px; text-decoration: none; color: inherit; }
+        .brand span { color: var(--accent-gold); }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-link { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); text-decoration: none; transition: 0.3s; }
+        .nav-link:hover { color: var(--primary); }
+
+        /* --- Hero --- */
+        .career-hero {
+            padding: 180px 0 120px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative; overflow: hidden;
+        }
+        .career-hero::before {
+            content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+            width: 80%; height: 200%; background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%); z-index: -1;
+        }
+        
+        .hero-title { font-size: clamp(3rem, 5vw, 4.5rem); margin-bottom: 24px; line-height: 1.1; }
+        .hero-desc { max-width: 600px; margin: 0 auto; color: var(--secondary); font-size: 1.1rem; }
+
+        /* --- Culture Grid --- */
+        .culture-section { padding: 100px 0; border-bottom: 1px solid var(--border-color); }
+        .section-header { margin-bottom: 60px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .section-title { font-size: 2.5rem; }
+        
+        .culture-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+            background: var(--border-color); /* Creates borders between cells */
+            border: 1px solid var(--border-color);
+        }
+        .culture-card {
+            background: var(--bg-body);
+            padding: 40px;
+            display: flex; flex-direction: column; gap: 20px;
+            transition: 0.3s;
+        }
+        .culture-card:hover { background: rgba(255,255,255,0.02); }
+        .culture-icon { color: var(--accent-gold); }
+        .culture-h { font-size: 1.2rem; font-family: var(--font-serif); }
+        .culture-p { font-size: 0.9rem; color: var(--secondary); }
+
+        /* --- Open Positions --- */
+        .jobs-section { padding: 100px 0; }
+        
+        .filter-bar {
+            display: flex; gap: 16px; margin-bottom: 40px;
+            overflow-x: auto; padding-bottom: 10px;
+        }
+        .filter-btn {
+            background: none; border: 1px solid var(--border-color);
+            color: var(--secondary); padding: 8px 16px; border-radius: 100px;
+            cursor: pointer; transition: 0.3s; white-space: nowrap;
+            font-family: var(--font-sans); font-size: 0.85rem;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--primary); color: var(--primary);
+            background: rgba(255,255,255,0.05);
+        }
+        .filter-btn.active { border-color: var(--accent-tech); color: var(--accent-tech); }
+
+        .job-list { display: flex; flex-direction: column; }
+        
+        .job-card {
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+            background: var(--bg-card);
+            transition: 0.3s;
+        }
+        .job-card:last-child { border-bottom: 1px solid var(--border-color); }
+        .job-card:hover { background: rgba(255,255,255,0.03); }
+
+        .job-header {
+            padding: 32px;
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer;
+        }
+        .job-title { font-size: 1.5rem; font-family: var(--font-serif); margin-bottom: 8px; }
+        .job-meta { display: flex; gap: 16px; font-size: 0.85rem; color: var(--secondary); font-family: var(--font-mono); }
+        .job-arrow { transition: transform 0.3s; }
+        
+        /* Expandable Content */
+        .job-body {
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+            padding: 0 32px; border-top: 1px solid transparent;
+        }
+        .job-card.active .job-body {
+            max-height: 500px; /* Approx max height */
+            padding-bottom: 32px;
+            border-top-color: var(--border-color);
+        }
+        .job-card.active .job-arrow { transform: rotate(180deg); }
+
+        .job-desc-text { margin: 24px 0; color: var(--secondary); font-size: 0.95rem; }
+        .btn-apply {
+            display: inline-block; padding: 12px 24px;
+            background: var(--primary); color: var(--bg-body);
+            text-decoration: none; font-weight: 600; font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .btn-apply:hover { background: var(--accent-gold); color: #000; }
+
+        @media (max-width: 900px) {
+            .culture-grid { grid-template-columns: 1fr; }
+            .job-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .job-arrow { display: none; } /* Hide arrow on mobile to simplify layout */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-inner">
+            <a href="justicefirms_journal.html" class="brand">
+                <i data-lucide="scale" size="24" color="var(--accent-gold)"></i>
+                JusticeFirms
+            </a>
+            <div class="nav-links">
+                <a href="justicefirms_journal.html" class="nav-link">Journal</a>
+                <a href="client_portal.html" class="nav-link">Portal</a>
+                <a href="consultation.html" class="nav-link" style="color:var(--accent-gold);">Consult</a>
+                <button id="themeToggle" style="background:none; border:none; cursor:pointer; color:var(--secondary);">
+                    <i data-lucide="moon" size="20"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="career-hero">
+        <div class="container">
+            <h1 class="hero-title">The Crucible of<br>Advocacy</h1>
+            <p class="hero-desc">
+                We do not offer jobs; we offer a calling. JusticeFirms is looking for the next generation of legal architects to build the future of Indian jurisprudence.
+            </p>
+            <div style="margin-top: 40px; display: flex; gap: 16px; justify-content: center;">
+                <a href="#positions" class="btn-apply" style="background: transparent; border: 1px solid var(--primary); color: var(--primary);">View Openings</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Culture -->
+    <section class="container culture-section">
+        <div class="section-header">
+            <h2 class="section-title">The Standard</h2>
+            <p style="color:var(--secondary); max-width: 400px; text-align: right;">Three pillars that define our daily practice and long-term vision.</p>
+        </div>
+
+        <div class="culture-grid">
+            <div class="culture-card">
+                <i data-lucide="award" class="culture-icon" size="32"></i>
+                <h3 class="culture-h">Merit Over Tenure</h3>
+                <p class="culture-p">
+                    We reject the traditional hierarchy. If you have the argument, you take the podium. First-year associates regularly brief Senior Counsel in the Supreme Court.
+                </p>
+            </div>
+            <div class="culture-card">
+                <i data-lucide="cpu" class="culture-icon" size="32"></i>
+                <h3 class="culture-h">Technological Fluency</h3>
+                <p class="culture-p">
+                    The law is code. Our attorneys are expected to understand the mechanics of the industries we serve—from blockchain consensus to biotech IP.
+                </p>
+            </div>
+            <div class="culture-card">
+                <i data-lucide="globe" class="culture-icon" size="32"></i>
+                <h3 class="culture-h">Global Impact</h3>
+                <p class="culture-p">
+                    Based in Prayagraj & Delhi, but our cases set precedents globally. We handle cross-border litigation that shapes international policy.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Positions -->
+    <section id="positions" class="container jobs-section">
+        <h2 class="section-title" style="margin-bottom: 24px;">Open Roles</h2>
+        
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterJobs('all')">All Roles</button>
+            <button class="filter-btn" onclick="filterJobs('Litigation')">Litigation</button>
+            <button class="filter-btn" onclick="filterJobs('Tech')">Legal Tech</button>
+            <button class="filter-btn" onclick="filterJobs('Internship')">Pupillage & Internships</button>
+        </div>
+
+        <div class="job-list" id="jobList">
+            
+            <!-- Job 1 -->
+            <div class="job-card" data-cat="Litigation">
+                <div class="job-header" onclick="toggleJob(this)">
+                    <div>
+                        <h3 class="job-title">Senior Associate (Criminal Defense)</h3>
+                        <div class="job-meta">
+                            <span>Prayagraj / Delhi</span>
+                            <span>•</span>
+                            <span>PQE: 5-7 Years</span>
+                            <span>•</span>
+                            <span style="color:var(--accent-gold);">BNS Specialist</span>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="job-arrow"></i>
+                </div>
+                <div class="job-body">
+                    <div class="job-desc-text">
+                        <p>We are seeking a seasoned litigator to lead our White Collar Defense wing. The candidate must have extensive experience in trials under the PMLA and UAPA. Mastery of the new Bharatiya Nyaya Sanhita (BNS) is non-negotiable.</p>
+                        <ul style="margin-top: 16px; margin-bottom: 24px; padding-left: 20px;">
+                            <li>Lead counsel for bail hearings in High Court.</li>
+                            <li>Drafting SLPs for Supreme Court.</li>
+                            <li>Managing a team of 3 Junior Associates.</li>
+                        </ul>
+                        <a href="mailto:careers@justicefirms.com?subject=Application: Senior Associate" class="btn-apply">Apply via Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="job-card" data-cat="Tech">
+                <div class="job-header" onclick="toggleJob(this)">
+                    <div>
+                        <h3 class="job-title">Legal Technologist / Engineer</h3>
+                        <div class="job-meta">
+                            <span>Remote / Hybrid</span>
+                            <span>•</span>
+                            <span>Exp: 3+ Years</span>
+                            <span>•</span>
+                            <span style="color:var(--accent-tech);">Python & Solidity</span>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="job-arrow"></i>
+                </div>
+                <div class="job-body">
+                    <div class="job-desc-text">
+                        <p>Bridge the gap between our litigation team and our tech clients. You will audit smart contracts for liability, manage our internal AI discovery tools, and assist in cyber-forensics.</p>
+                        <a href="mailto:careers@justicefirms.com?subject=Application: Legal Technologist" class="btn-apply">Apply via Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="job-card" data-cat="Internship">
+                <div class="job-header" onclick="toggleJob(this)">
+                    <div>
+                        <h3 class="job-title">Winter Assessment Internship 2026</h3>
+                        <div class="job-meta">
+                            <span>New Delhi</span>
+                            <span>•</span>
+                            <span>Duration: 4 Weeks</span>
+                            <span>•</span>
+                            <span>Final Year Students</span>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="job-arrow"></i>
+                </div>
+                <div class="job-body">
+                    <div class="job-desc-text">
+                        <p>Our primary route for hiring Junior Associates. This is a grueling, high-intensity assessment. You will be drafting live petitions and conducting research for active constitutional benches.</p>
+                        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--secondary);">*Only top 5% of class rank need apply.</p>
+                        <br>
+                        <a href="mailto:intern@justicefirms.com?subject=Application: Winter Internship" class="btn-apply">Submit Transcript</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 60px 0; border-top: 1px solid var(--border-color); color: var(--secondary); font-size: 0.8rem;">
+        <div class="container">
+            <p style="margin-bottom: 16px;">JusticeFirms is an Equal Opportunity Employer.</p>
+            <p>© 2026 JusticeFirms.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Theme Logic
+        const themeBtn = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        if (localStorage.getItem('theme') === 'light') {
+            html.classList.add('light-mode');
+            themeBtn.innerHTML = `<i data-lucide="sun" size="20"></i>`;
+        }
+        themeBtn.addEventListener('click', () => {
+            html.classList.toggle('light-mode');
+            const isLight = html.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            themeBtn.innerHTML = `<i data-lucide="${isLight ? 'sun' : 'moon'}" size="20"></i>`;
+            lucide.createIcons();
+        });
+
+        // Job Accordion Logic
+        function toggleJob(header) {
+            const card = header.parentElement;
+            // Close others (optional - can leave open)
+            /* document.querySelectorAll('.job-card').forEach(c => {
+                if(c !== card) c.classList.remove('active');
+            });
+            */
+            card.classList.toggle('active');
+        }
+
+        // Job Filtering Logic
+        function filterJobs(cat) {
+            // Update buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.includes(cat) || (cat === 'all' && btn.innerText === 'All Roles')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filter items
+            const jobs = document.querySelectorAll('.job-card');
+            jobs.forEach(job => {
+                if (cat === 'all' || job.dataset.cat === cat) {
+                    job.style.display = 'block';
+                } else {
+                    job.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
