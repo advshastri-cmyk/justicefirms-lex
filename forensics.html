@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forensics Lab — JusticeFirms</title>
+    <meta name="description" content="Digital evidence analysis, hashing, and chain of custody verification tool." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Palette: Cyber Noir */
+            --bg-body: #020202;
+            --bg-panel: #0a0a0a;
+            --bg-terminal: #050505;
+            
+            --primary: #e5e5e5;
+            --secondary: #525252;
+            
+            --accent-gold: #d4af37;
+            --accent-code: #10b981; /* Terminal Green */
+            --accent-hex: #a855f7;  /* Hex Purple */
+            --accent-alert: #ef4444;
+            
+            --border-color: #262626;
+            
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-display: 'Share Tech Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-family: var(--font-sans);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* --- Sidebar --- */
+        .lab-sidebar {
+            width: 60px; background: var(--bg-panel); border-right: 1px solid var(--border-color);
+            display: flex; flex-direction: column; align-items: center; padding: 20px 0;
+            z-index: 10;
+        }
+        
+        .tool-icon {
+            width: 40px; height: 40px; display: grid; place-items: center;
+            color: var(--secondary); margin-bottom: 16px; border-radius: 6px;
+            cursor: pointer; transition: 0.2s;
+        }
+        .tool-icon:hover { color: var(--primary); background: rgba(255,255,255,0.05); }
+        .tool-icon.active { color: var(--accent-code); border-left: 2px solid var(--accent-code); border-radius: 0; background: rgba(16, 185, 129, 0.05); }
+
+        /* --- Main Interface --- */
+        .lab-main { flex-grow: 1; display: flex; flex-direction: column; }
+
+        /* Header */
+        .lab-header {
+            height: 60px; border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 24px;
+            background: var(--bg-terminal); font-family: var(--font-display);
+        }
+        .case-ref { color: var(--accent-gold); letter-spacing: 0.1em; font-size: 1.1rem; }
+        .sys-status { font-size: 0.8rem; color: var(--accent-code); display: flex; align-items: center; gap: 8px; }
+        .blink { animation: blink 2s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* Work Area */
+        .workspace {
+            flex-grow: 1; display: grid; grid-template-columns: 350px 1fr;
+            overflow: hidden;
+        }
+
+        /* Left Panel: Evidence List */
+        .evidence-panel {
+            background: var(--bg-panel); border-right: 1px solid var(--border-color);
+            display: flex; flex-direction: column;
+        }
+        .panel-header {
+            padding: 16px 20px; border-bottom: 1px solid var(--border-color);
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary);
+        }
+        
+        .evidence-list { flex-grow: 1; overflow-y: auto; }
+        .evidence-item {
+            padding: 16px 20px; border-bottom: 1px solid var(--border-color);
+            cursor: pointer; transition: 0.2s; border-left: 2px solid transparent;
+        }
+        .evidence-item:hover { background: rgba(255,255,255,0.02); }
+        .evidence-item.selected { background: rgba(16, 185, 129, 0.05); border-left-color: var(--accent-code); }
+        
+        .ev-name { font-family: var(--font-mono); font-size: 0.85rem; color: var(--primary); margin-bottom: 4px; display: block; }
+        .ev-meta { font-size: 0.75rem; color: var(--secondary); display: flex; justify-content: space-between; }
+        .hash-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-hex); }
+
+        .upload-zone {
+            padding: 20px; border-top: 1px solid var(--border-color); text-align: center;
+        }
+        .btn-upload {
+            width: 100%; padding: 10px; background: transparent; border: 1px dashed var(--secondary);
+            color: var(--secondary); font-family: var(--font-mono); font-size: 0.8rem; cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-upload:hover { border-color: var(--accent-code); color: var(--accent-code); }
+
+        /* Right Panel: Analysis */
+        .analysis-stage {
+            background: var(--bg-body); display: grid; grid-template-rows: 1fr 250px;
+            overflow: hidden;
+        }
+
+        /* Hex Viewer */
+        .hex-viewer {
+            padding: 24px; overflow-y: auto; font-family: var(--font-mono); font-size: 0.85rem;
+            color: var(--secondary); line-height: 1.5;
+        }
+        .hex-row { display: flex; gap: 20px; margin-bottom: 4px; }
+        .offset { color: var(--accent-gold); width: 80px; }
+        .bytes { color: var(--primary); width: 300px; letter-spacing: 1px; }
+        .ascii { color: var(--secondary); opacity: 0.7; }
+        
+        .highlight-byte { background: var(--accent-code); color: #000; }
+
+        /* Metadata & Chain */
+        .meta-deck {
+            border-top: 1px solid var(--border-color); background: var(--bg-panel);
+            display: grid; grid-template-columns: 1fr 1fr;
+        }
+        
+        .deck-col { padding: 20px; overflow-y: auto; border-right: 1px solid var(--border-color); }
+        .deck-col:last-child { border-right: none; }
+        
+        .deck-title { 
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; 
+            color: var(--accent-tech); margin-bottom: 16px; display: flex; justify-content: space-between;
+        }
+
+        .meta-grid { display: grid; grid-template-columns: 100px 1fr; gap: 8px; font-size: 0.8rem; }
+        .meta-key { color: var(--secondary); }
+        .meta-val { color: var(--primary); font-family: var(--font-mono); }
+
+        /* Timeline */
+        .chain-list { font-size: 0.8rem; border-left: 1px solid var(--border-color); margin-left: 8px; padding-left: 16px; }
+        .chain-item { margin-bottom: 16px; position: relative; }
+        .chain-item::before {
+            content: ''; position: absolute; left: -21px; top: 4px; width: 9px; height: 9px;
+            background: var(--bg-panel); border: 1px solid var(--accent-gold); border-radius: 50%;
+        }
+        .chain-time { font-family: var(--font-mono); color: var(--accent-gold); font-size: 0.7rem; margin-bottom: 2px; display: block; }
+        .chain-desc { color: var(--primary); }
+        .chain-hash { font-family: var(--font-mono); color: var(--secondary); font-size: 0.7rem; margin-top: 2px; display: block; }
+
+        /* --- Footer --- */
+        .lab-footer {
+            height: 40px; background: var(--bg-terminal); border-top: 1px solid var(--border-color);
+            display: flex; align-items: center; padding: 0 24px; justify-content: space-between;
+            font-family: var(--font-mono); font-size: 0.75rem; color: var(--secondary);
+        }
+
+        @media (max-width: 1024px) {
+            .workspace { grid-template-columns: 1fr; }
+            .analysis-stage { display: none; } /* Mobile shows list only */
+            .lab-sidebar { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="lab-sidebar">
+        <a href="attorney_dashboard.html" class="tool-icon" title="Return to Dashboard"><i data-lucide="layout-grid" size="20"></i></a>
+        <div class="tool-icon active"><i data-lucide="binary" size="20"></i></div>
+        <div class="tool-icon"><i data-lucide="search-code" size="20"></i></div>
+        <div class="tool-icon"><i data-lucide="network" size="20"></i></div>
+        <div class="tool-icon"><i data-lucide="file-key" size="20"></i></div>
+    </aside>
+
+    <!-- Main -->
+    <main class="lab-main">
+        
+        <header class="lab-header">
+            <div class="case-ref">
+                <i data-lucide="microscope" style="display:inline; margin-right:8px; vertical-align:middle; color:var(--accent-code);"></i>
+                EVIDENCE_LAB // CASE #992
+            </div>
+            <div class="sys-status">
+                HASH_VERIFIED <span class="blink">●</span>
+            </div>
+        </header>
+
+        <div class="workspace">
+            
+            <!-- Evidence List -->
+            <div class="evidence-panel">
+                <div class="panel-header">Seized Assets (Digital)</div>
+                <div class="evidence-list">
+                    
+                    <div class="evidence-item selected">
+                        <span class="ev-name">server_log_2025_10_12.log</span>
+                        <div class="ev-meta">
+                            <span>4.2 MB • Log File</span>
+                            <span class="hash-tag">MD5: a4f1...</span>
+                        </div>
+                    </div>
+
+                    <div class="evidence-item">
+                        <span class="ev-name">IMG_Evidence_004.jpg</span>
+                        <div class="ev-meta">
+                            <span>2.8 MB • Image (JPEG)</span>
+                            <span class="hash-tag">MD5: b2c9...</span>
+                        </div>
+                    </div>
+
+                    <div class="evidence-item">
+                        <span class="ev-name">wallet_dump.json</span>
+                        <div class="ev-meta">
+                            <span>14 KB • JSON</span>
+                            <span class="hash-tag">MD5: 88e1...</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="upload-zone">
+                    <button class="btn-upload">+ IMPORT FORENSIC IMAGE</button>
+                </div>
+            </div>
+
+            <!-- Analysis -->
+            <div class="analysis-stage">
+                
+                <!-- Hex Viewer -->
+                <div class="hex-viewer" id="hexView">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Info Deck -->
+                <div class="meta-deck">
+                    
+                    <!-- Metadata -->
+                    <div class="deck-col">
+                        <div class="deck-title">File Metadata <i data-lucide="info" size="14"></i></div>
+                        <div class="meta-grid">
+                            <span class="meta-key">File Name</span>
+                            <span class="meta-val">server_log_2025_10_12.log</span>
+                            
+                            <span class="meta-key">Size</span>
+                            <span class="meta-val">4,204,112 bytes</span>
+                            
+                            <span class="meta-key">Created</span>
+                            <span class="meta-val">2025-10-12 04:22:10 UTC</span>
+                            
+                            <span class="meta-key">Modified</span>
+                            <span class="meta-val">2025-10-12 04:22:12 UTC</span>
+                            
+                            <span class="meta-key">SHA-256</span>
+                            <span class="meta-val" style="color:var(--accent-code);">8f4b...229a (MATCH)</span>
+                        </div>
+                    </div>
+
+                    <!-- Chain of Custody -->
+                    <div class="deck-col">
+                        <div class="deck-title">Chain of Custody <i data-lucide="link" size="14"></i></div>
+                        <div class="chain-list">
+                            
+                            <div class="chain-item">
+                                <span class="chain-time">Oct 14, 10:00 AM</span>
+                                <div class="chain-desc">Accessed by Adv. G. Shankar</div>
+                                <span class="chain-hash">Action: Read Only</span>
+                            </div>
+
+                            <div class="chain-item">
+                                <span class="chain-time">Oct 12, 06:30 PM</span>
+                                <div class="chain-desc">Uploaded to Secure Vault</div>
+                                <span class="chain-hash">User: Forensic_Team_Lead</span>
+                            </div>
+
+                            <div class="chain-item">
+                                <span class="chain-time">Oct 12, 04:22 PM</span>
+                                <div class="chain-desc">Asset Seized / Imaged</div>
+                                <span class="chain-hash">Device ID: SRV-004-BLR</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer class="lab-footer">
+            <span>INTEGRITY CHECK: PASSED</span>
+            <span>ENCRYPTION: AES-256-GCM</span>
+        </footer>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // Hex Dump Simulation
+        const hexContainer = document.getElementById('hexView');
+        const hexData = [
+            "48 54 54 50 2F 31 2E 31 20 32 30 30 20 4F 4B 0D",
+            "0A 44 61 74 65 3A 20 4D 6F 6E 2C 20 31 32 20 4F",
+            "63 74 20 32 30 32 35 20 30 34 3A 32 32 3A 31 30",
+            "20 47 4D 54 0D 0A 53 65 72 76 65 72 3A 20 41 70",
+            "61 63 68 65 2F 32 2E 34 2E 34 31 20 28 55 62 75",
+            "6E 74 75 29 0D 0A 43 6F 6E 74 65 6E 74 2D 4C 65",
+            "6E 67 74 68 3A 20 34 34 32 0D 0A 43 6F 6E 6E 65",
+            "63 74 69 6F 6E 3A 20 63 6C 6F 73 65 0D 0A 0D 0A"
+        ];
+        
+        let html = '';
+        hexData.forEach((row, index) => {
+            const offset = (index * 16).toString(16).padStart(8, '0').toUpperCase();
+            
+            // Convert hex to ASCII approximation for visual
+            const ascii = row.split(' ').map(byte => {
+                const code = parseInt(byte, 16);
+                return (code > 31 && code < 127) ? String.fromCharCode(code) : '.';
+            }).join('');
+
+            html += `
+                <div class="hex-row">
+                    <span class="offset">${offset}</span>
+                    <span class="bytes">${row}</span>
+                    <span class="ascii">${ascii}</span>
+                </div>
+            `;
+        });
+        
+        // Add random rows for filler
+        for(let i=0; i<10; i++) {
+            html += `<div class="hex-row" style="opacity:0.3"><span class="offset">...</span></div>`;
+        }
+
+        hexContainer.innerHTML = html;
+    </script>
+</body>
+</html>
