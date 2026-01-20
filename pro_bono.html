@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social Impact & Pro Bono — JusticeFirms</title>
+    <meta name="description" content="Our commitment to Public Interest Litigation (PIL), Digital Rights, and access to justice for the underserved." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Palette: Midnight Luxury with Emerald Accents */
+            --bg-body: #020617;
+            --bg-glass: rgba(15, 23, 42, 0.85);
+            --bg-card: rgba(30, 41, 59, 0.4);
+            
+            --primary: #ffffff;
+            --secondary: #94a3b8;
+            
+            --accent-gold: #d4af37;
+            --accent-impact: #10b981; /* Emerald for Social Good */
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --container-width: 1200px;
+        }
+
+        html.light-mode {
+            --bg-body: #f8fafc;
+            --bg-glass: rgba(255, 255, 255, 0.9);
+            --bg-card: #ffffff;
+            --primary: #0f172a;
+            --secondary: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-family: var(--font-sans);
+            line-height: 1.7;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-serif); }
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
+        .mono { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-impact); }
+
+        /* --- Nav --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: var(--bg-glass); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .nav-inner { height: 90px; display: flex; align-items: center; justify-content: space-between; }
+        .brand { font-family: var(--font-serif); font-size: 1.75rem; font-weight: 700; display: flex; gap: 8px; text-decoration: none; color: inherit; }
+        .brand span { color: var(--accent-gold); }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-link { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); text-decoration: none; transition: 0.3s; }
+        .nav-link:hover { color: var(--primary); }
+
+        /* --- Hero --- */
+        .impact-hero {
+            padding: 180px 0 120px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 60%);
+        }
+        .hero-label { 
+            font-family: var(--font-mono); color: var(--accent-impact); font-size: 0.8rem; 
+            margin-bottom: 24px; display: inline-block; padding: 6px 12px; 
+            border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 4px;
+        }
+        .hero-title { font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 32px; }
+        .hero-desc { max-width: 650px; margin: 0 auto; color: var(--secondary); font-size: 1.1rem; }
+
+        /* --- Dashboard Stats --- */
+        .stats-section { padding: 80px 0; border-bottom: 1px solid var(--border-color); }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
+        .stat-item h3 { font-size: 3rem; color: var(--accent-impact); line-height: 1; margin-bottom: 16px; font-family: var(--font-sans); font-weight: 300; }
+        .stat-item p { text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.8rem; color: var(--secondary); }
+        .stat-divider { width: 1px; background: var(--border-color); height: 100%; margin: 0 auto; }
+
+        /* --- Featured Cause --- */
+        .cause-section { padding: 100px 0; }
+        .section-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        
+        .cause-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            position: relative;
+        }
+        .cause-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent-impact);
+        }
+        
+        .cause-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-impact); margin-bottom: 16px; display: block; }
+        .cause-title { font-size: 2rem; margin-bottom: 24px; }
+        .cause-text { color: var(--secondary); margin-bottom: 32px; font-size: 1rem; }
+        
+        .btn-link { 
+            color: var(--primary); text-decoration: none; border-bottom: 1px solid var(--accent-impact); 
+            padding-bottom: 4px; transition: 0.3s; font-size: 0.9rem;
+        }
+        .btn-link:hover { color: var(--accent-impact); }
+
+        /* --- Application Form (Simplified) --- */
+        .apply-section { 
+            background: linear-gradient(to right, rgba(16, 185, 129, 0.05), transparent);
+            padding: 100px 0; margin-top: 60px;
+        }
+        .form-container { max-width: 600px; margin: 0 auto; text-align: center; }
+        
+        .btn-apply {
+            display: inline-block; padding: 16px 32px; 
+            background: var(--accent-impact); color: #000; 
+            font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+            text-decoration: none; border-radius: 4px; transition: 0.3s;
+            margin-top: 32px;
+        }
+        .btn-apply:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2); }
+
+        @media (max-width: 900px) {
+            .stats-grid { grid-template-columns: 1fr; gap: 60px; }
+            .stat-divider { display: none; }
+            .section-layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-inner">
+            <a href="justicefirms_journal.html" class="brand">
+                <i data-lucide="scale" size="24" color="var(--accent-gold)"></i>
+                JusticeFirms
+            </a>
+            <div class="nav-links">
+                <a href="justicefirms_journal.html" class="nav-link">Journal</a>
+                <a href="firm_legacy.html" class="nav-link">Legacy</a>
+                <a href="consultation.html" class="nav-link">Consult</a>
+                <button id="themeToggle" style="background:none; border:none; cursor:pointer; color:var(--secondary);">
+                    <i data-lucide="moon" size="20"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="impact-hero">
+        <div class="container">
+            <span class="hero-label">Mission: Access to Justice</span>
+            <h1 class="hero-title">Advocacy for the<br>Public Good</h1>
+            <p class="hero-desc">
+                We believe that the highest function of the law is to protect those who cannot protect themselves. JusticeFirms dedicates 15% of all billable hours to merit-based Pro Bono representation.
+            </p>
+        </div>
+    </header>
+
+    <!-- Metrics -->
+    <section class="container stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3 data-val="12000">12,000+</h3>
+                <p>Pro Bono Hours Donated</p>
+            </div>
+            
+            <div class="stat-item">
+                <h3 data-val="45">45+</h3>
+                <p>PILs Filed in Supreme Court</p>
+            </div>
+            
+            <div class="stat-item">
+                <h3 data-val="8">₹8 Cr</h3>
+                <p>Value of Legal Aid Provided</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Initiatives -->
+    <section class="container cause-section">
+        <div class="section-layout">
+            <div>
+                <h2 style="font-size: 2.5rem; margin-bottom: 24px;">Current Initiatives</h2>
+                <p style="color: var(--secondary); margin-bottom: 40px;">
+                    Our strategic litigation focuses on systemic issues where a single judgment can liberate thousands. Currently, we are focused on Digital Rights and Undertrial Liberties.
+                </p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                    <span class="hero-label" style="margin:0; border-color: var(--border-color); color: var(--secondary);">Right to Privacy</span>
+                    <span class="hero-label" style="margin:0; border-color: var(--border-color); color: var(--secondary);">Bail Reform</span>
+                    <span class="hero-label" style="margin:0; border-color: var(--border-color); color: var(--secondary);">Internet Freedom</span>
+                </div>
+            </div>
+
+            <div class="cause-card">
+                <span class="cause-tag">Spotlight Case • 2026</span>
+                <h3 class="cause-title">The "Digital Divide" PIL</h3>
+                <p class="cause-text">
+                    JusticeFirms is currently representing a coalition of rural educators in the Supreme Court, arguing that "Right to High-Speed Internet" is fundamental to the Right to Education (Article 21) in a post-digital India.
+                </p>
+                <a href="#" class="btn-link">Read the Petition Brief <i data-lucide="arrow-right" size="14" style="display:inline; margin-left:4px;"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application -->
+    <section class="apply-section">
+        <div class="container form-container">
+            <i data-lucide="heart-handshake" size="48" style="color: var(--accent-impact); margin-bottom: 24px;"></i>
+            <h2 style="font-size: 2rem; margin-bottom: 16px;">Request Aid</h2>
+            <p style="color: var(--secondary);">
+                We review applications for Pro Bono representation on a rolling basis. Priority is given to cases involving constitutional questions, civil liberties, or extreme economic hardship.
+            </p>
+            <a href="mailto:probono@justicefirms.com?subject=Pro Bono Request" class="btn-apply">Submit Case Details</a>
+            <p style="margin-top: 16px; font-size: 0.75rem; color: var(--secondary);">
+                *All applications are subject to a rigorous merit review by our Ethics Committee.
+            </p>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px; border-top: 1px solid var(--border-color); color: var(--secondary); font-size: 0.8rem;">
+        <p>© 2026 JusticeFirms Foundation.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Theme Logic
+        const themeBtn = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        if (localStorage.getItem('theme') === 'light') {
+            html.classList.add('light-mode');
+            themeBtn.innerHTML = `<i data-lucide="sun" size="20"></i>`;
+        }
+        themeBtn.addEventListener('click', () => {
+            html.classList.toggle('light-mode');
+            const isLight = html.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            themeBtn.innerHTML = `<i data-lucide="${isLight ? 'sun' : 'moon'}" size="20"></i>`;
+            lucide.createIcons();
+        });
+
+        // Simple Counter Animation
+        const stats = document.querySelectorAll('.stat-item h3');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    // Just a visual trigger for now, complex counting requires more JS
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
