@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global Search — JusticeFirms</title>
+    <meta name="description" content="Search results across JusticeFirms' journal, case studies, attorney profiles, and legal lexicon." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Palette: Midnight Luxury */
+            --bg-body: #020617;
+            --bg-glass: rgba(15, 23, 42, 0.85);
+            --bg-card: rgba(30, 41, 59, 0.4);
+            --bg-sidebar: rgba(2, 6, 23, 0.95);
+            
+            --primary: #ffffff;
+            --secondary: #94a3b8;
+            
+            --accent-gold: #d4af37;
+            --accent-tech: #38bdf8;
+            --accent-highlight: rgba(212, 175, 55, 0.2);
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --container-width: 1200px;
+        }
+
+        html.light-mode {
+            --bg-body: #f8fafc;
+            --bg-glass: rgba(255, 255, 255, 0.9);
+            --bg-card: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --primary: #0f172a;
+            --secondary: #64748b;
+            --border-color: #e2e8f0;
+            --accent-highlight: rgba(212, 175, 55, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-family: var(--font-sans);
+            line-height: 1.7;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        /* --- Nav --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: var(--bg-glass); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .nav-inner { height: 90px; display: flex; align-items: center; justify-content: space-between; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        .brand { font-family: var(--font-serif); font-size: 1.75rem; font-weight: 700; display: flex; gap: 8px; text-decoration: none; color: inherit; }
+        .brand span { color: var(--accent-gold); }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-link { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); text-decoration: none; transition: 0.3s; }
+        .nav-link:hover { color: var(--primary); }
+
+        /* --- Header / Search Bar --- */
+        .search-header {
+            padding: 140px 0 40px;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(180deg, rgba(2,6,23,0) 0%, rgba(56, 189, 248, 0.05) 100%);
+        }
+        .search-wrapper {
+            max-width: 800px; margin: 0 auto;
+            position: relative;
+        }
+        .main-search-input {
+            width: 100%; padding: 20px 24px; padding-right: 60px;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            color: var(--primary); font-size: 1.25rem; border-radius: 8px;
+            outline: none; transition: 0.3s; font-family: var(--font-serif);
+        }
+        .main-search-input:focus { border-color: var(--accent-tech); box-shadow: 0 0 30px rgba(56, 189, 248, 0.15); }
+        .search-btn-icon {
+            position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+            color: var(--accent-gold); background: none; border: none; cursor: pointer;
+        }
+        .result-meta {
+            text-align: center; margin-top: 16px; font-family: var(--font-mono); 
+            font-size: 0.85rem; color: var(--secondary);
+        }
+
+        /* --- Layout --- */
+        .search-container {
+            max-width: var(--container-width); margin: 0 auto;
+            display: grid; grid-template-columns: 280px 1fr; gap: 60px;
+            padding: 60px 24px 120px;
+        }
+
+        /* Sidebar Filters */
+        .filter-group { margin-bottom: 32px; }
+        .filter-title { 
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; 
+            color: var(--secondary); margin-bottom: 16px; display: block;
+        }
+        .filter-option {
+            display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+            cursor: pointer; font-size: 0.9rem; color: var(--primary);
+        }
+        .checkbox {
+            width: 16px; height: 16px; border: 1px solid var(--border-color);
+            border-radius: 3px; display: grid; place-items: center;
+        }
+        .filter-option.active .checkbox { background: var(--accent-gold); border-color: var(--accent-gold); }
+        .filter-option.active .checkbox::after { content: '✓'; color: #000; font-size: 10px; font-weight: bold; }
+        .count { margin-left: auto; font-family: var(--font-mono); font-size: 0.75rem; color: var(--secondary); opacity: 0.6; }
+
+        /* Results List */
+        .results-list { display: flex; flex-direction: column; gap: 32px; }
+        
+        .result-card {
+            padding-bottom: 32px; border-bottom: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+        .result-card:last-child { border-bottom: none; }
+        
+        .result-type { 
+            font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-tech); 
+            text-transform: uppercase; margin-bottom: 8px; display: inline-block;
+        }
+        .result-title { 
+            font-size: 1.5rem; font-family: var(--font-serif); color: var(--primary); 
+            text-decoration: none; margin-bottom: 12px; display: block;
+        }
+        .result-title:hover { color: var(--accent-gold); text-decoration: underline; text-decoration-color: rgba(212, 175, 55, 0.3); }
+        
+        .result-snippet { font-size: 1rem; color: var(--secondary); line-height: 1.6; margin-bottom: 16px; }
+        .highlight { background-color: var(--accent-highlight); color: var(--primary); padding: 0 2px; border-radius: 2px; }
+        
+        .result-footer { font-size: 0.8rem; color: var(--secondary); display: flex; gap: 16px; align-items: center; }
+
+        /* Pagination */
+        .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 60px; }
+        .page-btn {
+            width: 40px; height: 40px; border: 1px solid var(--border-color);
+            background: var(--bg-card); color: var(--secondary);
+            display: grid; place-items: center; cursor: pointer; transition: 0.3s;
+            text-decoration: none; font-family: var(--font-mono); font-size: 0.9rem;
+        }
+        .page-btn:hover, .page-btn.active { border-color: var(--accent-gold); color: var(--accent-gold); }
+        .page-btn.active { background: rgba(212, 175, 55, 0.1); }
+
+        @media (max-width: 900px) {
+            .search-container { grid-template-columns: 1fr; }
+            .filter-sidebar { display: none; } /* Could be a modal on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="justicefirms_journal.html" class="brand">
+                <i data-lucide="scale" size="24" color="var(--accent-gold)"></i>
+                JusticeFirms
+            </a>
+            <div class="nav-links">
+                <a href="justicefirms_journal.html" class="nav-link">Journal</a>
+                <a href="practice_areas.html" class="nav-link">Practice</a>
+                <a href="consultation.html" class="nav-link" style="color:var(--accent-gold);">Consult</a>
+                <button id="themeToggle" style="background:none; border:none; cursor:pointer; color:var(--secondary);">
+                    <i data-lucide="moon" size="20"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="search-header">
+        <div class="container search-wrapper">
+            <input type="text" class="main-search-input" value="BNS Section 111" autofocus>
+            <button class="search-btn-icon"><i data-lucide="search" size="24"></i></button>
+            <div class="result-meta">
+                Found 14 results in 0.03 seconds • Filtered by Relevance
+            </div>
+        </div>
+    </header>
+
+    <div class="search-container">
+        
+        <!-- Filters Sidebar -->
+        <aside class="filter-sidebar">
+            <div class="filter-group">
+                <span class="filter-title">Content Type</span>
+                <div class="filter-option active"><div class="checkbox"></div> Journal Articles <span class="count">8</span></div>
+                <div class="filter-option"><div class="checkbox"></div> Case Studies <span class="count">3</span></div>
+                <div class="filter-option"><div class="checkbox"></div> Legal Lexicon <span class="count">2</span></div>
+                <div class="filter-option"><div class="checkbox"></div> Attorney Bios <span class="count">1</span></div>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-title">Jurisdiction</span>
+                <div class="filter-option"><div class="checkbox"></div> Supreme Court <span class="count">10</span></div>
+                <div class="filter-option"><div class="checkbox"></div> High Court <span class="count">4</span></div>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-title">Date Range</span>
+                <div class="filter-option active"><div class="checkbox"></div> Past Year</div>
+                <div class="filter-option"><div class="checkbox"></div> Archive</div>
+            </div>
+        </aside>
+
+        <!-- Main Results -->
+        <main>
+            <div class="results-list">
+                
+                <!-- Result 1 -->
+                <div class="result-card">
+                    <span class="result-type">Journal Article</span>
+                    <a href="article_detail.html" class="result-title">The Bharatiya Nyaya Sanhita: Paradigm Shift in Organized Crime</a>
+                    <p class="result-snippet">
+                        ...specifically, <span class="highlight">BNS Section 111</span> introduces a comprehensive definition of organized crime that includes economic offenses and cyber-crimes. This effectively bridges the gap between white-collar...
+                    </p>
+                    <div class="result-footer">
+                        <span>By Adv. Ganga Shankar</span>
+                        <span>•</span>
+                        <span>Oct 12, 2025</span>
+                        <span>•</span>
+                        <span>8 min read</span>
+                    </div>
+                </div>
+
+                <!-- Result 2 -->
+                <div class="result-card">
+                    <span class="result-type">Legal Lexicon</span>
+                    <a href="glossary.html" class="result-title">Definition: Organized Crime (BNS)</a>
+                    <p class="result-snippet">
+                        <strong>BNS 2023:</strong> First central definition found in <span class="highlight">Section 111</span>. Includes continuing unlawful activity including economic offences, cyber crimes, and land grabbing by a crime syndicate.
+                    </p>
+                    <div class="result-footer">
+                        <span>Reference: BNS Act, 2023</span>
+                    </div>
+                </div>
+
+                <!-- Result 3 -->
+                <div class="result-card">
+                    <span class="result-type">Case Brief</span>
+                    <a href="case_studies.html" class="result-title">State vs. [Redacted] (PMLA Defense)</a>
+                    <p class="result-snippet">
+                        ...defense strategy relied on interpreting <span class="highlight">Section 111</span> to argue that isolated financial irregularities do not constitute "continuing unlawful activity" without a predicate offense...
+                    </p>
+                    <div class="result-footer">
+                        <span>Corporate Litigation</span>
+                        <span>•</span>
+                        <span>Status: Acquittal</span>
+                    </div>
+                </div>
+
+                <!-- Result 4 -->
+                <div class="result-card">
+                    <span class="result-type">Policy Lab</span>
+                    <a href="policy_innovation.html" class="result-title">White Paper: Bail Jurisprudence Post-2024</a>
+                    <p class="result-snippet">
+                        A detailed analysis of how <span class="highlight">BNS Section 111</span> interacts with the bail provisions of the BNSS, creating a stricter regime for syndicated crime suspects.
+                    </p>
+                    <div class="result-footer">
+                        <span>Research Wing</span>
+                        <span>•</span>
+                        <span>PDF Download</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pagination">
+                <a href="#" class="page-btn active">1</a>
+                <a href="#" class="page-btn">2</a>
+                <a href="#" class="page-btn">3</a>
+                <a href="#" class="page-btn"><i data-lucide="chevron-right" size="16"></i></a>
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Theme Logic
+        const themeBtn = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        if (localStorage.getItem('theme') === 'light') {
+            html.classList.add('light-mode');
+            themeBtn.innerHTML = `<i data-lucide="sun" size="20"></i>`;
+        }
+        themeBtn.addEventListener('click', () => {
+            html.classList.toggle('light-mode');
+            const isLight = html.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            themeBtn.innerHTML = `<i data-lucide="${isLight ? 'sun' : 'moon'}" size="20"></i>`;
+            lucide.createIcons();
+        });
+
+        // Filter Logic (Visual only)
+        document.querySelectorAll('.filter-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                opt.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
