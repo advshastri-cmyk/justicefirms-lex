@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>System Status — JusticeFirms</title>
+    <meta name="description" content="Real-time operational status of JusticeFirms' secure infrastructure." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Palette: Midnight Luxury */
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            
+            --primary: #ffffff;
+            --secondary: #94a3b8;
+            
+            --accent-gold: #d4af37;
+            --accent-tech: #38bdf8;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-danger: #ef4444;
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --container-width: 800px;
+        }
+
+        html.light-mode {
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --primary: #0f172a;
+            --secondary: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            transition: background 0.3s ease;
+        }
+
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 60px 24px; width: 100%; }
+
+        /* --- Header --- */
+        .status-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 60px; border-bottom: 1px solid var(--border-color); padding-bottom: 24px;
+        }
+        .brand { font-size: 1.2rem; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 8px; text-decoration: none; }
+        .back-link { color: var(--secondary); text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
+        .back-link:hover { color: var(--primary); }
+
+        /* --- Overall Status --- */
+        .overall-status {
+            background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 32px; border-radius: 8px; margin-bottom: 40px;
+            display: flex; align-items: center; gap: 24px;
+        }
+        .overall-icon { 
+            width: 48px; height: 48px; background: var(--accent-success); 
+            border-radius: 50%; color: #000; display: grid; place-items: center;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+        .overall-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 4px; }
+        .overall-desc { color: var(--secondary); font-size: 0.9rem; }
+
+        /* --- System Grid --- */
+        .system-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 60px; }
+        
+        .system-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            padding: 20px 24px; border-radius: 6px;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: 0.2s;
+        }
+        .system-card:hover { border-color: var(--accent-tech); }
+        
+        .sys-name { font-weight: 500; font-size: 1rem; display: block; margin-bottom: 4px; }
+        .sys-desc { font-size: 0.8rem; color: var(--secondary); }
+        
+        .sys-status { 
+            font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; 
+            letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px;
+        }
+        .status-operational { color: var(--accent-success); }
+        .status-degraded { color: var(--accent-warning); }
+        .status-down { color: var(--accent-danger); }
+
+        /* --- Incident History --- */
+        .history-section h3 { font-size: 1.2rem; margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; }
+        
+        .incident-item { margin-bottom: 32px; }
+        .inc-date { font-family: var(--font-mono); color: var(--secondary); font-size: 0.8rem; margin-bottom: 8px; display: block; }
+        .inc-title { font-size: 1rem; font-weight: 600; margin-bottom: 8px; color: var(--primary); }
+        .inc-body { color: var(--secondary); font-size: 0.9rem; line-height: 1.6; }
+        .inc-resolved { color: var(--accent-success); font-size: 0.8rem; margin-top: 8px; display: block; }
+
+        footer { 
+            text-align: center; margin-top: auto; padding-top: 40px; 
+            border-top: 1px solid var(--border-color); color: var(--secondary); font-size: 0.8rem; 
+        }
+        
+        /* Pulse Animation */
+        .pulse { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        @media (max-width: 600px) {
+            .overall-status { flex-direction: column; text-align: center; }
+            .system-card { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .sys-status { align-self: flex-end; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header class="status-header">
+            <a href="index.html" class="brand">
+                <i data-lucide="activity" color="var(--accent-gold)"></i> JusticeFirms Status
+            </a>
+            <a href="help_center.html" class="back-link">Return to Help Center</a>
+        </header>
+
+        <!-- Overall Health -->
+        <div class="overall-status">
+            <div class="overall-icon"><i data-lucide="check" size="24"></i></div>
+            <div>
+                <div class="overall-title">All Systems Operational</div>
+                <div class="overall-desc">Client Enclave, Billing, and Encrypted Chat are functioning normally.</div>
+            </div>
+        </div>
+
+        <!-- Components -->
+        <div class="system-list">
+            
+            <div class="system-card">
+                <div>
+                    <span class="sys-name">Client Portal (Web)</span>
+                    <span class="sys-desc">Dashboard & Document Vault access</span>
+                </div>
+                <div class="sys-status status-operational">
+                    <div class="pulse"></div> Operational
+                </div>
+            </div>
+
+            <div class="system-card">
+                <div>
+                    <span class="sys-name">Secure Chat (E2EE)</span>
+                    <span class="sys-desc">Real-time messaging nodes</span>
+                </div>
+                <div class="sys-status status-operational">
+                    <div class="pulse"></div> Operational
+                </div>
+            </div>
+
+            <div class="system-card">
+                <div>
+                    <span class="sys-name">Crypto Payments API</span>
+                    <span class="sys-desc">USDC/USDT Transaction Processing</span>
+                </div>
+                <div class="sys-status status-operational">
+                    <div class="pulse"></div> Operational
+                </div>
+            </div>
+
+            <div class="system-card">
+                <div>
+                    <span class="sys-name">Tor Hidden Service</span>
+                    <span class="sys-desc">Onion routing for Secure Drop</span>
+                </div>
+                <div class="sys-status status-degraded">
+                    <i data-lucide="alert-triangle" size="14"></i> Latency High
+                </div>
+            </div>
+
+            <div class="system-card">
+                <div>
+                    <span class="sys-name">Public Journal</span>
+                    <span class="sys-desc">Main website and CDN</span>
+                </div>
+                <div class="sys-status status-operational">
+                    <div class="pulse"></div> Operational
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Past Incidents -->
+        <div class="history-section">
+            <h3>Incident History</h3>
+
+            <div class="incident-item">
+                <span class="inc-date">Oct 02, 2026</span>
+                <div class="inc-title">Scheduled Maintenance: Database Migration</div>
+                <p class="inc-body">
+                    The Client Portal was briefly unavailable for 45 minutes during a scheduled upgrade to the document encryption module. No data was affected.
+                </p>
+                <span class="inc-resolved">Resolved in 45m</span>
+            </div>
+
+            <div class="incident-item">
+                <span class="inc-date">Sep 15, 2026</span>
+                <div class="inc-title">Billing API Latency</div>
+                <p class="inc-body">
+                    Users experienced delays in generating PDF invoices. The issue was traced to a third-party PDF generation service and has been patched.
+                </p>
+                <span class="inc-resolved">Resolved in 2h 10m</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 JusticeFirms Infrastructure. Refreshed automatically.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        // Auto-refresh simulation
+        setTimeout(() => {
+            console.log("Status check...");
+        }, 30000);
+    </script>
+</body>
+</html>
