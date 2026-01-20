@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Academy & Events — JusticeFirms</title>
+    <meta name="description" content="Continuing Legal Education (CLE), BNS Masterclasses, and Legal-Tech Webinars hosted by JusticeFirms." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Palette: Midnight Luxury */
+            --bg-body: #020617;
+            --bg-glass: rgba(15, 23, 42, 0.85);
+            --bg-card: rgba(30, 41, 59, 0.4);
+            
+            --primary: #ffffff;
+            --secondary: #94a3b8;
+            
+            --accent-gold: #d4af37;
+            --accent-tech: #38bdf8;
+            --accent-purple: #a855f7;
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --container-width: 1280px;
+        }
+
+        html.light-mode {
+            --bg-body: #f8fafc;
+            --bg-glass: rgba(255, 255, 255, 0.9);
+            --bg-card: #ffffff;
+            --primary: #0f172a;
+            --secondary: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-family: var(--font-sans);
+            line-height: 1.7;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-serif); }
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
+        .mono { font-family: var(--font-mono); font-size: 0.85rem; }
+
+        /* --- Nav --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: var(--bg-glass); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .nav-inner { height: 90px; display: flex; align-items: center; justify-content: space-between; }
+        .brand { font-family: var(--font-serif); font-size: 1.75rem; font-weight: 700; display: flex; gap: 8px; text-decoration: none; color: inherit; }
+        .brand span { color: var(--accent-gold); }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-link { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); text-decoration: none; transition: 0.3s; }
+        .nav-link:hover { color: var(--primary); }
+
+        /* --- Featured Event Hero --- */
+        .event-hero {
+            padding: 160px 0 100px;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+        .hero-layout { display: grid; grid-template-columns: 1fr 400px; gap: 60px; align-items: center; }
+        
+        .tag-live {
+            background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 6px 12px; border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+            display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px;
+        }
+        .tag-live::before { content: ''; width: 8px; height: 8px; background: #ef4444; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        .hero-title { font-size: 3.5rem; line-height: 1.1; margin-bottom: 24px; }
+        .hero-desc { font-size: 1.1rem; color: var(--secondary); margin-bottom: 40px; max-width: 600px; }
+
+        .countdown-box {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            padding: 32px; border-radius: 8px; text-align: center;
+        }
+        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 0; }
+        .time-val { font-size: 2rem; font-family: var(--font-mono); color: var(--accent-gold); line-height: 1; }
+        .time-label { font-size: 0.7rem; text-transform: uppercase; color: var(--secondary); margin-top: 8px; }
+
+        .btn-register {
+            width: 100%; padding: 14px; background: var(--primary); color: var(--bg-body);
+            font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer;
+            border: none; transition: 0.3s;
+        }
+        .btn-register:hover { background: var(--accent-gold); color: #000; }
+
+        /* --- Event Calendar --- */
+        .calendar-section { padding: 100px 0; }
+        .section-title { font-size: 2.5rem; margin-bottom: 60px; }
+
+        .event-card {
+            display: grid; grid-template-columns: 120px 1fr 200px;
+            border: 1px solid var(--border-color); background: var(--bg-card);
+            margin-bottom: 24px; transition: 0.3s;
+        }
+        .event-card:hover { transform: translateX(10px); border-color: var(--accent-tech); }
+
+        .event-date {
+            background: rgba(255,255,255,0.02); border-right: 1px solid var(--border-color);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 24px;
+        }
+        .date-day { font-size: 2rem; font-family: var(--font-serif); color: var(--primary); }
+        .date-month { font-size: 0.85rem; text-transform: uppercase; color: var(--accent-tech); letter-spacing: 0.1em; }
+
+        .event-details { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+        .event-cat { font-size: 0.75rem; text-transform: uppercase; color: var(--secondary); margin-bottom: 8px; letter-spacing: 0.1em; }
+        .event-title { font-size: 1.5rem; margin-bottom: 12px; }
+        .event-meta { display: flex; gap: 16px; font-size: 0.9rem; color: var(--secondary); align-items: center; }
+
+        .event-action {
+            display: flex; align-items: center; justify-content: center;
+            border-left: 1px solid var(--border-color); padding: 24px;
+        }
+        .btn-small {
+            padding: 10px 20px; border: 1px solid var(--border-color); color: var(--primary);
+            text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.1em; cursor: pointer;
+            transition: 0.3s; background: transparent;
+        }
+        .btn-small:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+
+        /* --- Past Archive --- */
+        .archive-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 32px; margin-top: 60px; }
+        .archive-card { border: 1px solid var(--border-color); background: var(--bg-card); cursor: pointer; }
+        .thumb-wrap { height: 180px; background: #000; position: relative; display: grid; place-items: center; }
+        .play-icon { 
+            width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.1); 
+            backdrop-filter: blur(4px); display: grid; place-items: center; color: #fff; border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.3s;
+        }
+        .archive-card:hover .play-icon { transform: scale(1.1); background: var(--accent-gold); color: #000; }
+        .archive-content { padding: 24px; }
+        .archive-title { font-size: 1.1rem; margin-bottom: 8px; font-family: var(--font-serif); }
+
+        @media (max-width: 900px) {
+            .hero-layout { grid-template-columns: 1fr; }
+            .event-card { grid-template-columns: 1fr; gap: 0; }
+            .event-date { flex-direction: row; gap: 12px; border-right: none; border-bottom: 1px solid var(--border-color); padding: 16px; justify-content: flex-start; }
+            .event-action { border-left: none; border-top: 1px solid var(--border-color); justify-content: flex-start; }
+            .timer-grid { gap: 8px; }
+            .time-val { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-inner">
+            <a href="justicefirms_journal.html" class="brand">
+                <i data-lucide="scale" size="24" color="var(--accent-gold)"></i>
+                JusticeFirms
+            </a>
+            <div class="nav-links">
+                <a href="justicefirms_journal.html" class="nav-link">Journal</a>
+                <a href="the_bench.html" class="nav-link">The Bench</a>
+                <a href="consultation.html" class="nav-link" style="color:var(--accent-gold);">Consult</a>
+                <button id="themeToggle" style="background:none; border:none; cursor:pointer; color:var(--secondary);">
+                    <i data-lucide="moon" size="20"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero: Featured Event -->
+    <header class="event-hero">
+        <div class="container hero-layout">
+            <div>
+                <div class="tag-live">Registrations Open</div>
+                <h1 class="hero-title">The BNS Transition:<br>A Practitioner's Guide</h1>
+                <p class="hero-desc">
+                    An intensive 4-hour masterclass led by Adv. Ganga Shankar on the procedural nuances of the Bharatiya Nagarik Suraksha Sanhita (BNSS) regarding bail and remand.
+                </p>
+                <div style="display:flex; gap: 24px; margin-top: 32px;">
+                    <div style="display:flex; gap:8px; align-items:center; color:var(--secondary);">
+                        <i data-lucide="calendar" size="18"></i> <span>Oct 15, 2026</span>
+                    </div>
+                    <div style="display:flex; gap:8px; align-items:center; color:var(--secondary);">
+                        <i data-lucide="clock" size="18"></i> <span>14:00 - 18:00 IST</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Countdown Widget -->
+            <div class="countdown-box">
+                <span class="mono" style="color:var(--secondary);">EVENT STARTS IN</span>
+                <div class="timer-grid" id="countdown">
+                    <!-- Populated by JS -->
+                </div>
+                <button class="btn-register" onclick="registerEvent()">Reserve Seat</button>
+                <p style="font-size: 0.75rem; color: var(--secondary); margin-top: 16px;">
+                    Limited to 500 Participants.<br>CPD Credits Available.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Upcoming Schedule -->
+    <section class="container calendar-section">
+        <h2 class="section-title">Academic Calendar</h2>
+
+        <!-- Event 1 -->
+        <div class="event-card">
+            <div class="event-date">
+                <span class="date-day">22</span>
+                <span class="date-month">OCT</span>
+            </div>
+            <div class="event-details">
+                <span class="event-cat">Webinar Series • Tech</span>
+                <h3 class="event-title">Crypto-Assets in Family Disputes</h3>
+                <div class="event-meta">
+                    <span><i data-lucide="video" size="14" style="display:inline; vertical-align:middle;"></i> Zoom Live</span>
+                    <span>•</span>
+                    <span>Speaker: Adv. Shivani Shastri</span>
+                </div>
+            </div>
+            <div class="event-action">
+                <button class="btn-small" onclick="addToCalendar('Crypto Assets Webinar')">
+                    <i data-lucide="calendar-plus" size="14"></i> Add to Cal
+                </button>
+            </div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="event-card">
+            <div class="event-date">
+                <span class="date-day">05</span>
+                <span class="date-month">NOV</span>
+            </div>
+            <div class="event-details">
+                <span class="event-cat">Roundtable • Policy</span>
+                <h3 class="event-title">Data Fiduciaries: Liability Under DPDP Act</h3>
+                <div class="event-meta">
+                    <span><i data-lucide="map-pin" size="14" style="display:inline; vertical-align:middle;"></i> India International Centre, Delhi</span>
+                    <span>•</span>
+                    <span>Panel Discussion</span>
+                </div>
+            </div>
+            <div class="event-action">
+                <button class="btn-small" onclick="alert('Waitlist joined.')">Join Waitlist</button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Archive -->
+    <section class="container calendar-section" style="border-top: 1px solid var(--border-color);">
+        <h2 class="section-title">Masterclass Archive</h2>
+        <p style="color:var(--secondary);">Access to recording requires <a href="client_portal.html" style="color:var(--accent-gold);">Client Portal</a> authentication.</p>
+
+        <div class="archive-grid">
+            <div class="archive-card">
+                <div class="thumb-wrap">
+                    <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
+                </div>
+                <div class="archive-content">
+                    <h4 class="archive-title">Understanding Organized Crime in BNS</h4>
+                    <span class="mono" style="color:var(--secondary);">Duration: 1h 45m</span>
+                </div>
+            </div>
+
+            <div class="archive-card">
+                <div class="thumb-wrap">
+                    <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
+                </div>
+                <div class="archive-content">
+                    <h4 class="archive-title">AI Evidence Admissibility</h4>
+                    <span class="mono" style="color:var(--secondary);">Duration: 55m</span>
+                </div>
+            </div>
+
+            <div class="archive-card">
+                <div class="thumb-wrap">
+                    <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
+                </div>
+                <div class="archive-content">
+                    <h4 class="archive-title">Virtual Hearings Etiquette</h4>
+                    <span class="mono" style="color:var(--secondary);">Duration: 30m</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 60px 0; border-top: 1px solid var(--border-color); color: var(--secondary); font-size: 0.8rem;">
+        <p>© 2026 JusticeFirms Academy.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Theme Logic
+        const themeBtn = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        if (localStorage.getItem('theme') === 'light') {
+            html.classList.add('light-mode');
+            themeBtn.innerHTML = `<i data-lucide="sun" size="20"></i>`;
+        }
+        themeBtn.addEventListener('click', () => {
+            html.classList.toggle('light-mode');
+            const isLight = html.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            themeBtn.innerHTML = `<i data-lucide="${isLight ? 'sun' : 'moon'}" size="20"></i>`;
+            lucide.createIcons();
+        });
+
+        // Countdown Logic
+        function updateTimer() {
+            // Set date to 10 days from now for demo purposes
+            const now = new Date();
+            const eventDate = new Date(now.getTime() + (10 * 24 * 60 * 60 * 1000)); 
+            
+            // For static demo, just hardcode some values that look dynamic or calculate difference
+            // Here we just render static for stability in file generation
+            const html = `
+                <div><div class="time-val">09</div><div class="time-label">Days</div></div>
+                <div><div class="time-val">14</div><div class="time-label">Hours</div></div>
+                <div><div class="time-val">32</div><div class="time-label">Mins</div></div>
+                <div><div class="time-val">05</div><div class="time-label">Secs</div></div>
+            `;
+            document.getElementById('countdown').innerHTML = html;
+        }
+        updateTimer(); // Static init
+
+        // Interactions
+        function registerEvent() {
+            const btn = document.querySelector('.btn-register');
+            const original = btn.innerText;
+            btn.innerText = "Processing...";
+            setTimeout(() => {
+                btn.innerText = "Ticket Sent to Email";
+                btn.style.background = "var(--accent-success)";
+            }, 1000);
+        }
+
+        function addToCalendar(title) {
+            alert(`Added "${title}" to your local calendar.`);
+        }
+    </script>
+</body>
+</html>
