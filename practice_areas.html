@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practice Areas — JusticeFirms</title>
+    <meta name="description" content="Specialized legal services in Criminal Defense (BNS), Corporate FinTech, Cyber Litigation, and Constitutional Law." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Palette: Midnight Luxury */
+            --bg-body: #020617;
+            --bg-glass: rgba(15, 23, 42, 0.85);
+            --bg-card: rgba(30, 41, 59, 0.4);
+            --bg-sidebar: rgba(2, 6, 23, 0.95);
+            
+            --primary: #ffffff;
+            --secondary: #94a3b8;
+            
+            --accent-gold: #d4af37;
+            --accent-tech: #38bdf8;
+            --accent-crimson: #fb7185;
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --container-width: 1300px;
+        }
+
+        html.light-mode {
+            --bg-body: #f8fafc;
+            --bg-glass: rgba(255, 255, 255, 0.9);
+            --bg-card: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --primary: #0f172a;
+            --secondary: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-family: var(--font-sans);
+            line-height: 1.7;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-serif); }
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
+        
+        /* --- Nav --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: var(--bg-glass); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .nav-inner { height: 90px; display: flex; align-items: center; justify-content: space-between; }
+        .brand { font-family: var(--font-serif); font-size: 1.75rem; font-weight: 700; display: flex; gap: 8px; text-decoration: none; color: inherit; }
+        .brand span { color: var(--accent-gold); }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-link { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); text-decoration: none; transition: 0.3s; }
+        .nav-link:hover { color: var(--primary); }
+
+        /* --- Header --- */
+        .page-header {
+            padding: 160px 0 80px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(212, 175, 55, 0.03) 100%);
+        }
+        .header-title { font-size: 3.5rem; margin-bottom: 24px; }
+        .header-sub { color: var(--secondary); max-width: 600px; margin: 0 auto; }
+
+        /* --- Layout: Sticky Sidebar --- */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 60px;
+            align-items: start;
+            padding-top: 60px;
+            padding-bottom: 120px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 120px;
+            padding: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+        .sidebar-title { 
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; 
+            color: var(--secondary); margin-bottom: 20px; display: block;
+        }
+        .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .sidebar-btn {
+            text-align: left;
+            padding: 12px 16px;
+            border-radius: 4px;
+            background: none;
+            border: 1px solid transparent;
+            color: var(--secondary);
+            cursor: pointer;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            transition: 0.3s;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .sidebar-btn:hover, .sidebar-btn.active {
+            background: rgba(255,255,255,0.03);
+            color: var(--primary);
+            border-color: var(--border-color);
+        }
+        .sidebar-btn.active { border-left: 3px solid var(--accent-gold); }
+
+        /* Content Area */
+        .content-area { display: flex; flex-direction: column; gap: 100px; }
+
+        .practice-section { 
+            scroll-margin-top: 140px; 
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 60px;
+        }
+        .practice-section:last-child { border-bottom: none; }
+
+        .section-label {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--accent-tech); font-family: var(--font-mono); font-size: 0.8rem;
+            margin-bottom: 16px;
+        }
+        .section-title { font-size: 2.5rem; margin-bottom: 24px; line-height: 1.1; }
+        .section-desc { font-size: 1.1rem; color: var(--secondary); margin-bottom: 32px; max-width: 90%; }
+
+        .statute-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 4px;
+            margin-bottom: 32px;
+        }
+        .statute-header { font-size: 0.85rem; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 12px; font-weight: 600; }
+        .chip { 
+            display: inline-block; padding: 4px 8px; background: rgba(255,255,255,0.05); 
+            border-radius: 4px; font-size: 0.8rem; margin-right: 8px; margin-bottom: 8px; 
+            border: 1px solid var(--border-color);
+        }
+
+        .services-list {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+        }
+        .service-item {
+            display: flex; gap: 12px;
+        }
+        .check-icon { color: var(--accent-gold); min-width: 20px; }
+        .service-text { font-size: 0.95rem; color: var(--primary); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .layout-grid { grid-template-columns: 1fr; }
+            .sidebar { display: none; } /* Simplified for mobile, or could be a horizontal scroll nav */
+            .services-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-inner">
+            <a href="justicefirms_journal.html" class="brand">
+                <i data-lucide="scale" size="24" color="var(--accent-gold)"></i>
+                JusticeFirms
+            </a>
+            <div class="nav-links">
+                <a href="justicefirms_journal.html" class="nav-link">Journal</a>
+                <a href="policy_innovation.html" class="nav-link">Policy Lab</a>
+                <a href="consultation.html" class="nav-link" style="color:var(--accent-gold);">Consult</a>
+                <button id="themeToggle" style="background:none; border:none; cursor:pointer; color:var(--secondary);">
+                    <i data-lucide="moon" size="20"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1 class="header-title">Fields of Mastery</h1>
+            <p class="header-sub">
+                Our practice is deliberately focused. We do not dabble; we dominate specific sectors where the stakes are highest and the law is most complex.
+            </p>
+        </div>
+    </header>
+
+    <div class="container layout-grid">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <span class="sidebar-title">Jurisdictions</span>
+            <ul class="sidebar-menu">
+                <li><button class="sidebar-btn active" onclick="scrollToSection('criminal')">Criminal Defense (BNS) <i data-lucide="arrow-right" size="14"></i></button></li>
+                <li><button class="sidebar-btn" onclick="scrollToSection('corporate')">Corporate & FinTech <i data-lucide="arrow-right" size="14"></i></button></li>
+                <li><button class="sidebar-btn" onclick="scrollToSection('cyber')">Cyber Litigation <i data-lucide="arrow-right" size="14"></i></button></li>
+                <li><button class="sidebar-btn" onclick="scrollToSection('family')">Private Client & Family <i data-lucide="arrow-right" size="14"></i></button></li>
+            </ul>
+            
+            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+                <span class="sidebar-title">Client Support</span>
+                <p style="font-size: 0.85rem; color: var(--secondary); margin-bottom: 16px;">
+                    Emergency bail support available 24/7 for retainer clients.
+                </p>
+                <a href="consultation.html" style="font-size: 0.85rem; color: var(--accent-gold); display: flex; align-items: center; gap: 6px;">
+                    Initiate Intake <i data-lucide="external-link" size="12"></i>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content-area">
+
+            <!-- Section 1: Criminal -->
+            <section id="criminal" class="practice-section">
+                <div class="section-label">
+                    <i data-lucide="gavel" size="16"></i> Litigation Wing
+                </div>
+                <h2 class="section-title">Criminal Defense &<br>White Collar Crime</h2>
+                <p class="section-desc">
+                    Navigating the paradigm shift from IPC/CrPC to the Bharatiya Nyaya Sanhita (BNS) and Nagarik Suraksha Sanhita (BNSS). We specialize in complex bail matters, quashing petitions, and trials involving economic offenses.
+                </p>
+                
+                <div class="statute-box">
+                    <div class="statute-header">Key Statutory Expertise</div>
+                    <div style="display: flex; flex-wrap: wrap;">
+                        <span class="chip">PMLA (Money Laundering)</span>
+                        <span class="chip">BNS Section 111 (Organized Crime)</span>
+                        <span class="chip">NDPS Act</span>
+                        <span class="chip">UAPA Defense</span>
+                        <span class="chip">Anticipatory Bail (BNSS 482)</span>
+                    </div>
+                </div>
+
+                <div class="services-list">
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon"></i>
+                        <span class="service-text">Strategic defense against ED & CBI attachment proceedings.</span>
+                    </div>
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon"></i>
+                        <span class="service-text">Quashing of FIRs under Section 482 jurisdiction.</span>
+                    </div>
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon"></i>
+                        <span class="service-text">Representing corporates in vicarious liability claims.</span>
+                    </div>
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon"></i>
+                        <span class="service-text">Supreme Court Special Leave Petitions (SLP).</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Corporate -->
+            <section id="corporate" class="practice-section">
+                <div class="section-label">
+                    <i data-lucide="building-2" size="16"></i> Corporate Wing
+                </div>
+                <h2 class="section-title">FinTech, Crypto &<br>Compliance</h2>
+                <p class="section-desc">
+                    Structuring the legal architecture for Web3 startups, Neo-Banks, and traditional firms entering the digital asset space. We ensure compliance with RBI circulars, FIU reporting, and the Digital Personal Data Protection Act.
+                </p>
+
+                <div class="statute-box" style="border-color: rgba(56, 189, 248, 0.3);">
+                    <div class="statute-header" style="color: var(--accent-tech);">Compliance Matrix</div>
+                    <div style="display: flex; flex-wrap: wrap;">
+                        <span class="chip">Virtual Digital Assets (VDA) Tax</span>
+                        <span class="chip">FIU-IND Registration</span>
+                        <span class="chip">Smart Contract Audits</span>
+                        <span class="chip">Shareholder Agreements</span>
+                    </div>
+                </div>
+
+                <div class="services-list">
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon" style="color:var(--accent-tech)"></i>
+                        <span class="service-text">VASP (Virtual Asset Service Provider) Licensing.</span>
+                    </div>
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon" style="color:var(--accent-tech)"></i>
+                        <span class="service-text">Data Fiduciary compliance under DPDP Act 2023.</span>
+                    </div>
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon" style="color:var(--accent-tech)"></i>
+                        <span class="service-text">Mergers & Acquisitions (Tech Due Diligence).</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Cyber -->
+            <section id="cyber" class="practice-section">
+                <div class="section-label">
+                    <i data-lucide="network" size="16"></i> Digital Wing
+                </div>
+                <h2 class="section-title">Cyber Litigation &<br>Data Privacy</h2>
+                <p class="section-desc">
+                    When digital systems fail or are breached, legal liability follows. We represent firms in data breach notifications (CERT-In) and individuals in cases of identity theft, financial fraud, and algorithmic bias.
+                </p>
+                <div class="services-list">
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon"></i>
+                        <span class="service-text">Immediate incident response and legal containment.</span>
+                    </div>
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon"></i>
+                        <span class="service-text">Unfreezing bank accounts lien-marked by Cyber Police.</span>
+                    </div>
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon"></i>
+                        <span class="service-text">Intermediary liability litigation (Section 79 IT Act).</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Family -->
+            <section id="family" class="practice-section">
+                <div class="section-label">
+                    <i data-lucide="users" size="16"></i> Civil Wing
+                </div>
+                <h2 class="section-title">Private Client &<br>Matrimonial</h2>
+                <p class="section-desc">
+                    Discreet resolution of high-stakes family disputes. We handle complex divorce settlements involving cross-border assets, custody battles, and succession planning for business families.
+                </p>
+                <div class="services-list">
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon"></i>
+                        <span class="service-text">Mutual Consent Divorce & Alimony negotiation.</span>
+                    </div>
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon"></i>
+                        <span class="service-text">Child Custody & Visitation Rights.</span>
+                    </div>
+                    <div class="service-item">
+                        <i data-lucide="check-circle-2" class="check-icon"></i>
+                        <span class="service-text">Testamentary Succession (Wills & Probates).</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer style="text-align: center; padding: 40px; border-top: 1px solid var(--border-color); color: var(--secondary); font-size: 0.8rem;">
+        <p>© 2026 JusticeFirms. Specialized Advocacy.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Theme Logic
+        const themeBtn = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        if (localStorage.getItem('theme') === 'light') {
+            html.classList.add('light-mode');
+            themeBtn.innerHTML = `<i data-lucide="sun" size="20"></i>`;
+        }
+        themeBtn.addEventListener('click', () => {
+            html.classList.toggle('light-mode');
+            const isLight = html.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            themeBtn.innerHTML = `<i data-lucide="${isLight ? 'sun' : 'moon'}" size="20"></i>`;
+            lucide.createIcons();
+        });
+
+        // Smooth Scroll Function for Sidebar
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+                // Update active state
+                document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active'));
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        // Active Scroll Spy
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.practice-section');
+            const btns = document.querySelectorAll('.sidebar-btn');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            btns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick').includes(current)) {
+                    btn.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
