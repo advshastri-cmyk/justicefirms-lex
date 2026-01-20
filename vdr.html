@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Virtual Data Room — JusticeFirms</title>
+    <meta name="description" content="Secure, audited document repository for M&A due diligence and litigation discovery." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Palette: Deep Security */
+            --bg-body: #0a0a0a;
+            --bg-sidebar: #111111;
+            --bg-panel: #050505;
+            --bg-hover: rgba(255, 255, 255, 0.03);
+            
+            --primary: #e5e5e5;
+            --secondary: #737373;
+            
+            --accent-gold: #d4af37;
+            --accent-tech: #38bdf8;
+            --accent-lock: #ef4444; /* Restricted */
+            --accent-open: #10b981; /* Open */
+            
+            --border-color: #262626;
+            
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-family: var(--font-sans);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* --- Global Watermark Overlay --- */
+        .watermark {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='20' y='180' font-family='Arial' font-size='14' fill='rgba(255,255,255,0.03)' transform='rotate(-45 20 180)'%3ECONFIDENTIAL%3C/text%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        /* --- Sidebar: Folder Tree --- */
+        .folder-sidebar {
+            width: 280px; background: var(--bg-sidebar); border-right: 1px solid var(--border-color);
+            display: flex; flex-direction: column; z-index: 10;
+        }
+        
+        .vdr-header {
+            height: 60px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid var(--border-color); background: rgba(212, 175, 55, 0.05);
+        }
+        .vdr-title { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-gold); letter-spacing: 0.05em; }
+        
+        .tree-view { padding: 20px 0; overflow-y: auto; flex-grow: 1; }
+        .tree-item {
+            padding: 8px 20px; display: flex; align-items: center; gap: 8px;
+            color: var(--secondary); font-size: 0.85rem; cursor: pointer; transition: 0.2s;
+        }
+        .tree-item:hover { color: var(--primary); background: var(--bg-hover); }
+        .tree-item.active { color: var(--accent-tech); background: rgba(56, 189, 248, 0.05); border-right: 2px solid var(--accent-tech); }
+        .indent-1 { padding-left: 40px; }
+        .indent-2 { padding-left: 60px; }
+
+        .storage-meter { padding: 20px; border-top: 1px solid var(--border-color); }
+        .meter-bar { height: 4px; background: #333; border-radius: 2px; overflow: hidden; margin-top: 8px; }
+        .meter-fill { height: 100%; width: 72%; background: var(--secondary); }
+
+        /* --- Main: File Browser --- */
+        .main-pane { flex-grow: 1; display: flex; flex-direction: column; background: var(--bg-panel); }
+        
+        .toolbar {
+            height: 60px; border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 24px;
+        }
+        .path-crumb { font-family: var(--font-mono); font-size: 0.8rem; color: var(--secondary); }
+        .path-crumb span { color: var(--primary); }
+        
+        .action-group { display: flex; gap: 12px; }
+        .tool-btn {
+            background: var(--bg-hover); border: 1px solid var(--border-color); color: var(--primary);
+            padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; cursor: pointer;
+            display: flex; align-items: center; gap: 6px; transition: 0.2s;
+        }
+        .tool-btn:hover { border-color: var(--secondary); }
+        .btn-upload { background: var(--accent-tech); color: #000; border-color: var(--accent-tech); font-weight: 600; }
+        .btn-upload:hover { background: #7dd3fc; border-color: #7dd3fc; }
+
+        .file-list { padding: 0 24px; overflow-y: auto; }
+        
+        .file-header {
+            display: grid; grid-template-columns: 30px 2fr 1fr 1fr 1fr;
+            padding: 12px 0; border-bottom: 1px solid var(--border-color);
+            font-size: 0.75rem; text-transform: uppercase; color: var(--secondary); letter-spacing: 0.05em;
+        }
+        
+        .file-row {
+            display: grid; grid-template-columns: 30px 2fr 1fr 1fr 1fr;
+            padding: 16px 0; border-bottom: 1px solid var(--border-color);
+            align-items: center; font-size: 0.85rem; color: var(--primary); transition: 0.2s;
+            cursor: pointer;
+        }
+        .file-row:hover { background: var(--bg-hover); }
+        
+        .file-name { display: flex; align-items: center; gap: 12px; font-weight: 500; }
+        .perm-tag { 
+            font-family: var(--font-mono); font-size: 0.7rem; padding: 2px 6px; border-radius: 2px; 
+            border: 1px solid; display: inline-block;
+        }
+        .perm-view { color: var(--accent-lock); border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.05); }
+        .perm-dl { color: var(--accent-open); border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.05); }
+
+        /* --- Right: Audit Log --- */
+        .audit-sidebar {
+            width: 300px; background: var(--bg-sidebar); border-left: 1px solid var(--border-color);
+            display: flex; flex-direction: column;
+        }
+        
+        .audit-header {
+            height: 60px; padding: 0 20px; display: flex; align-items: center; gap: 8px;
+            border-bottom: 1px solid var(--border-color); font-size: 0.85rem; font-weight: 600;
+        }
+        
+        .log-feed { padding: 20px; overflow-y: auto; flex-grow: 1; }
+        .log-item {
+            margin-bottom: 24px; position: relative; padding-left: 16px;
+            border-left: 1px solid var(--border-color);
+        }
+        .log-item::before {
+            content: ''; position: absolute; left: -3px; top: 0; width: 5px; height: 5px;
+            background: var(--secondary); border-radius: 50%;
+        }
+        .log-time { font-family: var(--font-mono); font-size: 0.7rem; color: var(--secondary); margin-bottom: 4px; display: block; }
+        .log-user { font-size: 0.8rem; color: var(--accent-tech); }
+        .log-action { font-size: 0.8rem; color: var(--primary); line-height: 1.4; }
+
+        @media (max-width: 1100px) {
+            .audit-sidebar { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Watermark Overlay -->
+    <div class="watermark"></div>
+
+    <!-- Folder Tree -->
+    <aside class="folder-sidebar">
+        <div class="vdr-header">
+            <span class="vdr-title">DATA ROOM: #JF-M&A-102</span>
+            <a href="client_dashboard.html" style="color:var(--secondary);"><i data-lucide="x" size="16"></i></a>
+        </div>
+        
+        <div class="tree-view">
+            <div class="tree-item active">
+                <i data-lucide="folder-open" size="14"></i> 01_Corporate_Docs
+            </div>
+            <div class="tree-item indent-1">
+                <i data-lucide="folder" size="14"></i> Incorporation
+            </div>
+            <div class="tree-item indent-1">
+                <i data-lucide="folder" size="14"></i> Board_Minutes
+            </div>
+            
+            <div class="tree-item">
+                <i data-lucide="folder" size="14"></i> 02_Financials
+            </div>
+            <div class="tree-item">
+                <i data-lucide="folder" size="14"></i> 03_Intellectual_Property
+            </div>
+            <div class="tree-item indent-1">
+                <i data-lucide="folder" size="14"></i> Patents_Filed
+            </div>
+            <div class="tree-item indent-1">
+                <i data-lucide="folder" size="14"></i> Code_Repositories
+            </div>
+            
+            <div class="tree-item">
+                <i data-lucide="folder" size="14"></i> 04_Litigation
+            </div>
+            <div class="tree-item">
+                <i data-lucide="lock" size="14" style="color:var(--accent-lock);"></i> 99_Restricted
+            </div>
+        </div>
+
+        <div class="storage-meter">
+            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--secondary);">
+                <span>Used: 7.2 GB</span>
+                <span>Max: 10 GB</span>
+            </div>
+            <div class="meter-bar"><div class="meter-fill"></div></div>
+        </div>
+    </aside>
+
+    <!-- File Browser -->
+    <main class="main-pane">
+        
+        <div class="toolbar">
+            <div class="path-crumb">ROOT / 01_CORPORATE_DOCS / <span>BOARD_MINUTES</span></div>
+            <div class="action-group">
+                <button class="tool-btn"><i data-lucide="filter" size="14"></i> Filter</button>
+                <button class="tool-btn"><i data-lucide="search" size="14"></i> Search Content</button>
+                <button class="tool-btn btn-upload"><i data-lucide="upload" size="14"></i> Upload File</button>
+            </div>
+        </div>
+
+        <div class="file-list">
+            <div class="file-header">
+                <div></div>
+                <div>Name</div>
+                <div>Date Modified</div>
+                <div>Access</div>
+                <div>Size</div>
+            </div>
+
+            <!-- File 1 -->
+            <div class="file-row">
+                <i data-lucide="file-text" size="16" style="color:var(--secondary);"></i>
+                <div class="file-name">BM_Q3_2025_Final.pdf</div>
+                <div style="color:var(--secondary);">Oct 12, 10:00 AM</div>
+                <div><span class="perm-tag perm-view">VIEW ONLY</span></div>
+                <div style="font-family:var(--font-mono); color:var(--secondary);">2.4 MB</div>
+            </div>
+
+            <!-- File 2 -->
+            <div class="file-row">
+                <i data-lucide="file-text" size="16" style="color:var(--secondary);"></i>
+                <div class="file-name">BM_Q2_2025_Redacted.pdf</div>
+                <div style="color:var(--secondary);">Jul 15, 02:30 PM</div>
+                <div><span class="perm-tag perm-dl">DOWNLOAD</span></div>
+                <div style="font-family:var(--font-mono); color:var(--secondary);">1.8 MB</div>
+            </div>
+
+            <!-- File 3 -->
+            <div class="file-row">
+                <i data-lucide="file-spreadsheet" size="16" style="color:var(--secondary);"></i>
+                <div class="file-name">Shareholder_Register.xlsx</div>
+                <div style="color:var(--secondary);">Oct 01, 09:15 AM</div>
+                <div><span class="perm-tag perm-view">VIEW ONLY</span></div>
+                <div style="font-family:var(--font-mono); color:var(--secondary);">450 KB</div>
+            </div>
+
+            <!-- File 4 -->
+            <div class="file-row" style="opacity:0.5; cursor:not-allowed;">
+                <i data-lucide="lock" size="16" style="color:var(--accent-lock);"></i>
+                <div class="file-name">Merger_Term_Sheet_Draft.docx</div>
+                <div style="color:var(--secondary);">--</div>
+                <div><span class="perm-tag perm-view" style="border-color:var(--border-color); color:var(--secondary);">NO ACCESS</span></div>
+                <div style="font-family:var(--font-mono); color:var(--secondary);">--</div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Audit Log -->
+    <aside class="audit-sidebar">
+        <div class="audit-header">
+            <i data-lucide="activity" size="16" style="color:var(--accent-tech);"></i> AUDIT TRAIL
+        </div>
+        
+        <div class="log-feed">
+            <div class="log-item">
+                <span class="log-time">10:42 AM</span>
+                <span class="log-user">User: Counterparty_Legal</span>
+                <div class="log-action">Viewed "BM_Q3_2025_Final.pdf" (Page 4)</div>
+            </div>
+
+            <div class="log-item">
+                <span class="log-time">09:15 AM</span>
+                <span class="log-user">User: Admin (You)</span>
+                <div class="log-action">Uploaded 3 files to "01_Corporate_Docs"</div>
+            </div>
+
+            <div class="log-item">
+                <span class="log-time">Yesterday</span>
+                <span class="log-user">User: Partner_02</span>
+                <div class="log-action">Changed permission on "Merger_Term_Sheet" to Restricted</div>
+            </div>
+
+            <div class="log-item">
+                <span class="log-time">Oct 12</span>
+                <span class="log-user">User: Counterparty_Fin</span>
+                <div class="log-action">Failed download attempt on "Shareholder_Register.xlsx" (IRM Blocked)</div>
+            </div>
+        </div>
+        
+        <div style="padding:20px; border-top:1px solid var(--border-color);">
+            <button style="width:100%; padding:10px; background:transparent; border:1px solid var(--border-color); color:var(--secondary); font-size:0.75rem; cursor:pointer; text-transform:uppercase; letter-spacing:0.05em;">Export Full Log</button>
+        </div>
+    </aside>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
