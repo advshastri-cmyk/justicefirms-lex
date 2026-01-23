@@ -1141,13 +1141,53 @@
         }
 
         // --- 3. MODAL LOGIC ---
+        
         function openModal(article) {
+            
+            // 1. Writer ka naam aur photo match karne ki list
+            const authorPhotos = {
+                "G. Shankar": "ganga.jpg?auto=format&fit=crop&q=80&w=150",
+                "Adv. G. Shankar": "ganga.jpg?auto=format&fit=crop&q=80&w=150",
+                
+                "S. Shastri": "shivani.jpg?auto=format&fit=crop&q=80&w=150",
+                "Adv. S. Shastri": "shivani.jpg?auto=format&fit=crop&q=80&w=150",
+                
+                "M. Shastri": "minakshi.jpg?auto=format&fit=crop&q=80&w=150",
+                "Adv. M. Shastri": "minakshi.jpg?auto=format&fit=crop&q=80&w=150"
+            };
+
+            // 2. Photo dhoondo (Agar nahi mili to automatic Initials ban jayenge)
+            const currentAuthorImg = authorPhotos[article.author] || `https://ui-avatars.com/api/?name=${article.author}&background=D4AF37&color=000`;
+
+            // 3. Modal ka Design (Ab photo ke saath)
             modalBody.innerHTML = `
-                <div class="modal-meta">${article.category} &nbsp;•&nbsp; ${article.readTime} &nbsp;•&nbsp; By ${article.author}</div>
-                <h2 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 24px; line-height: 1.2;">${article.title}</h2>
-                <img src="${article.image}" style="width:100%; height: 300px; object-fit:cover; border-radius: 4px; margin-bottom: 32px;">
-                ${article.content}
+                <div style="display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 24px; margin-bottom: 32px;">
+                    <img src="${currentAuthorImg}" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-gold); object-position: top;">
+                    
+                    <div>
+                        <div style="font-size: 0.8rem; color: var(--accent-tech); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;">
+                            ${article.category} Analysis
+                        </div>
+                        <h4 style="margin: 0; font-size: 1.1rem; color: var(--primary); font-family: var(--font-serif);">
+                            ${article.author}
+                        </h4>
+                        <span style="font-size: 0.85rem; color: var(--secondary);">
+                            ${article.readTime} &bull; JusticeFirms Senior Counsel
+                        </span>
+                    </div>
+                </div>
+
+                <h2 style="font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 24px; line-height: 1.2; color: var(--primary);">
+                    ${article.title}
+                </h2>
+                
+                <img src="${article.image}" style="width:100%; height: auto; max-height: 400px; object-fit:cover; border-radius: 4px; margin-bottom: 40px;">
+                
+                <div style="font-size: 1.1rem; line-height: 1.8; color: var(--secondary); font-family: var(--font-sans);">
+                    ${article.content}
+                </div>
             `;
+            
             modal.classList.add('active');
             document.body.classList.add('modal-open');
         }
@@ -1158,15 +1198,16 @@
         }
 
         modalClose.onclick = closeModal;
+        
         // Close on clicking outside
         modal.onclick = (e) => {
             if (e.target === modal) closeModal();
         }
+        
         // Close on Esc key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeModal();
         });
-
 
         // --- 4. EVENT LISTENERS ---
 
