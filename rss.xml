@@ -2,15 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JusticeFirms Journal</title>
-    <link>https://blog.justicefirms.com/</link>
+    <link>https://lex.justicefirms.com/</link>
     <description>Practical legal insights on Indian criminal, NDPS, POCSO, cyber law and more — by experienced advocates at JusticeFirms.</description>
     <language>en-IN</language>
     <lastBuildDate>Fri, 26 Dec 2025 00:00:00 +0530</lastBuildDate>
-    <atom:link href="https://blog.justicefirms.com/rss.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://lex.justicefirms.com/rss.xml" rel="self" type="application/rss+xml" />
 
     <item>
-      <title>The Critical Role of Section 52A NDPS: Inventory & Sampling</title>
-      <link>https://blog.justicefirms.com/ndps-section-52a-sampling-procedure</link>
+      <title>The Critical Role of Section 52A NDPS: Inventory &amp; Sampling</title>
+      <link>https://lex.justicefirms.com/ndps-section-52a-sampling-procedure</link>
       <pubDate>Wed, 24 Dec 2025 00:00:00 +0530</pubDate>
       <description>Why sampling in the absence of a Magistrate can lead to a complete acquittal in NDPS cases.</description>
       <guid isPermaLink="false">ndps-inventory-52a</guid>
@@ -18,7 +18,7 @@
 
     <item>
       <title>Age Determination in POCSO: The Rule of Superior Evidence</title>
-      <link>https://blog.justicefirms.com/age-determination-pocso-cases-jj-act</link>
+      <link>https://lex.justicefirms.com/age-determination-pocso-cases-jj-act</link>
       <pubDate>Mon, 22 Dec 2025 00:00:00 +0530</pubDate>
       <description>How courts decide the victim's age when school records and medical reports conflict.</description>
       <guid isPermaLink="false">pocso-age-determination</guid>
@@ -26,15 +26,15 @@
 
     <item>
       <title>Hacking and Data Theft: Penalties under Section 66 IT Act</title>
-      <link>https://blog.justicefirms.com/punishment-hacking-data-theft-india</link>
+      <link>https://lex.justicefirms.com/punishment-hacking-data-theft-india</link>
       <pubDate>Thu, 18 Dec 2025 00:00:00 +0530</pubDate>
       <description>Understanding the broad scope of Section 66 and its implications for corporate data breaches.</description>
       <guid isPermaLink="false">cyber-hacking-66</guid>
     </item>
 
     <item>
-      <title>Section 19 POCSO: The Duty to Report & Penalties for Silence</title>
-      <link>https://blog.justicefirms.com/mandatory-reporting-pocso-section-19</link>
+      <title>Section 19 POCSO: The Duty to Report &amp; Penalties for Silence</title>
+      <link>https://lex.justicefirms.com/mandatory-reporting-pocso-section-19</link>
       <pubDate>Mon, 15 Dec 2025 00:00:00 +0530</pubDate>
       <description>Did you know that failing to report a POCSO offense is itself a crime? Understanding Section 19 and 21.</description>
       <guid isPermaLink="false">pocso-mandatory-reporting</guid>
@@ -42,7 +42,7 @@
 
     <item>
       <title>Cyber Stalking and Bullying: Legal Protection for Women</title>
-      <link>https://blog.justicefirms.com/cyber-stalking-laws-india-ipc-it-act</link>
+      <link>https://lex.justicefirms.com/cyber-stalking-laws-india-ipc-it-act</link>
       <pubDate>Fri, 12 Dec 2025 00:00:00 +0530</pubDate>
       <description>How to use Section 354D IPC and the IT Act to stop online harassment and doxxing.</description>
       <guid isPermaLink="false">cyber-stalking-women</guid>
@@ -50,7 +50,7 @@
 
     <item>
       <title>Search and Seizure Without Warrant: Section 42 vs 43 NDPS</title>
-      <link>https://blog.justicefirms.com/ndps-search-seizure-without-warrant-section-42</link>
+      <link>https://lex.justicefirms.com/ndps-search-seizure-without-warrant-section-42</link>
       <pubDate>Fri, 05 Dec 2025 00:00:00 +0530</pubDate>
       <description>When can a police officer search your premises without a warrant? The 'Reason to Believe' clause.</description>
       <guid isPermaLink="false">ndps-search-warrant</guid>
@@ -58,7 +58,7 @@
 
     <item>
       <title>Bail in POCSO Cases: Key Factors Considered by High Courts</title>
-      <link>https://blog.justicefirms.com/getting-bail-pocso-cases-high-court</link>
+      <link>https://lex.justicefirms.com/getting-bail-pocso-cases-high-court</link>
       <pubDate>Mon, 01 Dec 2025 00:00:00 +0530</pubDate>
       <description>Practical tips for drafting a POCSO bail application when there is a delay in FIR or lack of medical evidence.</description>
       <guid isPermaLink="false">pocso-bail-guidelines</guid>
@@ -66,7 +66,7 @@
 
     <item>
       <title>Phishing, Vishing, and Smishing: The Trio of Cyber Fraud</title>
-      <link>https://blog.justicefirms.com/legal-action-against-phishing-vishing</link>
+      <link>https://lex.justicefirms.com/legal-action-against-phishing-vishing</link>
       <pubDate>Fri, 28 Nov 2025 00:00:00 +0530</pubDate>
       <description>How scammers steal your credentials and the legal steps to take against the intermediary platforms.</description>
       <guid isPermaLink="false">cyber-phishing-scams</guid>
@@ -74,15 +74,15 @@
 
     <item>
       <title>NDPS Quantity Classification: Small, Intermediate, and Commercial</title>
-      <link>https://blog.justicefirms.com/ndps-quantity-table-small-commercial</link>
+      <link>https://lex.justicefirms.com/ndps-quantity-table-small-commercial</link>
       <pubDate>Tue, 25 Nov 2025 00:00:00 +0530</pubDate>
       <description>A simplified guide to how the weight of the seized drug determines your punishment and bail eligibility.</description>
       <guid isPermaLink="false">ndps-small-vs-commercial</guid>
     </item>
 
     <item>
-      <title>What Happens in a POCSO Special Court? Procedure & Trial</title>
-      <link>https://blog.justicefirms.com/procedure-inside-pocso-special-court</link>
+      <title>What Happens in a POCSO Special Court? Procedure &amp; Trial</title>
+      <link>https://lex.justicefirms.com/procedure-inside-pocso-special-court</link>
       <pubDate>Thu, 20 Nov 2025 00:00:00 +0530</pubDate>
       <description>Understanding 'In-camera' proceedings and the prohibition of direct cross-examination by the accused.</description>
       <guid isPermaLink="false">pocso-special-courts</guid>
@@ -90,7 +90,7 @@
 
     <item>
       <title>Identity Theft: When Someone Uses Your PAN/Aadhaar Online</title>
-      <link>https://blog.justicefirms.com/identity-theft-laws-india-66c</link>
+      <link>https://lex.justicefirms.com/identity-theft-laws-india-66c</link>
       <pubDate>Sat, 15 Nov 2025 00:00:00 +0530</pubDate>
       <description>Protecting yourself from loan apps and scammers using your identity documents.</description>
       <guid isPermaLink="false">cyber-identity-theft</guid>
@@ -98,15 +98,15 @@
 
     <item>
       <title>Conscious Possession: Can You Be Charged for Drugs You Didn't Know Were There?</title>
-      <link>https://blog.justicefirms.com/conscious-possession-ndps-legal-definition</link>
+      <link>https://lex.justicefirms.com/conscious-possession-ndps-legal-definition</link>
       <pubDate>Mon, 10 Nov 2025 00:00:00 +0530</pubDate>
       <description>The difference between physical possession and mental awareness in drug cases.</description>
       <guid isPermaLink="false">ndps-conscious-possession</guid>
     </item>
 
     <item>
-      <title>Online Defamation: Legal Remedies for Twitter & Instagram Harassment</title>
-      <link>https://blog.justicefirms.com/online-defamation-legal-remedies-india</link>
+      <title>Online Defamation: Legal Remedies for Twitter &amp; Instagram Harassment</title>
+      <link>https://lex.justicefirms.com/online-defamation-legal-remedies-india</link>
       <pubDate>Wed, 05 Nov 2025 00:00:00 +0530</pubDate>
       <description>How to file a takedown notice and sue for damages for defamatory social media posts.</description>
       <guid isPermaLink="false">cyber-social-media-defamation</guid>
@@ -114,7 +114,7 @@
 
     <item>
       <title>Medical Examination of the Child: Section 27 POCSO Rules</title>
-      <link>https://blog.justicefirms.com/medical-examination-victim-section-27-pocso</link>
+      <link>https://lex.justicefirms.com/medical-examination-victim-section-27-pocso</link>
       <pubDate>Thu, 30 Oct 2025 00:00:00 +0530</pubDate>
       <description>Mandatory presence of a female doctor and the procedure for collecting forensic evidence.</description>
       <guid isPermaLink="false">pocso-medical-examination</guid>
@@ -122,7 +122,7 @@
 
     <item>
       <title>Cryptocurrency Scams: Can You Recover Stolen Bitcoin/USDT?</title>
-      <link>https://blog.justicefirms.com/crypto-scams-legal-recourse-india</link>
+      <link>https://lex.justicefirms.com/crypto-scams-legal-recourse-india</link>
       <pubDate>Sat, 25 Oct 2025 00:00:00 +0530</pubDate>
       <description>Navigating the legal gray area of crypto scams and P2P bank freezes.</description>
       <guid isPermaLink="false">cyber-cryptocurrency-fraud</guid>
@@ -130,7 +130,7 @@
 
     <item>
       <title>Appealing an NDPS Conviction: Grounds for Suspension of Sentence</title>
-      <link>https://blog.justicefirms.com/ndps-conviction-appeal-high-court</link>
+      <link>https://lex.justicefirms.com/ndps-conviction-appeal-high-court</link>
       <pubDate>Mon, 20 Oct 2025 00:00:00 +0530</pubDate>
       <description>What to do after a Trial Court convicts you under the NDPS Act. Timeframes and tactics.</description>
       <guid isPermaLink="false">ndps-appeal-process</guid>
