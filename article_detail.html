@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The BNS Transition: Analysis — JusticeFirms Journal</title>
-    <meta name="description" content="In-depth analysis of Section 111 of the Bharatiya Nyaya Sanhita and its impact on organized crime litigation." />
+    <title>JusticeFirms Journal — Legal Analysis</title>
+    <meta name="description" content="In-depth legal analysis and practitioner insights from JusticeFirms." />
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
     
-    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
@@ -91,7 +89,7 @@
 
         /* --- Article Header --- */
         .article-header {
-            padding: 160px 0 60px;
+            padding: 140px 0 40px;
             text-align: center;
             max-width: 1000px; margin: 0 auto;
         }
@@ -102,7 +100,7 @@
         }
         .article-headline { 
             font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4rem); 
-            line-height: 1.15; margin-bottom: 32px; 
+            line-height: 1.15; margin-bottom: 32px; padding: 0 20px;
         }
         
         .author-block {
@@ -110,8 +108,18 @@
             font-size: 0.9rem; color: var(--secondary);
         }
         .author-img { 
-            width: 48px; height: 48px; border-radius: 50%; object-fit: cover; 
+            width: 56px; height: 56px; border-radius: 50%; object-fit: cover; 
             border: 2px solid var(--accent-gold); 
+            object-position: top; /* Critical Fix for Headshots */
+        }
+
+        /* --- Main Feature Image --- */
+        .feature-image-container {
+            max-width: 1000px; margin: 40px auto 60px; padding: 0 24px;
+        }
+        .feature-image {
+            width: 100%; height: auto; max-height: 500px; object-fit: cover;
+            border-radius: 4px; border: 1px solid var(--border-color);
         }
 
         /* --- Article Body --- */
@@ -125,26 +133,27 @@
         
         .article-body p { margin-bottom: 28px; }
         
-        .article-body h2 {
+        .article-body h2, .article-body h3 {
             font-family: var(--font-display); font-size: 2rem; margin: 60px 0 24px;
-            color: var(--accent-gold);
+            color: var(--accent-gold); line-height: 1.2;
         }
         
+        .article-body h3 { font-size: 1.5rem; color: var(--primary); margin-top: 40px; }
+
+        .article-body ul, .article-body ol {
+            margin-bottom: 28px; padding-left: 24px; color: var(--secondary);
+        }
+        .article-body li { margin-bottom: 12px; }
+
         .article-body blockquote {
             border-left: 4px solid var(--accent-tech);
             padding-left: 32px; margin: 40px 0;
-            font-style: italic; color: var(--secondary); font-size: 1.3rem;
+            font-style: italic; color: var(--secondary); font-size: 1.25rem;
             font-family: var(--font-display);
         }
 
         .highlight { background: rgba(212, 175, 55, 0.15); color: var(--primary); padding: 2px 4px; border-radius: 2px; }
 
-        /* Footnotes */
-        .fn-ref {
-            vertical-align: super; font-size: 0.7rem; color: var(--accent-tech);
-            text-decoration: none; margin-left: 2px; cursor: pointer;
-        }
-        
         /* Citation Box */
         .citation-box {
             background: var(--bg-card); border: 1px solid var(--border-color);
@@ -194,8 +203,8 @@
 
     <nav>
         <div class="nav-inner">
-            <a href="justicefirms_journal.html" class="back-link">
-                <i data-lucide="arrow-left" size="18"></i> Journal
+            <a href="index.html" class="back-link">
+                <i data-lucide="arrow-left" size="18"></i> Back to Journal
             </a>
             
             <div class="article-actions">
@@ -215,106 +224,82 @@
 
     <header class="article-header">
         <div class="container">
-            <span class="meta-pill">Criminal Jurisprudence</span>
-            <h1 class="article-headline">The Bharatiya Nyaya Sanhita:<br>A Paradigm Shift in Organized Crime</h1>
+            <span class="meta-pill" id="articleCategory">Loading...</span>
+            <h1 class="article-headline" id="articleTitle">Loading Article...</h1>
             
             <div class="author-block">
-                <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=100" class="author-img" alt="Author">
+                <img src="" class="author-img" id="authorImg" alt="Author">
                 <div style="text-align: left;">
-                    <div style="color:var(--primary); font-weight:600;">Adv. Ganga Shankar</div>
-                    <div style="font-size:0.8rem;">Senior Counsel • Oct 12, 2025 • 8 min read</div>
+                    <div style="color:var(--primary); font-weight:600;" id="authorName">...</div>
+                    <div style="font-size:0.8rem;" id="articleMeta">...</div>
                 </div>
             </div>
         </div>
     </header>
 
+    <div class="feature-image-container">
+        <img src="" id="mainArticleImage" class="feature-image" alt="Article Feature Image">
+    </div>
+
     <main class="content-container">
-        <article class="article-body">
-            <p>
-                The transition from the Indian Penal Code (IPC), 1860 to the Bharatiya Nyaya Sanhita (BNS), 2023 represents more than just a nomenclature change; it is a structural overhaul of India's criminal justice framework. For the first time in India's legal history, "Organized Crime" finds a specific definition in a central general penal code<a href="#fn1" class="fn-ref" id="ref1">[1]</a>, moving beyond state-specific legislations like MCOCA.
-            </p>
+        <article class="article-body" id="articleBody">
+            </article>
 
-            <h2>Section 111: The New Battleground</h2>
-            <p>
-                Section 111 of the BNS introduces a comprehensive definition that includes kidnapping, robbery, vehicle theft, extortion, land grabbing, contract killing, economic offenses, cyber-crimes, and trafficking. The critical inclusion here is <span class="highlight">"economic offenses"</span> and <span class="highlight">"cyber-crimes"</span> within the ambit of organized crime syndicates.
-            </p>
-            
-            <blockquote>
-                "The expansive definition of 'Economic Offence' in Explanation (iii) to Section 111 effectively bridges the gap between white-collar crime and traditional organized syndicates."
-            </blockquote>
-
-            <p>
-                This shift has profound implications for bail jurisprudence. Under the previous regime, economic offenses were often treated as distinct from violent organized crime. The BNS conflates the two when committed by a "crime syndicate," thereby triggering stricter bail conditions analogous to those seen in UAPA or NDPS cases.
-            </p>
-
-            <h2>The Digital Evidence Conundrum</h2>
-            <p>
-                Simultaneously, the Bharatiya Sakshya Adhiniyam (BSA) replaces the Evidence Act. It elevates electronic records to the status of primary evidence<a href="#fn2" class="fn-ref" id="ref2">[2]</a>. In the context of organized crime, where communication often happens via encrypted channels, the admissibility of server logs and metadata becomes the fulcrum of the prosecution's case.
-            </p>
-            <p>
-                Defense counsels must now pivot from traditional cross-examination to forensic auditing of the digital trail. The "chain of custody" for a hard drive seized in a raid is now as critical as the weapon in a murder trial.
-            </p>
-
-            <h2>Conclusion</h2>
-            <p>
-                As we move into 2026, the judiciary's interpretation of "continuing unlawful activity" under Section 111 will determine the liberty of thousands. The BNS is not just a new book; it is a new language of law that practitioners must master immediately.
-            </p>
-
-            <!-- Citation Tool -->
-            <div class="citation-box" id="citationBox">
-                <h4 style="font-family:var(--font-ui); font-size:1rem; margin-bottom:8px;">Cite this Article</h4>
-                <div class="cite-text" id="citeText">
-                    Ganga Shankar, "The Bharatiya Nyaya Sanhita: A Paradigm Shift in Organized Crime," JusticeFirms Journal, Oct. 2025, https://justicefirms.com/journal/bns-analysis
-                </div>
-                <button class="icon-btn" onclick="copyCitation()" style="color:var(--accent-gold);">
-                    <i data-lucide="copy" size="14"></i> Copy to Clipboard
-                </button>
+        <div class="citation-box" id="citationBox">
+            <h4 style="font-family:var(--font-ui); font-size:1rem; margin-bottom:8px;">Cite this Article</h4>
+            <div class="cite-text" id="citeText">
+                Generating citation...
             </div>
-
-        </article>
+            <button class="icon-btn" onclick="copyCitation()" style="color:var(--accent-gold);">
+                <i data-lucide="copy" size="14"></i> Copy to Clipboard
+            </button>
+        </div>
 
         <div class="article-footer">
-            <a href="#" class="next-prev">
-                <span class="np-label">Previous Article</span>
-                <span class="np-title">AI in the Courtroom: Admissibility of Algorithmic Evidence</span>
+            <a href="index.html" class="next-prev">
+                <span class="np-label">Return</span>
+                <span class="np-title">Back to All Insights</span>
             </a>
-            <a href="#" class="next-prev" style="text-align: right;">
-                <span class="np-label">Next Article</span>
-                <span class="np-title">Data Protection for Corporate Fiduciaries</span>
+            <a href="subscribe.html" class="next-prev" style="text-align: right;">
+                <span class="np-label">Stay Updated</span>
+                <span class="np-title">Subscribe to Newsletter</span>
             </a>
         </div>
     </main>
 
-    <!-- Sidebar for Desktop -->
     <aside class="related-sidebar">
-        <div class="related-title">Related Analysis</div>
-        <a href="#" class="related-link">Bail Reform Under BNSS 482</a>
-        <a href="#" class="related-link">Crypto-Assets in Family Disputes</a>
-        <a href="#" class="related-link">The End of Section 124A?</a>
+        <div class="related-title">Topics in Focus</div>
+        <a href="index.html" class="related-link">BNS Section 69 Analysis</a>
+        <a href="index.html" class="related-link">Digital Evidence Rules</a>
+        <a href="index.html" class="related-link">Cyber Fraud Remedies</a>
         
         <div class="related-title" style="margin-top: 40px;">About the Author</div>
         <p style="font-size: 0.85rem; color: var(--secondary); line-height: 1.6;">
-            <strong>Adv. Ganga Shankar</strong> is a Senior Counsel with 35 years of experience in criminal defense and constitutional writs.
+            <strong>Senior Counsel at JusticeFirms.</strong> <br>
+            Specializing in High Court litigation, constitutional writs, and the evolving landscape of Indian criminal law.
         </p>
     </aside>
 
     <script>
         lucide.createIcons();
 
-        // Theme Logic
+        // 1. Theme Logic
         const themeBtn = document.getElementById('themeToggle');
         const html = document.documentElement;
         if (localStorage.getItem('theme') === 'light') {
             html.classList.add('light-mode');
+            themeBtn.innerHTML = `<i data-lucide="sun" size="18"></i>`;
         }
+        
         themeBtn.addEventListener('click', () => {
             html.classList.toggle('light-mode');
             const isLight = html.classList.contains('light-mode');
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            themeBtn.innerHTML = isLight ? `<i data-lucide="sun" size="18"></i>` : `<i data-lucide="moon" size="18"></i>`;
             lucide.createIcons();
         });
 
-        // Reading Progress Bar
+        // 2. Reading Progress Bar
         window.onscroll = function() {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -322,7 +307,43 @@
             document.getElementById("progressBar").style.width = scrolled + "%";
         };
 
-        // Copy Citation
+        // 3. LOAD ARTICLE DATA (The Core Logic)
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedData = localStorage.getItem('currentArticle');
+            
+            if (savedData) {
+                const article = JSON.parse(savedData);
+                
+                // Update Page Title
+                document.title = `${article.title} — JusticeFirms Journal`;
+                
+                // Populate Fields
+                document.getElementById('articleCategory').textContent = article.category + " JURISPRUDENCE";
+                document.getElementById('articleTitle').textContent = article.title;
+                document.getElementById('authorName').textContent = article.author;
+                document.getElementById('articleMeta').textContent = `Senior Counsel • ${article.readTime} • 2026 Edition`;
+                
+                // Images
+                const authorImg = document.getElementById('authorImg');
+                authorImg.src = article.authorImg; 
+                
+                const mainImg = document.getElementById('mainArticleImage');
+                mainImg.src = article.image;
+
+                // Body Content
+                document.getElementById('articleBody').innerHTML = article.content;
+
+                // Generate Citation
+                const citeText = `${article.author}, "${article.title}," JusticeFirms Journal, (2026), https://lex.justicefirms.com`;
+                document.getElementById('citeText').textContent = citeText;
+
+            } else {
+                // If no data found, go back to home
+                window.location.href = 'index.html';
+            }
+        });
+
+        // 4. Utilities
         function copyCitation() {
             const text = document.getElementById('citeText').innerText;
             navigator.clipboard.writeText(text).then(() => {
@@ -330,16 +351,15 @@
             });
         }
 
-        // Share
         function shareArticle() {
             if (navigator.share) {
                 navigator.share({
-                    title: 'The BNS Transition - JusticeFirms',
-                    text: 'In-depth analysis of Section 111 of the Bharatiya Nyaya Sanhita.',
+                    title: document.title,
+                    text: 'Read this legal insight on JusticeFirms.',
                     url: window.location.href,
                 });
             } else {
-                alert("Share URL copied to clipboard.");
+                alert("URL copied to clipboard.");
             }
         }
     </script>
